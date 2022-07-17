@@ -7,13 +7,17 @@
     text-decoration: none;
     font-family: 'Poppins', sans-serif;
   }
+  html {
+    background: #f1f5f9;
+  }
 .stepper-container{
     width: 100%;
     background: #fff;
-    padding: 0;
-    min-height: calc(100vh - 150px);
+     padding: 0;
+     
+   /* height: calc(100vh);
     position: relative;
-    overflow: hidden;
+    overflow: hidden; */
 }
 
 .stepper-container h3{
@@ -23,14 +27,16 @@
 }
 
 .stepper-container .step-form{
-    width: 100%;
+    width: calc((100%) - 50px);
     position:absolute;
-    top:100px;
-    left:30px;
+    top:70px;
+    left:25px;
     transition: 0.5s;
+    background-color: #fff;
+    padding: 30px;
 }
 
-.stepper-container .step-form input{
+/* .stepper-container .step-form input{
     width: 80%;
     padding: 10px 5px;
     margin: 5px 0;
@@ -38,7 +44,7 @@
     border-bottom: 1px solid #999;
     outline: none;
     background: transparent;
-}
+} */
 .stepper-container .btn-box {
     width: 100%;
     margin: 30px auto;

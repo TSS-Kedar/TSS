@@ -4,8 +4,8 @@ import AddFabButton from '../common/InputFields/AddFabButton'
 import Table from '../common/table/Table'
 import Column from '../common/table/Column'
 import { Redirect, withRouter } from 'react-router-dom'
-import {addusers} from '../ITFs/Redux/ActionCreators'
-import { getUsers1 } from '../ITFs/Redux/reducers/actions'
+import {addusers} from '../TSS/Redux/ActionCreators'
+import { getUsers1 } from '../TSS/Redux/reducers/actions'
 import {useAltKey,useKey} from '../common/shortcurkeys'
 export const UserListComponent = (props: any) => {
 

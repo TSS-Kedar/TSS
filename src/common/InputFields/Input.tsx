@@ -9,18 +9,19 @@ import {
   getFromToDate
 } from '../validationlib';
 interface Iinput {
-  wd?: string
-  label: string
-  name: string
-  currdoc: any,
-  section: string,
-  cal?:string,
-  modifydoc:any,
-  inpref?:any
+  wd?: string;
+  label: string;
+  name: string;
+  currdoc: any;
+  section: string;
+  cal?:string;
+  modifydoc:any;
+  inpref?:any;
+  onclick?:any;
 }
 
 export function Input(props: Iinput) {
-  const { wd, label, name, section, currdoc,modifydoc,cal,inpref } = props
+  let { wd, label, name, section, currdoc,modifydoc,cal,inpref,onclick } = props
   let classname = 'input-field'
   const errorMsg = getErrorValueN(currdoc, 'errorsAll.' + section)
   if (errorMsg !== null) {
@@ -28,6 +29,9 @@ export function Input(props: Iinput) {
       classname = 'error-input-field'
     }
   }
+  if(!onclick)[
+    onclick = ()=>{}
+  ]
   return (
     <div className={`col-${wd}`}>
       <div className={classname}>
@@ -41,6 +45,8 @@ export function Input(props: Iinput) {
           value={getValue(currdoc, section)}
           onChange={(event) => { setCalValue(currdoc, section, event.target.value, modifydoc, cal) }}
           onBlur={event => modifydoc(setValue(currdoc, 'touched.' + section, true))}
+          onClick={()=>onclick(true)}
+          onFocus={()=>{onclick(true)}}
         />
         <label className="label-name">
           <span className="content-name">{label}</span>

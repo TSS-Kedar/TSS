@@ -7,12 +7,14 @@ import BuyerDashboard from '../Buyer/BuyerDashboard'
 export const Systems = (props: any) => {
   const [displaySystem, setDisplaysystem] = useState(true); 
   return (<>
+  
     <Rounter>
       
       {displaySystem? <div className='system-container'>
-        <Link  to={"/adminDashboard"}><div className='card' onClick={()=>setDisplaysystem(!displaySystem)}>Admins</div></Link >
-        <Link  to={"/supplierDashboard"}><div className='card' onClick={()=>setDisplaysystem(!displaySystem)}>Suppliers</div></Link >
-        <Link  to={"/buyerDashboard"}><div className='card' onClick={()=>setDisplaysystem(!displaySystem)}>Buyers</div></Link >
+      <h3>Temporary Page</h3>
+        <Link  to={"/adminDashboard"}><div className='card' onClick={()=>setDisplaysystem(!displaySystem)}>Admin Persona</div></Link >
+        <Link  to={"/supplierDashboard"}><div className='card' onClick={()=>setDisplaysystem(!displaySystem)}>Supplier Persona</div></Link >
+        <Link  to={"/buyerDashboard"}><div className='card' onClick={()=>setDisplaysystem(!displaySystem)}>Buyer Persona</div></Link >
       </div>:<></>}
       <Switch>
         <Route exact path="/adminDashboard">

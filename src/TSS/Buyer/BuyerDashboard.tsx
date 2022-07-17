@@ -12,7 +12,6 @@ function SupplierDashboard(props:any) {
           <Header title={displayComponent}/>
           
           <main>
-          <div onClick={()=>systemsRedirect(true)}>back</div>
             <Switch>
               <Route exact path="/manageBid">
                 <></>

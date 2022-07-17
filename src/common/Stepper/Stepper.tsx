@@ -2,14 +2,11 @@ import React, { useEffect, useState } from 'react'
 import Step from './Step'
 import "./stepper.css"
 function Stepper(props: any) {
-    const [displayAlert, setDisplayAlert] = useState(false);
    const onBackButtonClick = (index:number) => {
     if(index !== 0){
-        console.log("form"+(index))
-        console.log("form"+(index+1))
         const form1:any = document.getElementById("form"+(index+1))
         const form2:any = document.getElementById("form"+(index))
-        form2.style.left = "30px";
+        form2.style.left = "25px";
         form1.style.left = "100%";
         const progress:any = document.getElementById("progress")
         progress.style.width =`calc(((100%) / 3 ) * ${index})`;
@@ -20,8 +17,11 @@ function Stepper(props: any) {
         const form1:any = document.getElementById("form"+(index+1))
         const form2:any = document.getElementById("form"+(index+2))
         form1.style.left = "-100%";
-        form2.style.left = "30px";
+        form2.style.left = "25px";
         const progress:any = document.getElementById("progress")
+        if(index+2 === props.children.length-1)
+        progress.style.width =`calc(((100%) / 3 ) * ${index+2})`;
+        else
         progress.style.width =`calc(((100%) / 3 ) * ${index+2})`;
     }
    }

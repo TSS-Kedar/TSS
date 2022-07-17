@@ -15,6 +15,20 @@ export function AdminMenu(props: any) {
       active: '',
     },
     {
+      name: 'Supplier Management',
+      component: '',
+      slug: '/supplierManagement',
+      iconName: 'las la-igloo',
+      active: '',
+    },
+    {
+      name: 'Buyer Management',
+      component: '',
+      slug: '/buyerManagement',
+      iconName: 'las la-igloo',
+      active: '',
+    },
+    {
       name: 'Product Management',
       component: '',
       slug: '/productMangement',
@@ -36,7 +50,7 @@ export function AdminMenu(props: any) {
       active: '',
     },
     {
-      name: 'Back To Systems',
+      name: 'Logout',
       component: '',
       slug: '',
       iconName: 'las la-power-off',

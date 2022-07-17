@@ -1,12 +1,12 @@
 import './styles.css'
 import {Provider} from 'react-redux'
 import {ConfigureStore} from './TSS/Redux/configureStore'
-
+import {AuthorisationswitchComponent} from './Login/AuthorisationswitchComponent'
 import { PersistGate } from 'redux-persist/integration/react'
 
 
 
-import React from 'react'
+import React,{useState} from 'react'
 import {Systems} from './TSS/Systems/Systems'
 const {persistor,store} = ConfigureStore();
 
@@ -15,6 +15,7 @@ const {persistor,store} = ConfigureStore();
 
 
 export const App = () => {
+  const [currentdocument, modifydocument] = useState({})
   const handleSubmit = (obj: any) => {
     console.log(obj)
     console.log('clicked on Submitted')
@@ -27,10 +28,10 @@ export const App = () => {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-      <React.StrictMode>
-      <Systems/>
- {/* <AuthorisationswitchComponent/>  */}
-</React.StrictMode>
+      {/* <React.StrictMode> */}
+      {/* <Systems/> */}
+  <AuthorisationswitchComponent/>  
+{/* </React.StrictMode> */}
  {/* <Login/> */}
     </PersistGate>
     </Provider>

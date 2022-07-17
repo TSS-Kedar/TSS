@@ -8,7 +8,7 @@ export function SupplierMenu(props: any) {
   const { selectcomponent,systemsRedirect } = props
   const menuList = [
     {
-      name: 'Manage Bid',
+      name: 'Manage Bids',
       component: '',
       slug: '/managebid',
       iconName: 'las la-igloo',
@@ -23,7 +23,7 @@ export function SupplierMenu(props: any) {
     },
     
     {
-      name: 'Back To Systems',
+      name: 'Logout',
       component: '',
       slug: '',
       iconName: 'las la-power-off',
@@ -40,7 +40,7 @@ export function SupplierMenu(props: any) {
   function selectItem(menuItem: string) {
     setActiveMenu(menuItem)
     selectcomponent(menuItem)
-    if(menuItem === 'Back To Systems'){
+    if(menuItem === 'Logout'){
         systemsRedirect(true)
     }
   }

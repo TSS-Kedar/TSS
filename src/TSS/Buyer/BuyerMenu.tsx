@@ -24,7 +24,7 @@ export function BuyerMenu(props: any) {
     },
     
     {
-      name: 'Back To Systems',
+      name: 'Logout',
       component: '',
       slug: '',
       iconName: 'las la-power-off',

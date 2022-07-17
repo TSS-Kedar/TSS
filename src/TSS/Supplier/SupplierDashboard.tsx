@@ -10,9 +10,7 @@ function SupplierDashboard(props:any) {
         <SideBar selectcomponent={setDisplayComponent}  systemsRedirect={systemsRedirect}/>
         <div className="main-content">
           <Header title={displayComponent} />
-          
           <main>
-          <div onClick={()=>systemsRedirect(true)}>back</div>
             <Switch>
               <Route exact path="/manageBid">
                 <></>

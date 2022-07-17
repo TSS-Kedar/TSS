@@ -8,7 +8,7 @@ import * as doctypes from '../common/Doctypes';
 import saveUser from '../common/mutations/saveUsername'
 import { getDocs, getDocconfig, getLblVal, checkTouched, nvl, checkItem, isCheckedbool, getDocumenForSave } from '../common/CommonLogic';
 import shortid from 'shortid'
-import { deleteDocument,saveDocument,addusers } from '../ITFs/Redux/ActionCreators'
+import { deleteDocument,saveDocument,addusers } from '../TSS/Redux/ActionCreators'
 import deleteUser from '../common/mutations/deleteUsername';
 import { execGql, execGql_xx } from '../common/gqlclientconfig';
 import usersQuery from '../common/queries/usersQuery'
@@ -56,26 +56,7 @@ const handleSave = async (currentdocument: any) => {
     return result.data;
   }
 }
-const handleDelete = async (z_id: string) => {
-  var result: any = '', errorMessage = '', errors = new Array();
-  try {
-    result = await execGql('mutation', deleteUser, { z_id })
-    if (!result) {
-    console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })
-    // return callback({"errors":[],"errorMessage":'No errors and results from GQL'} ,'');
-  }
-  else {
-    return result.data;
-  }
-  }
-  catch (err:any) {
-    errors = err.errorsGql;
-    errorMessage = err.errorMessageGql;
-    console.log({ "errors": errors, "errorMessage": errorMessage })
-    // return callback({"errors":errors,"errorMessage":errorMessage},'' );
-  }
-  
-}
+
 export async function getUsers1(values: any) {
   var result: any = '', errorMessage = '', errors = new Array();
   try {
@@ -187,12 +168,12 @@ export const UserComponent = (props: any) => {
         }
     }, [z_id])
     
-    console.log("documentstatus===>2",documentstatus)
+    console.log("currentdocument===>2",currentdocument)
     
   
   const {action,yesaction,noaction,dailogtext,dailogtitle} = documentstatus;
   if(redirect){
-    let redirectpath='/Users'
+    let redirectpath='/userManagement'
     return <Redirect push to={redirectpath} />;
 
      
@@ -239,7 +220,7 @@ export const UserComponent = (props: any) => {
           
       </div>
     <AlertDialog open={action} handleno={noaction} handleyes={yesaction} dailogtext={dailogtext} dailogtitle={dailogtitle} /> 
-    <Messagesnackbar snackbaropen={documentstatus.snackbaropen} snackbarseverity={documentstatus.snackbarseverity} handlesnackbarclose={closeSnackBar} snackbartext={documentstatus.snackbartext}/>                
+   <Messagesnackbar snackbaropen={documentstatus.snackbaropen} snackbarseverity={documentstatus.snackbarseverity} handlesnackbarclose={closeSnackBar} snackbartext={documentstatus.snackbartext}/>                 
     </div>
     <AppbarBottom setAction={setDocumentAction} handleGoback={goBack}/>
     </>

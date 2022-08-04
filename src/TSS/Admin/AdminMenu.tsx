@@ -60,6 +60,34 @@ export function AdminMenu(props: any) {
   const redirectto=(redirectpath:String)=>{
     return <Redirect  to={redirectpath} />
   }
+  const handleProcessLogout=async()=> {
+       
+    handleSignoutUsernameJWT(async () =>
+  {
+           
+          checkCurrentUsernameJWT((err:any,result:any)=>
+          { 
+                console.log('In result handleSignoutUsernameJWT');
+             if(!result)
+              {
+                console.log('In result handleSignoutUsernameJWT -1');
+                  props.ActionToDispatch({ type: 'UNAUTH_USER' ,payload : [''] });
+                  props.ActionToRedirect('/signin');
+              } 
+              else
+              {
+                console.log('In result handleSignoutUsernameJWT-2');
+                  props.ActionToDispatch({ type: 'AUTH_ERROR' ,payload : err });
+               
+              }
+          }
+      );
+  
+      }
+   );
+  
+  
+  }
   useAltKey("r",() =>{redirectto('/Recommendations')})
   useAltKey("u",() =>{redirectto('/Users')})
   const [activeMenu, setActiveMenu] = useState(menuList[0].name)
@@ -67,8 +95,8 @@ export function AdminMenu(props: any) {
   function selectItem(menuItem: string) {
     setActiveMenu(menuItem)
     selectcomponent(menuItem)
-    if(menuItem === 'Back To Systems'){
-      systemsRedirect(true)
+    if(menuItem === 'Logout'){
+      handleProcessLogout()
     }
   }
   const M_selectItem = useCallback(selectItem, [])

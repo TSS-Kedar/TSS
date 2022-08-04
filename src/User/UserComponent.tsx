@@ -21,6 +21,7 @@ import {runCheck,requiredCheck,getDtFormat,getTimeFormat,getFromToDate,getDateYY
  import {Redirect,withRouter } from 'react-router-dom'
 import AppbarBottom from '../common/AppbarBottom'
 const usexoptions = [{ 'key': 'M', 'value': 'Male' }, { 'key': 'F', 'value': 'Female' }, { 'key': 'NTD', 'value': 'Not disclosed' }]
+const authorizationOptions = [{ 'key': 'Admin', 'value': 'Admin' }, { 'key': 'Buyer', 'value': 'Buyer' }, { 'key': 'Supplier', 'value': 'Supplier' }]
 const countryoptions = [{ 'key': 'IN', 'value': 'India' }, { 'key': 'GE', 'value': 'Germany' }, { 'key': 'US', 'value': 'USA' }]
 const handleSave = async (currentdocument: any) => {
   var result: any = '', errorMessage = '', errors = new Array();
@@ -202,10 +203,11 @@ export const UserComponent = (props: any) => {
           <div className={"col-3"}></div>
         </div>
         <div className="row">
+        <SelectInput wd="3" label="User Authorization" options={authorizationOptions} name="userauthorisations" currdoc={currentdocument} section={'userauthorisations'} modifydoc={modifydocument} />
           <SelectInput wd="3" label="User Sex" options={usexoptions} name="usex" currdoc={currentdocument} section={'usex'} modifydoc={modifydocument} />
           {/* <DatePicker wd="3" label="Date of birth"  name="dateofbirth"  currdoc={currentdocument} section={'dateofbirth'} modifydoc={modifydocument} /> */}
           <div className={"col-6"}></div>
-          <div className={"col-3"}></div>
+          
         </div>
         <div className="row">
           <FlatInput wd="12" label="Address" name="address" currdoc={currentdocument} section={'address'} modifydoc={modifydocument} />

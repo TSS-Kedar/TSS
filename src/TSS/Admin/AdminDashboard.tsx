@@ -5,11 +5,13 @@ import { SideBar } from './AdminMenu'
 import Supplier from '../Supplier/Supplier'
 import UserListComponent from '../../User/UserListComponent'
 import UserComponent from '../../User/UserComponent'
-import RecommendationList from '../recommendation/RecommendationList'
 import Product from './Product/Product'
+import ProductList from './Product/ProductList'
+import {handleSignoutUsernameJWT,checkCurrentUsernameJWT,ActionToDispatch,ActionToRedirect} from '../../TSS/Redux/reducers/actions'
 function AdminDashboard(props:any) {
     const {systemsRedirect}=props
     const [displayComponent, setDisplayComponent] = useState('Dashboard')
+    
     return (!props.displaySystem ?
       <Rounter>
         <SideBar selectcomponent={setDisplayComponent}  systemsRedirect={systemsRedirect}/>
@@ -25,9 +27,12 @@ function AdminDashboard(props:any) {
                 <UserComponent {...props}/>
               </Route>
               <Route exact path="/supplierManagement">
-                <Supplier/>
+                <Supplier {...props}/>
               </Route>
               <Route exact path="/productMangement">
+                <ProductList {...props}/>
+              </Route>
+              <Route exact path="/productedit">
                 <Product {...props}/>
               </Route>
               <Route exact path="/bidderManagement">

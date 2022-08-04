@@ -56,11 +56,11 @@ function useTableAction(fetchGraphQuery:any, doctype:String,deleteGraphQuery:any
       docstatus.dailogtext= 'Delete ' + doctype + '?'
       docstatus.yesaction= async () => {
         await handleDelete(id)
-        setloaderDisplay(!loaderDisplay) 
+        setloaderDisplay(loaderDisplay) 
         getTableData().then((data:any)=>{
           
                setTableData(data)
-               setloaderDisplay(loaderDisplay)         
+               setloaderDisplay(!loaderDisplay)         
            });
           docstatus.action= false;
           docstatus.snackbaropen=true;

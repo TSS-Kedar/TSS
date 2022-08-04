@@ -31,6 +31,7 @@ export function BuyerMenu(props: any) {
       active: '',
     },
   ]
+  
   const redirectto=(redirectpath:String)=>{
     return <Redirect  to={redirectpath} />
   }
@@ -41,8 +42,8 @@ export function BuyerMenu(props: any) {
   function selectItem(menuItem: string) {
     setActiveMenu(menuItem)
     selectcomponent(menuItem)
-    if(menuItem === 'Back To Systems'){
-        systemsRedirect(true)
+    if(menuItem === 'Logout'){
+      handleProcessLogout(true)
     }
   }
   const M_selectItem = useCallback(selectItem, [])
@@ -51,23 +52,23 @@ export function BuyerMenu(props: any) {
     handleSignoutUsernameJWT(async () =>
   {
     props.ActionToRedirect('/Systems');
-          // checkCurrentUsernameJWT((err:any,result:any)=>
-          // { 
-          //       console.log('In result handleSignoutUsernameJWT');
-          //    if(!result)
-          //     {
-          //       console.log('In result handleSignoutUsernameJWT -1');
-          //         props.ActionToDispatch({ type: 'UNAUTH_USER' ,payload : [''] });
-          //         props.ActionToRedirect('/Systems');
-          //     } 
-          //     else
-          //     {
-          //       console.log('In result handleSignoutUsernameJWT-2');
-          //         props.ActionToDispatch({ type: 'AUTH_ERROR' ,payload : err });
+          checkCurrentUsernameJWT((err:any,result:any)=>
+          { 
+                console.log('In result handleSignoutUsernameJWT');
+             if(!result)
+              {
+                console.log('In result handleSignoutUsernameJWT -1');
+                  props.ActionToDispatch({ type: 'UNAUTH_USER' ,payload : [''] });
+                  props.ActionToRedirect('/Systems');
+              } 
+              else
+              {
+                console.log('In result handleSignoutUsernameJWT-2');
+                  props.ActionToDispatch({ type: 'AUTH_ERROR' ,payload : err });
                
-          //     }
-          // }
-     // );
+              }
+          }
+     );
   
       }
    );

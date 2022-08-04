@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import {BrowserRouter as Rounter, Route, Switch} from 'react-router-dom'
 import Header from '../common/Header'
 import { SideBar } from '../Buyer/BuyerMenu'
-function SupplierDashboard(props:any) {
+function BuyerDashboard(props:any) {
     const {systemsRedirect}=props
     const [displayComponent, setDisplayComponent] = useState('Dashboard')
     return (!props.displaySystem ?
@@ -26,4 +26,4 @@ function SupplierDashboard(props:any) {
     )
 }
 
-export default SupplierDashboard
+export default React.memo(BuyerDashboard)

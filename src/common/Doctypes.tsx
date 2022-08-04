@@ -10,6 +10,7 @@ export const LEAD ='LEAD';
 export const USER ='USER';
 export const RECOMMENDATION="RECOMMENDATION"
 export const SUPPLIER="SUPPLIER"
+export const PRODUCT="PRODUCT"
 export const TRANSACTIONTYPES ='TRANSACTIONTYPES';
 
 

@@ -1,9 +1,10 @@
 import shortid from 'shortid'
 
 export default {
-    applicationid: '15001500',
+    applicationid: '',
       client: '45004500',
       lang: 'EN',
+      z_id : ''
 }
 
 export const newDocument = (doctype:String,doctypetext:String) => {

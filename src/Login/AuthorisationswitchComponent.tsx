@@ -16,12 +16,16 @@ import {
  
 
   import { connect } from 'react-redux';
+import AdminDashboard from "../TSS/Admin/AdminDashboard";
+import BuyerDashboard from "../TSS/Buyer/BuyerDashboard";
+import SupplierDashboard from "../TSS/Supplier/SupplierDashboard";
   
 
   interface IProps{
     ActionToDispatch:any;
     ActionToRedirect:any;
-    authenticated:boolean
+    authenticated:boolean,
+    authuser:any
   }
   class AuthorisationswitchComponent1 extends React.Component<IProps>{
 
@@ -67,15 +71,16 @@ async componentDidMount(){
       {
 
         
-          const {authenticated} = this.props
+          const {authenticated,authuser} = this.props
          
           if(authenticated)
           {
      
             return    (
                 <Router>
-                <Systems/>
-               
+                  {authuser.userauthorisations ==='Admin'?<AdminDashboard {...this.props}/>:<></>}
+                  {authuser.userauthorisations ==='Buyer'?<BuyerDashboard {...this.props}/>:<></>}
+                  {authuser.userauthorisations ==='Supplier'?<SupplierDashboard {...this.props}/>:<></>}             
                 </Router>
               )
 

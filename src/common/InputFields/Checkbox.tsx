@@ -28,7 +28,7 @@ export function Checkbox(props: Iinput) {
         id="cb1" 
         required
           placeholder=" "
-          
+          checked = {getValue(currdoc, section)}
           value={getValue(currdoc, section)}
           onChange={(event) => { setCalValue(currdoc, section, event.target.checked, modifydoc, cal) }}
           onBlur={event => modifydoc(setValue(currdoc, 'touched.' + section, true))}

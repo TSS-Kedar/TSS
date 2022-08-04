@@ -79,7 +79,7 @@ function useSaveAction( handleSave:any,handleSaveCheck:any,doctype:String,doctyp
             currentDoc.validatemode = 'save';
             currentDoc = handleSaveCheck(currentDoc);
             let isSaveOk = !Object.keys(currentDoc.errorsAll).some((x: any) => currentDoc.errorsAll[x]);
-            currentDoc = getDocumenForSave(currentDoc)
+            //currentDoc = getDocumenForSave(currentDoc)
             if (!isSaveOk) {
               modifydocument({...currentDoc})
               docstatus.snackbaropen = true

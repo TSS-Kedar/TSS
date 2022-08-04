@@ -41,7 +41,7 @@ export function SupplierMenu(props: any) {
     setActiveMenu(menuItem)
     selectcomponent(menuItem)
     if(menuItem === 'Logout'){
-        systemsRedirect(true)
+      handleProcessLogout()
     }
   }
   const M_selectItem = useCallback(selectItem, [])
@@ -50,23 +50,23 @@ export function SupplierMenu(props: any) {
     handleSignoutUsernameJWT(async () =>
   {
     props.ActionToRedirect('/Systems');
-          // checkCurrentUsernameJWT((err:any,result:any)=>
-          // { 
-          //       console.log('In result handleSignoutUsernameJWT');
-          //    if(!result)
-          //     {
-          //       console.log('In result handleSignoutUsernameJWT -1');
-          //         props.ActionToDispatch({ type: 'UNAUTH_USER' ,payload : [''] });
-          //         props.ActionToRedirect('/Systems');
-          //     } 
-          //     else
-          //     {
-          //       console.log('In result handleSignoutUsernameJWT-2');
-          //         props.ActionToDispatch({ type: 'AUTH_ERROR' ,payload : err });
+          checkCurrentUsernameJWT((err:any,result:any)=>
+          { 
+                console.log('In result handleSignoutUsernameJWT');
+             if(!result)
+              {
+                console.log('In result handleSignoutUsernameJWT -1');
+                  props.ActionToDispatch({ type: 'UNAUTH_USER' ,payload : [''] });
+                  props.ActionToRedirect('/Systems');
+              } 
+              else
+              {
+                console.log('In result handleSignoutUsernameJWT-2');
+                  props.ActionToDispatch({ type: 'AUTH_ERROR' ,payload : err });
                
-          //     }
-          // }
-     // );
+              }
+          }
+     );
   
       }
    );

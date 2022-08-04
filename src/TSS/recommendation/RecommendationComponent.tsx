@@ -37,10 +37,6 @@ const newDocument = (doctype: String, doctypetext: String) => {
   }
 };
 
-
-
-
-
 export const handleSaveCheck = (currentdocument: any) => {
   const { touched, name, recodate, cmp, addupto, sl, target1, target2, weightage, timeframe, validatemode } = currentdocument;
 

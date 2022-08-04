@@ -25,7 +25,7 @@ export const FancyComponent = ({currdoc,modifydoc}:any) => {
         <div className={"col-3"}></div>
       </div>
       <div className="row">
-      <Slug/>
+      <Slug currdoc={currdoc} modifydoc={modifydoc} wd={3}/>
       <div className={"col-3"}></div>
         <div className={"col-3"}></div>
         <div className={"col-3"}></div>

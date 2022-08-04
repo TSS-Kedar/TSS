@@ -14,8 +14,9 @@ const typeoption = [
         { 'key': 'Bamboo', 'value': 'Bamboo' },
     ]
 function Composition({currdoc,modifydoc,wd,label,section}:any) {
+  const newOption = section==='composition1'? typeoption.filter(item=>item.key!==currdoc['composition2']) : typeoption.filter(item=>item.key!==currdoc['composition1'])
   return (
-    <SelectInput wd={wd} label={label} options={typeoption} name={section} currdoc={currdoc} section={section} modifydoc={modifydoc} />
+    <SelectInput wd={wd} label={label} options={newOption} name={section} currdoc={currdoc} section={section} modifydoc={modifydoc} />
   )
 }
 

@@ -17,7 +17,7 @@ import CurrentUser from '../../../../common/queries/CurrentUser';
 import CurrentUserJWT from '../../../../common/queries/CurrentUserJWT';
 import usersQuery from '../../../../common/queries/usersQuery';
 import recommendationQuery from '../../../../common/queries/recommendationQuery'
-
+import productQuery from '../../../../common/queries/productQuery'
 import {execGql,execGql_xx} from '../../../../common/gqlclientconfig'
 const AUTH_USER = 'AUTH_USER';
 const UNAUTH_USER = 'UNAUTH_USER';
@@ -62,6 +62,30 @@ export async function getRecommendations(values:any) {
   var result:any = '', errorMessage = '', errors = new Array();
   try {
       result = await execGql('query', recommendationQuery, values)
+  }
+  catch (err:any) {
+      errors = err.errorsGql;
+      errorMessage = err.errorMessageGql;
+      console.log({ "errors": errors, "errorMessage": errorMessage })
+      // return callback({"errors":errors,"errorMessage":errorMessage},'' );
+  }
+  if (!result) {
+
+      console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })
+      return [];
+
+      // return callback({"errors":[],"errorMessage":'No errors and results from GQL'} ,'');
+  }
+  else {
+      //return result.data;
+      return result.data.recommendations;
+  }
+}
+
+export async function getProducts(values:any) {
+  var result:any = '', errorMessage = '', errors = new Array();
+  try {
+      result = await execGql('query',productQuery, values)
   }
   catch (err:any) {
       errors = err.errorsGql;

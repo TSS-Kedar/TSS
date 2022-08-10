@@ -30,19 +30,28 @@ export function SearchSelect(props: any) {
     }
   }
   let yz=getValue(currdoc,section)
+  if(yz===""){
+    yz=null
+  }
+  // else{
+  //   yz={  value: yz,  label: yz}
+  // }
   return (<>
   <div className={`col-${wd}`}>
     <div style={{display:'flex'}}>
     <span style={{flex:11}}><Select  
     name={name}
     ref={inpref}
-          value={{  value: yz,  label: yz}} 
-          onChange={(value:any)=>{value?.value.length>2 ? setCalValue(currdoc,section,value?.value,modifydoc,cal):""  } } 
+          value={yz} 
+          onChange={(value:any)=>{value.length>0 ? setCalValue(currdoc,section,value,modifydoc,cal):setCalValue(currdoc,section,null,modifydoc,cal)}} 
           onBlur={event => modifydoc(setValue(currdoc, 'touched.' + section, true))}
           //onBlur={event => modifydoc(setValue(currdoc,'touched.'+section,true))}
+          
           options={options}
           isClearable={true}
           className={""}
+          isMulti={true}
+          isSearchable={true}
           /></span>
           <span className="las la-sync" onClick={()=>{refresh()}} style={{flex:1,height:"100%",fontSize:"1.8rem",padding:"5px"}}/>
           </div>

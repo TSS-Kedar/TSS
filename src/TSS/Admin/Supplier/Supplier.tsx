@@ -11,7 +11,7 @@ import Messagesnackbar from '../../../common/Alert'
 import AlertDialog from '../../../common/PopupModals/ConfirmationModal'
 import {
   runCheck, requiredCheck, getDtFormat, getTimeFormat, getFromToDate, getDateYYYYMMDDHHMI, getDateYYYYMMDD, maxLength40, maxLength128,
-  setErrorValue, getValue, setValue
+  setErrorValue, getValue, setValue,emailCheck,numberCheck
 } from '../../../common/validationlib';
 import { Redirect, withRouter } from 'react-router-dom'
 import AppbarBottom from '../../../common/AppbarBottom'
@@ -57,8 +57,8 @@ export const handleSaveCheck = (currentdocument: any) => {
   let country_check = runCheck(nvl(country, ''), [requiredCheck]);
   let city_check = runCheck(nvl(city, ''), [requiredCheck]);
   let inbusinesssince_check = runCheck(nvl(inbusinesssince, ''), [requiredCheck]);
-  let email_check = runCheck(nvl(email, ''), [requiredCheck]);
-  let primarynumber_check = runCheck(nvl(primarynumber, ''), [requiredCheck])
+  let email_check = runCheck(nvl(email, ''), [requiredCheck,emailCheck]);
+  let primarynumber_check = runCheck(nvl(primarynumber, ''), [requiredCheck,numberCheck])
   let addemail_check = ""//runCheck(nvl(addemail, ''), [requiredCheck]);
   let addnumber_check = ""//runCheck(nvl(addnumber, ''), [requiredCheck]);
   let addemailnumber_check = ""//runCheck(nvl(addemailnumber, ''), [requiredCheck]);
@@ -66,8 +66,8 @@ export const handleSaveCheck = (currentdocument: any) => {
   let companyname_check = runCheck(nvl(companyname, ''), [requiredCheck]);
   let accounttype_check = runCheck(nvl(accounttype, ''), [requiredCheck]);
   let category_check = runCheck(nvl(category, ''), [requiredCheck]);
-  let address_check = runCheck(nvl(completeaddress, ''), [requiredCheck])
-  let completeaddress_check = runCheck(nvl(address, ''), [requiredCheck]);
+  let address_check = runCheck(nvl(address, ''), [requiredCheck])
+  let completeaddress_check = runCheck(nvl(completeaddress, ''), [requiredCheck]);
   let gstnumber_check=runCheck(nvl(gstnumber, ''), [requiredCheck]);
   let tannumber_check=runCheck(nvl(tannumber, ''), [requiredCheck]);
   let businesspannumber_check=runCheck(nvl(businesspannumber, ''), [requiredCheck]); 
@@ -164,8 +164,9 @@ export const handleSave = async (currentdocument: any) => {
     recoForSave.gst_files.forEach((element:any) => {delete element.__typename});
     recoForSave.pan_files.forEach((element:any) => {delete element.__typename});
     //recoForSave.reffiles.forEach(element => {delete element.__typename});
-
-
+    let cat:string[]=[]
+    recoForSave.category.forEach((ele:any)=>{cat.push(ele.value)})
+    recoForSave.category = cat.toString()
     result = await execGql('mutation', saveSupplier, recoForSave)
     if (!result) {
       console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })
@@ -208,17 +209,17 @@ const inbussinesssinceoptions  = [
   { 'key': '2010', 'value': '2010' },
 ]
 const timeframeoptions = [{ 'key': '0', 'value': '0' },
-{ 'key': '1', 'value': '1' },
-{ 'key': '3', 'value': '3' },
-{ 'key': '6', 'value': '6' },
-{ 'key': '12', 'value': '12' },
-{ 'key': '12|18', 'value': '12|18' },
-{ 'key': '12|24', 'value': '12|24' },
-{ 'key': '3|6', 'value': '3|6' },
-{ 'key': '3|6|9', 'value': '3|6|9' },
-{ 'key': '3|6|9|12', 'value': '3|6|9|12' },
-{ 'key': '3|9', 'value': '3|9' },
-{ 'key': '6|24', 'value': '6|24' }
+{ 'label': 'Category-1', 'value': 'Category-1' },
+{ 'label': 'Category-2', 'value': 'Category-2' },
+{ 'label': 'Category-3', 'value': 'Category-3' },
+{ 'label': 'Category-4', 'value': 'Category-4' },
+{ 'label': 'Category-5', 'value': 'Category-5' },
+{ 'label': 'Category-6', 'value': 'Category-6' },
+{ 'label': 'Category-7', 'value': 'Category-7' },
+{ 'label': 'Category-8', 'value': 'Category-8' },
+{ 'label': 'Category-9', 'value': 'Category-9' },
+{ 'label': 'Category-10', 'value': 'Category-10' }
+
 ]
 async function getSupplier(values: any) {
   var result: any = '', errorMessage = '', errors = new Array();
@@ -258,6 +259,12 @@ export const SupplierComponent = (props: any) => {
     contact_arr.push({contactname:"", phoneno:"", email:"",index:(contactList.length)})
     setContactList(contact_arr)
   }
+  const removecontact=(i:number)=>{
+    //contactList.slice(i,1)
+    let contact_arr=[...contactList];
+    contact_arr.splice(i,1)
+    setContactList(contact_arr)
+  }
   const modifyContactDoc=(contact:any)=>{
     const contact_arr=[...contactList];
     contact_arr[contact.index] = contact
@@ -269,15 +276,26 @@ export const SupplierComponent = (props: any) => {
       if (z_id != 'NO-ID') {
         setloaderDisplay(true)
         getSupplier({ applicationid: '15001500', client: '45004500', lang: 'EN', z_id }).then((data: any) => {
-          modifydocument(data[0])
+          let contact_arr:any = []
+          if(data[0].addemailnumber!==null){
           let contactname: string[] = data[0].addemailnumber.split(",");
           let email: string[] = data[0].addemail.split(",");
           let phoneno: string[] = data[0].addnumber.split(",");
-          let contact_arr:any = []
+          
           for(let i = 0;i<contactname.length;i++){
             const contact = {contactname:contactname[i], phoneno:phoneno[i], email:email[i],index:i}
             contact_arr.push(contact)
+          }}
+          if(data[0].category!==null){
+          let category_arr:string[]=data[0].category.split(',')
+          data[0].category = []
+          for(let i=0;i<category_arr.length;i++){
+            data[0].category.push({'label': category_arr[i], 'value':category_arr[i]})
+          }}
+          if(contact_arr.length===0){
+            contact_arr.push({contactname:"", phoneno:"", email:"",index:0})
           }
+          modifydocument(data[0])
           setContactList(contact_arr)
           setloaderDisplay(false)
         });
@@ -342,12 +360,14 @@ export const SupplierComponent = (props: any) => {
                 <div className={"col-3"}></div>
               </div>
               {contactList.map((contact, i) => 
-                (<div className="row" key={i+""}>
+                {return(<div className="row" key={i+""}>
                   <FlatInput wd="3" label="Contact Name" name="contactname" currdoc={contactList[i]} section={'contactname'} modifydoc={modifyContactDoc} />
                   <FlatInput wd="3" label="Phone No" name="phoneno" currdoc={contactList[i]} section={'phoneno'} modifydoc={modifyContactDoc} />
                   <FlatInput wd="3" label="Email" name="email" currdoc={contactList[i]} section={'email'} modifydoc={modifyContactDoc} />
-                  <div className={"col-3"}><div onClick={()=>{addNewcontact()}}>+</div></div>
-                </div>)
+                  <div className={"col-3"}>
+                    {i===0?<div onClick={()=>{addNewcontact()}} style={{fontSize:"26px", cursor:"pointer", color:"#1F51FF",width:"30px"}}>+</div>:<div onClick={()=>{removecontact(i)}} style={{fontSize:"26px", cursor:"pointer",color:"#FF3131",width:"30px"}}>-</div>}
+                    </div>
+                </div>)}
               )}
 
               {/* <div className="row">
@@ -368,9 +388,9 @@ export const SupplierComponent = (props: any) => {
               <div className="row">
                 <FlatInput wd="3" label="Company Name" name="companyname" currdoc={currentdocument1} section={'companyname'} modifydoc={modifydocument} />
                 <FlatInput wd="3" label="Account Type" name="accounttype" currdoc={currentdocument1} section={'accounttype'} modifydoc={modifydocument} />
-                <SearchSelectInput inpref={compinp} wd="3" label="" options={timeframeoptions} name="name" currdoc={currentdocument1} section={'name'} modifydoc={modifydocument} refresh={()=>{}} isMulti={true}/>
-                <FlatInput wd="3" label="Edit Category" name="editcategory" currdoc={currentdocument1} section={'category'} modifydoc={modifydocument} />
-                <div className={"col-3"}></div>
+                <SearchSelectInput inpref={compinp} wd="6" label="" options={timeframeoptions} name="category" currdoc={currentdocument1} section={'category'} modifydoc={modifydocument} refresh={()=>{}} isMulti={true}/>
+                {/* <FlatInput wd="3" label="Edit Category" name="editcategory" currdoc={currentdocument1} section={'category'} modifydoc={modifydocument} /> */}
+                {/* <div className={"col-3"}></div> */}
               </div>
               <div className="row">
                 <FlatInput wd="6" label="Address" name="address" currdoc={currentdocument1} section={'address'} modifydoc={modifydocument} />

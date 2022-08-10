@@ -188,7 +188,7 @@ export const Product = (props:any) => {
       yarntypeinp.current.focus()
       if (z_id != 'NO-ID') {
         setloaderDisplay(true)
-        getProduct({ client: '45004500', lang: 'EN', z_id,applicationid:"" }).then((data: any) => {
+        getProduct({ client: '45004500', lang: 'EN', z_id,applicationid:"15001500" }).then((data: any) => {
           modifydocument(data[0])
           setloaderDisplay(false)
         });

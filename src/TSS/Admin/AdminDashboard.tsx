@@ -2,7 +2,8 @@ import React,{useState} from 'react'
 import {BrowserRouter as Rounter, Route, Switch} from 'react-router-dom'
 import Header from '../common/Header'
 import { SideBar } from './AdminMenu'
-import Supplier from '../Supplier/Supplier'
+import Supplier from './Supplier/Supplier'
+import SupplierList from '../Admin/Supplier/SupplierList'
 import UserListComponent from '../../User/UserListComponent'
 import UserComponent from '../../User/UserComponent'
 import Product from './Product/Product'
@@ -27,6 +28,9 @@ function AdminDashboard(props:any) {
                 <UserComponent {...props}/>
               </Route>
               <Route exact path="/supplierManagement">
+                <SupplierList {...props}/>
+              </Route>
+              <Route exact path="/supplieredit">
                 <Supplier {...props}/>
               </Route>
               <Route exact path="/productMangement">

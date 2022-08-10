@@ -13,15 +13,7 @@ import {
 export const OnlineFileuploadComponent = React.memo(props => {
 
 
-    let {  saveasis,currdoc,modifydoc,cal,section } = props;
-
-
-
-    console.log('currdoc',currdoc)
-    console.log('section',section)
-
-  
-
+    let {  saveasis,currdoc,modifydoc,cal,section } = props; 
     let files = getValue(currdoc, section)
 
 

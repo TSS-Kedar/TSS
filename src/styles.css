@@ -186,6 +186,7 @@ main {
   background: #f1f5f9;
   min-height: calc(100vh - 85px);
   position: relative;
+  overflow-x: hidden;
 }
 
 .cards {

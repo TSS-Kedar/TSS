@@ -2,6 +2,17 @@ import React, { useEffect, useState } from 'react'
 import Step from './Step'
 import "./stepper.css"
 function Stepper(props: any) {
+    const {onsubmit} = props
+    useEffect(() => {
+        const form1:any = document.getElementById("form1")
+        const form2:any = document.getElementById("form2")
+        const form3:any = document.getElementById("form3")
+        form2.style.display = "none"
+        form3.style.display = "none"
+        form1.style.left = "25px"
+     
+    }, [])
+    
    const onBackButtonClick = (index:number) => {
     if(index !== 0){
         const form1:any = document.getElementById("form"+(index+1))
@@ -16,8 +27,10 @@ function Stepper(props: any) {
     if(index !== props.children.length-1){
         const form1:any = document.getElementById("form"+(index+1))
         const form2:any = document.getElementById("form"+(index+2))
+        form2.style.display = "block"
         form1.style.left = "-100%";
         form2.style.left = "25px";
+        
         const progress:any = document.getElementById("progress")
         if(index+2 === props.children.length-1)
         progress.style.width =`calc(((100%) / 3 ) * ${index+2})`;
@@ -33,7 +46,7 @@ function Stepper(props: any) {
                 <div className="btn-box">
                 {i>0?<button type="button" id={"back"+(i+1)} onClick={()=>onBackButtonClick(i)}>Back</button>:<></>}
                 {i !== props.children.length-1 ?<button type="button" id={"next"+(i+1)} onClick={()=>{onNextButtonClick(i)}}>Next</button>:<></>}
-                { i === props.children.length-1 ?<button type="button" id={"back"+(i+1)}>Submit</button>:<></>} 
+                { i === props.children.length-1 ?<button type="button" id={"back"+(i+1)} onClick={()=>onsubmit("save")}>Submit</button>:<></>} 
             </div>
             </div>))}
         <div className="step-row">

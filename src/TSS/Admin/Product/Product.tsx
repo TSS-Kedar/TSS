@@ -62,7 +62,7 @@ export const handleSaveCheck = (currentdocument: any) => {
     percentage1_check=runCheck(nvl(percentage1, ''), [requiredCheck]); 
     percentage2_check=runCheck(nvl(percentage2, ''), [requiredCheck]); 
     tolerance_check=runCheck(nvl(tolerance, ''), [requiredCheck]);
-    diff_check=runCheck(nvl(diff, ''), [requiredCheck]);
+    //diff_check=runCheck(nvl(diff, ''), [requiredCheck]);
   }
     console.log('currentdocument.errorsAll', currentdocument.errorsAll)
     if (validatemode == 'save') {
@@ -79,7 +79,7 @@ export const handleSaveCheck = (currentdocument: any) => {
         percentage1:percentage1_check,
         percentage2:percentage2_check,
         tolerance:tolerance_check,
-        diff:diff_check
+        //diff:diff_check
       }
       validatemode == 'touch'
     }
@@ -97,7 +97,7 @@ export const handleSaveCheck = (currentdocument: any) => {
         percentage1:checkTouched(nvl(touched.percentage1, false), percentage1_check),
         percentage2:checkTouched(nvl(touched.percentage2, false), percentage2_check),
         tolerance:checkTouched(nvl(touched.tolerance, false), tolerance_check),
-        diff:checkTouched(nvl(touched.diff, false), diff_check)
+        //diff:checkTouched(nvl(touched.diff, false), diff_check)
       }
     }
 
@@ -125,7 +125,7 @@ export const handleSave = async (currentdocument: any) => {
         percentage1: nvl(currentdocument.percentage1, ''),
         percentage2: nvl(currentdocument.percentage2, ''),
         tolerance: nvl(currentdocument.tolerance, ''),
-        diff: nvl(currentdocument.diff, ''),
+        //diff: nvl(currentdocument.diff, ''),
         z_id:nvl(currentdocument.z_id, ''),
         t_id:nvl(currentdocument.t_id, ''),
        //reffiles:nvl(currentdocument.reffiles,[])
@@ -198,12 +198,7 @@ export const Product = (props:any) => {
   
       }
     }, []);
-    const onYarnTypeChange = () => {
-      // const newDoc:any = newDocument(doctype,doctypetext)
-      // newDoc['yarntype']=currentdocument.yarntype
-      // newDoc['z_id']=currentdocument.z_id
-      // modifydocument({...newDoc})
-    }
+    
     const { action, yesaction, noaction, dailogtext, dailogtitle } = documentstatus;
     if(redirect){
       let redirectpath='/productMangement'
@@ -211,6 +206,8 @@ export const Product = (props:any) => {
   
        
     }
+
+    
   return (
     <>
      <div className="container">
@@ -218,7 +215,7 @@ export const Product = (props:any) => {
               
                   <div className="grid">
                     <div className="row">
-                    <Yarntype wd="3"  currdoc={currentdocument}  modifydoc={modifydocument} inpref={yarntypeinp} _onchange={onYarnTypeChange}/>
+                    <Yarntype wd="3"  currdoc={currentdocument}  modifydoc={modifydocument} inpref={yarntypeinp} />
                     </div>
                   </div>
                   {currentdocument.yarntype ==="Cotton" && <CottonComponent currdoc={currentdocument}  modifydoc={modifydocument}/>}

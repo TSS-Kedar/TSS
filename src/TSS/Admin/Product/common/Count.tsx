@@ -2,6 +2,14 @@ import React, { useCallback,useState,useEffect } from 'react'
 import './count.css'
 import { FlatInput } from '../../../../common/InputFields/Input'
 import { SelectInput } from '../../../../common/InputFields/Select'
+import {
+    runCheck, requiredCheck, getDtFormat, getTimeFormat, getFromToDate, getDateYYYYMMDDHHMI, getDateYYYYMMDD, maxLength40, maxLength128,
+    setErrorValue, getValue, setValue,emailCheck,numberCheck
+  } from '../../../../common/validationlib';
+  import { getDocs, getDocconfig, getLblVal, checkTouched, nvl, checkItem, isCheckedbool, getDocumenForSave } from '../../../../common/CommonLogic';
+  import {
+     getErrorValue, getErrorValueN, setCalValue
+  } from '../../../../common/validationlib';
 const typeoption = [{ 'key': 's', 'value': 'Single' }, { 'key': '2', 'value': 'Double' }]
 function TextileCount({currdoc,modifydoc,wd}: any) {
     const [open, setOpen] = useState(false)
@@ -42,13 +50,34 @@ useEffect(() => {
         }
         return arrCount
     }
-   const confirm=()=>{
-    const newDoc = {...currdoc} 
-    if(selectedType.type==="s"){newDoc["count"] = selectedCount+selectedType.type}
-    else{newDoc["count"] = selectedCount+"/"+selectedType.type}
-    modifydoc(newDoc)
-    setOpen(!open)
+    const handleSaveCheck=(doc:any)=>{
+        const newDoc:any = {...doc} 
+    
+    let type_check = runCheck(nvl(selectedType.type, ''), [requiredCheck]);
+    let selectedCount_check = runCheck(nvl(selectedCount==="0"?"":selectedCount, ''), [requiredCheck]);
+    newDoc.errorsAll = {
+        type: type_check,
+        selectedCount: selectedCount_check
     }
+   
+    return newDoc
+    }
+   const confirm=()=>{
+    const currdoc1:any = {...currdoc}
+    
+    const selectedType1:any = handleSaveCheck(selectedType)
+    let isSaveOk = !Object.keys(selectedType1.errorsAll).some((x: any) => selectedType1.errorsAll[x]);
+    if(isSaveOk){
+    if(selectedType.type==="s"){currdoc1["count"] = selectedCount+selectedType.type}
+    else{currdoc1["count"] = selectedCount+"/"+selectedType.type}
+    modifydoc(currdoc1)
+    setOpen(!open)
+    }else{
+        setType(selectedType1)
+    }
+    }
+    let currentdocument1 = handleSaveCheck(selectedType);
+    const errorMsg = getErrorValueN(currentdocument1, 'errorsAll.' + 'selectedCount')
     return (
         <>
         <FlatInput wd={wd} label="Count" name="count" currdoc={currdoc} section={"count"} modifydoc={modifydoc} onclick={setOpen}/>
@@ -61,7 +90,7 @@ useEffect(() => {
                         <label htmlFor="click" className="fas fa-times" onClick={()=>setOpen(!open)}></label>
                     </div>
                     <div className={"count-container"}>{getCount()}</div>
-
+                    <div className="field-error">{errorMsg}</div>
                     {/* <label htmlFor="click" className="fas fa-check"></label> */}
                     {/* <p>{dailogtext}</p>
                     <p>{dailogtext}</p>
@@ -70,7 +99,7 @@ useEffect(() => {
                     <div className="line"></div>
                     
                     <div className="row" style={{padding:"5px 0 5px 5px"}}>
-                    <SelectInput wd={wd} label="Type" options={typeoption} name="type" currdoc={selectedType} section={'type'} modifydoc={setType_m} />
+                    <SelectInput wd={wd} label="Type" options={typeoption} name="type" currdoc={currentdocument1} section={'type'} modifydoc={setType_m} />
                     </div>
                     {/* <label htmlFor="click" className="close-btn">close</label> */}
                     <div className="modal-buttons-section" >

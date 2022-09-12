@@ -38,7 +38,7 @@ export function Select(props: any) {
         <select required name={name}
           ref={inpref} 
           value={getValue(currdoc,section)} 
-          onChange={(event)=>{ setCalValue(currdoc,section,event.target.value,modifydoc,cal);_onchange()  } } 
+          onChange={(event)=>{ setCalValue(currdoc,section,event.target.value,modifydoc,cal);_onchange(section)  } } 
           onBlur={event => modifydoc(setValue(currdoc,'touched.'+section,true))}>
           <option />
           {options.map((item: any, i: string) => (

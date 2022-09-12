@@ -1,6 +1,7 @@
 import React from 'react'
 import { SelectInput } from '../../../../common/InputFields/Select'
 const typeoption = [
+        { 'key': '0/100', 'value': '0/100' },
         { 'key': '10/100', 'value': '10/100' },
         { 'key': '20/100', 'value': '20/100' },
         { 'key': '30/100', 'value': '30/100' },
@@ -12,10 +13,11 @@ const typeoption = [
         { 'key': '90/100', 'value': '90/100' },
         { 'key': '100/100', 'value': '100/100' },
     ]
-function Percentage({currdoc,modifydoc,wd,label,section}:any) {
-  const newOption = section==='percentage1'? typeoption.filter(item=>item.key!==currdoc['percentage2']) : typeoption.filter(item=>item.key!==currdoc['percentage1'])
+
+function Percentage({currdoc,modifydoc,wd,label,section,changepercent}:any) {
+  //const newOption = section==='percentage1'? typeoption.filter(item=>item.key!==currdoc['percentage2']) : typeoption.filter(item=>item.key!==currdoc['percentage1'])
   return (
-    <SelectInput wd={wd} label={label} options={newOption} name={section} currdoc={currdoc} section={section} modifydoc={modifydoc} />
+    <SelectInput wd={wd} label={label} options={typeoption} name={section} currdoc={currdoc} section={section} modifydoc={modifydoc} _onchange={changepercent}/>
   )
 }
 

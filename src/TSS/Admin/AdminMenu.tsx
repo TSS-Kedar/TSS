@@ -31,14 +31,14 @@ export function AdminMenu(props: any) {
     {
       name: 'Product Management',
       component: '',
-      slug: '/productMangement',
+      slug: '/productManagement',
       iconName: 'las fa-comment-alt',
       active: '',
     },
     {
-      name: 'Bidding Management',
+      name: 'Requirement Management',
       component: '',
-      slug: '/bidderManagement',
+      slug: '/requirementManagement',
       iconName: 'las la-clipboard-list',
       active: '',
     },

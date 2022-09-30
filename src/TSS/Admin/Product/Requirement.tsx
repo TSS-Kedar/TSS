@@ -1,6 +1,7 @@
 import React,{useState,useEffect,useRef} from 'react'
 import { connect } from 'react-redux'
 import { FlatInput } from "../../../common/InputFields/Input"
+import {Checkbox} from    '../../../common/InputFields/Checkbox'
 import Loader from '../../../common/Loader/Loader'
 import BlendsComponent from './BlendsComponent'
 import Yarntype from './common/Yarntype'
@@ -8,6 +9,8 @@ import CottonComponent from './CottonComponent'
 import FancyComponent from './FancyComponent'
 import SyntheticComponent from './SyntheticComponent'
 import ViscoseComponent from './ViscoseComponent'
+import CSP from './common/CSP'
+import Deliveryperiod from './common/Deliveryperiod'
 import useSaveAction from '../../../common/Hooks/useSaveAction'
 import { getDocs, getDocconfig, getLblVal, checkTouched, nvl, checkItem, isCheckedbool, getDocumenForSave } from '../../../common/CommonLogic';
 import {
@@ -23,8 +26,9 @@ import saveRequirement from '../../../common/mutations/saveRequirement';
 import { execGql, execGql_xx } from '../../../common/gqlclientconfig';
 import Messagesnackbar from '../../../common/Alert'
 import AlertDialog from '../../../common/PopupModals/ConfirmationModal'
-import AppbarBottom from '../../../coewfefrmmon/AppbarBottom'
+import AppbarBottom from '../../../common/AppbarBottom'
 import {Redirect,withRouter } from 'react-router-dom'
+
 const newDocument = (doctype: String, doctypetext: String) => {
   return {
     doctype,
@@ -38,10 +42,26 @@ const newDocument = (doctype: String, doctypetext: String) => {
 };
 
 export const handleSaveCheck = (currentdocument: any) => {
-  const { touched, yarntype, count, purposevariety, type, nature, quality, slug,composition1,composition2,percentage1,percentage2,tolerance,diff, validatemode } = currentdocument;
+  const { touched, yarntype, count, purposevariety, type, nature, quality, slug,composition1,composition2,percentage1,percentage2,tolerance,diff, 
+    reqid,
+buyid,
+yarncsp,
+deliverysch,
+reqqty,
+targetprice,
+restreportreq,
+targetmills,
+    validatemode } = currentdocument;
 
   let yarntype_check, count_check, purposevariety_check, type_check, nature_check, quality_check, slug_check,composition1_check
-  ,composition2_check,percentage1_check,percentage2_check,tolerance_check,diff_check = "";
+  ,composition2_check,percentage1_check,percentage2_check,tolerance_check,reqid_check,
+  buyid_check,
+  yarncsp_check,
+  deliverysch_check,
+  reqqty_check,
+  targetprice_check,
+  restreportreq_check,
+  targetmills_check,diff_check = "";
     yarntype_check = runCheck(nvl(yarntype, ''), [requiredCheck]);
     if(yarntype!=='Blends'){
     count_check = runCheck(nvl(count, ''), [requiredCheck]);
@@ -59,8 +79,22 @@ export const handleSaveCheck = (currentdocument: any) => {
     percentage1_check=runCheck(nvl(percentage1, ''), [requiredCheck]); 
     percentage2_check=runCheck(nvl(percentage2, ''), [requiredCheck]); 
     tolerance_check=runCheck(nvl(tolerance, ''), [requiredCheck]);
+
+    
     //diff_check=runCheck(nvl(diff, ''), [requiredCheck]);
   }
+
+
+  reqid_check = runCheck(nvl(reqid, ''), [requiredCheck]);
+buyid_check= runCheck(nvl(buyid, ''), [requiredCheck]);
+yarncsp_check= runCheck(nvl(yarncsp, ''), [requiredCheck]);
+deliverysch_check= runCheck(nvl(deliverysch, ''), [requiredCheck]);
+reqqty_check= runCheck(nvl(reqqty, ''), [requiredCheck]);
+targetprice_check= runCheck(nvl(targetprice, ''), [requiredCheck]);
+restreportreq_check= runCheck(nvl(restreportreq, 'N'), [requiredCheck]);
+targetmills_check= runCheck(nvl(targetmills, ''), [requiredCheck]);
+
+
     console.log('currentdocument.errorsAll', currentdocument.errorsAll)
     if (validatemode == 'save') {
       currentdocument.errorsAll = {
@@ -76,6 +110,19 @@ export const handleSaveCheck = (currentdocument: any) => {
         percentage1:percentage1_check,
         percentage2:percentage2_check,
         tolerance:tolerance_check,
+      
+        reqid:reqid_check,
+        buyid:buyid_check,
+        yarncsp:yarncsp_check,
+        deliverysch:deliverysch_check,
+        reqqty:reqqty_check,
+        targetprice:targetprice_check,
+        restreportreq:restreportreq_check,
+        targetmills:targetmills_check,
+
+
+
+
         //diff:diff_check
       }
       validatemode == 'touch'
@@ -94,6 +141,15 @@ export const handleSaveCheck = (currentdocument: any) => {
         percentage1:checkTouched(nvl(touched.percentage1, false), percentage1_check),
         percentage2:checkTouched(nvl(touched.percentage2, false), percentage2_check),
         tolerance:checkTouched(nvl(touched.tolerance, false), tolerance_check),
+        reqid:checkTouched(nvl(touched.reqid, false), reqid_check),
+        buyid:checkTouched(nvl(touched.buyid, false), buyid_check),
+        yarncsp:checkTouched(nvl(touched.yarncsp, false), yarncsp_check),
+        deliverysch:checkTouched(nvl(touched.deliverysch, false), deliverysch_check),
+        reqqty:checkTouched(nvl(touched.reqqty, false), reqqty_check),
+        targetprice:checkTouched(nvl(touched.targetprice, false), targetprice_check),
+        restreportreq:checkTouched(nvl(touched.restreportreq, false), restreportreq_check),
+        targetmills:checkTouched(nvl(touched.targetmills, false), targetmills_check),
+
         //diff:checkTouched(nvl(touched.diff, false), diff_check)
       }
     }
@@ -125,6 +181,16 @@ export const handleSave = async (currentdocument: any) => {
         //diff: nvl(currentdocument.diff, ''),
         z_id:nvl(currentdocument.z_id, ''),
         t_id:nvl(currentdocument.t_id, ''),
+
+
+        reqid:nvl(currentdocument.reqid, ''),
+        buyid:nvl(currentdocument.buyid, ''),
+        yarncsp:nvl(currentdocument.yarncsp, ''),
+        deliverysch:nvl(currentdocument.deliverysch, ''),
+        reqqty:nvl(currentdocument.reqqty, ''),
+        targetprice:nvl(currentdocument.targetprice, ''),
+        restreportreq:nvl(currentdocument.restreportreq, 'N'),
+        targetmills:nvl(currentdocument.targetmills, ''),
        //reffiles:nvl(currentdocument.reffiles,[])
       }
 
@@ -212,10 +278,19 @@ export const Requirement = (props:any) => {
               
                   <div className="grid">
                     <div className="row">
-                    <Yarntype wd="3"  currdoc={currentdocument}  modifydoc={modifydocument} inpref={yarntypeinp} />
+                    <Yarntype wd="1"  currdoc={currentdocument}  modifydoc={modifydocument} inpref={yarntypeinp} />
                     </div>
                   </div>
-                  {currentdocument.yarntype ==="Cotton" && <CottonComponent currdoc={currentdocument}  modifydoc={modifydocument}/>}
+
+         <FlatInput wd="3" label="Reqquirement Id" name="reqid" currdoc={currentdocument} section={'reqid'} modifydoc={modifydocument} />   
+         <FlatInput wd="3" label="Buyer" name="buyid" currdoc={currentdocument} section={'buyid'} modifydoc={modifydocument} />
+         <CSP currdoc={currentdocument}  modifydoc={modifydocument}/>
+         <Deliveryperiod currdoc={currentdocument}  modifydoc={modifydocument}/>
+         <FlatInput wd="3" label="Required Qty" name="reqqty" currdoc={currentdocument} section={'reqqty'} modifydoc={modifydocument} />
+         <FlatInput wd="3" label="Target Price" name="targetprice" currdoc={currentdocument} section={'targetprice'} modifydoc={modifydocument} />
+         <FlatInput wd="3" label="Target Mills" name="targetmills" currdoc={currentdocument} section={'targetmills'} modifydoc={modifydocument} />
+         <Checkbox wd="3" label={"Test Report"}  name={"restreportreq"} currdoc={currentdocument} section={"restreportreq"} modifydoc={modifydocument} />
+        {currentdocument.yarntype ==="Cotton" && <CottonComponent currdoc={currentdocument}  modifydoc={modifydocument}/>}
         {currentdocument.yarntype ==="Synthetic" && <SyntheticComponent currdoc={currentdocument}  modifydoc={modifydocument}/>}
         {currentdocument.yarntype ==="Viscose" && <ViscoseComponent currdoc={currentdocument}  modifydoc={modifydocument}/>}
         {currentdocument.yarntype ==="Fancy" && <FancyComponent currdoc={currentdocument}  modifydoc={modifydocument}/>}

@@ -13,7 +13,7 @@ function RequirementList() {
 
    const fetchquery = useMemo(()=>(fetchRequirements),[1])
    const deletequery = useMemo(()=>(deleteRequirement),[1])
-   const [tableData,loaderDisplay,docno, setDocno,redirect, setRedirect,documentstatus,deleteDocument,closeSnackBar]:any=useTableAction(fetchquery,"product",deletequery)
+   const [tableData,loaderDisplay,docno, setDocno,redirect, setRedirect,documentstatus,deleteDocument,closeSnackBar]:any=useTableAction(fetchquery,"requirement",deletequery)
    
    let tabledata:any=[]
    if(tableData) {

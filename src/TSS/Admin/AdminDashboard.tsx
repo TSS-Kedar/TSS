@@ -7,6 +7,7 @@ import SupplierList from '../Admin/Supplier/SupplierList'
 import UserListComponent from '../../User/UserListComponent'
 import UserComponent from '../../User/UserComponent'
 import Product from './Product/Product'
+import Requirement from './Product/Requirement'
 import ProductList from './Product/ProductList'
 import RequirementList from './Product/RequirementList'
 import {handleSignoutUsernameJWT,checkCurrentUsernameJWT,ActionToDispatch,ActionToRedirect} from '../../TSS/Redux/reducers/actions'
@@ -39,6 +40,9 @@ function AdminDashboard(props:any) {
               </Route>
               <Route exact path="/productedit">
                 <Product {...props}/>
+              </Route>
+              <Route exact path="/requirementedit">
+                <Requirement {...props}/>
               </Route>
               <Route exact path="/requirementManagement">
                 <RequirementList {...props}/>

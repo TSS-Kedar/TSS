@@ -16,17 +16,14 @@ import {
 } from '../../../common/validationlib';
 import shortid from 'shortid'
 import * as doctypes from '../../../common/Doctypes';
-import deleteGQL from '../../../common/mutations/deleteProduct'
+import deleteRequirement from '../../../common/mutations/deleteRequirement'
 import constant from '../../../common/constant'
-import productQuery from '../../../common/queries/productQuery'
-import recommendationItems from '../../../common/queries/recommendationItemsQuery'
-import deleteRecommendation from '../../../common/mutations/DeleteRecommendation';
-import saveProduct from '../../../common/mutations/saveProduct';
-import sendRecommendationNotification from '../../../common/mutations/sendRecommendationNotification';
+import requirementQuery from '../../../common/queries/requirementQuery'
+import saveRequirement from '../../../common/mutations/saveRequirement';
 import { execGql, execGql_xx } from '../../../common/gqlclientconfig';
 import Messagesnackbar from '../../../common/Alert'
 import AlertDialog from '../../../common/PopupModals/ConfirmationModal'
-import AppbarBottom from '../../../common/AppbarBottom'
+import AppbarBottom from '../../../coewfefrmmon/AppbarBottom'
 import {Redirect,withRouter } from 'react-router-dom'
 const newDocument = (doctype: String, doctypetext: String) => {
   return {
@@ -134,7 +131,7 @@ export const handleSave = async (currentdocument: any) => {
       //recoForSave.reffiles.forEach(element => {delete element.__typename});
 
 
-      result = await execGql('mutation', saveProduct, recoForSave)
+      result = await execGql('mutation', saveRequirement, recoForSave)
       if (!result) {
         console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })
         reject({ "errors": [], "errorMessage": 'No errors and results from GQL' })
@@ -152,10 +149,10 @@ export const handleSave = async (currentdocument: any) => {
     
   }) 
   }
- async function getProduct(values: any) {
+ async function getRequirement(values: any) {
     var result: any = '', errorMessage = '', errors = new Array();
     try {
-      result = await execGql('query', productQuery, values)
+      result = await execGql('query', requirementQuery, values)
       if (!result) {
         console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })
         return [];
@@ -163,7 +160,7 @@ export const handleSave = async (currentdocument: any) => {
       }
       else {
         //return result.data;
-        return result.data.products;
+        return result.data.requirements;
       }
     }
     catch (err:any) {
@@ -174,21 +171,21 @@ export const handleSave = async (currentdocument: any) => {
     }
     
   }  
-export const Product = (props:any) => {
+export const Requirement = (props:any) => {
   const yarntypeinp: any = useRef(0)
-  const doctype = doctypes.PRODUCT;
-  const doctypetext = 'Product';
+  const doctype = doctypes.REQUIREMENT;
+  const doctypetext = 'Requirement';
   const resetFocus = () => {
     setTimeout(() => yarntypeinp.current.focus(), 1000)
   }
-  const [setDocumentAction, documentstatus, setDocumentstatus, currentdocument, modifydocument, redirect, goBack, closeSnackBar, loaderDisplay, setloaderDisplay]: any = useSaveAction(handleSave, handleSaveCheck, doctype, doctypetext, resetFocus, deleteGQL)
+  const [setDocumentAction, documentstatus, setDocumentstatus, currentdocument, modifydocument, redirect, goBack, closeSnackBar, loaderDisplay, setloaderDisplay]: any = useSaveAction(handleSave, handleSaveCheck, doctype, doctypetext, resetFocus, deleteRequirement)
 
     useEffect(() => {
       let z_id = new URLSearchParams(window.location.search).get("z_id")
       yarntypeinp.current.focus()
       if (z_id != 'NO-ID') {
         setloaderDisplay(true)
-        getProduct({ client: '45004500', lang: 'EN', z_id,applicationid:"15001500" }).then((data: any) => {
+        getRequirement({ client: '45004500', lang: 'EN', z_id,applicationid:"15001500" }).then((data: any) => {
           modifydocument(data[0])
           setloaderDisplay(false)
         });
@@ -201,7 +198,7 @@ export const Product = (props:any) => {
     
     const { action, yesaction, noaction, dailogtext, dailogtitle } = documentstatus;
     if(redirect){
-      let redirectpath='/productManagement'
+      let redirectpath='/requirementManagement'
       return <Redirect push to={redirectpath} />;
   
        
@@ -240,4 +237,4 @@ const mapStateToProps = (state:any) => ({})
 
 const mapDispatchToProps = {}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Product)
+export default connect(mapStateToProps, mapDispatchToProps)(Requirement)

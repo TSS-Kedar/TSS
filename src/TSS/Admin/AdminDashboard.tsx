@@ -33,11 +33,14 @@ function AdminDashboard(props:any) {
               <Route exact path="/supplieredit">
                 <Supplier {...props}/>
               </Route>
-              <Route exact path="/productMangement">
+              <Route exact path="/productManagement">
                 <ProductList {...props}/>
               </Route>
               <Route exact path="/productedit">
                 <Product {...props}/>
+              </Route>
+              <Route exact path="/requirementManagement">
+                <RequirementList {...props}/>
               </Route>
               <Route exact path="/bidderManagement">
               <></>

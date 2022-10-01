@@ -11,11 +11,8 @@ export const USER ='USER';
 export const RECOMMENDATION="RECOMMENDATION"
 export const SUPPLIER="SUPPLIER"
 export const PRODUCT="PRODUCT"
-<<<<<<< HEAD
 export const BUYER="BUYER"
-=======
 export const REQUIREMENT="REQUIREMENT"
->>>>>>> 3ef531c833095743b04780d1aa63278d0f1cf99e
 export const TRANSACTIONTYPES ='TRANSACTIONTYPES';
 
 

@@ -26,14 +26,7 @@ const AUTH_PENDING ='AUTH_PENDING';
 const FORM_ERROR = 'FORM_ERROR';
 const CLEAR_FORM_ERROR = 'CLEAR_FORM_ERROR';
 const SIGNUP_USERNAME='SIGNUP_USERNAME';
-  const  values1 =
-    {"applicationid": "15001500",
-"client": "12341234",
-"lang": "EN",
-"username": "sachin@sachin.com.com",
-"email": "sachin@kedar.com.com",
-"password": "123",
-"mobile" : "123445667"};
+ 
 
 export function ActionToDispatch(action_to_dispatch:any)
 {

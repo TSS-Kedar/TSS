@@ -103,7 +103,7 @@ function useTableAction(fetchGraphQuery:any, doctype:String,deleteGraphQuery:any
         docstatus.snackbaropen=false;
       setDocumentstatus(docstatus)
     },[1])
-      return [tableData,loaderDisplay,docno, setDocno,redirect, setRedirect,documentstatus,deleteDocument,closeSnackBar]
+      return [tableData,loaderDisplay,docno, setDocno,redirect, setRedirect,documentstatus,deleteDocument,closeSnackBar,getTableData,setloaderDisplay,setTableData,setDocumentstatus]
 }
 
 export default useTableAction

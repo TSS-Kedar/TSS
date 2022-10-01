@@ -78,8 +78,16 @@ if(authenticated){
               className="btn transparent"
               id="sign-up-btn"
               onClick={setSignupForm}
+              style={{display:"none"}}
             >
               Sign Up
+            </button>
+            <button
+              className="btn transparent"
+              id="sign-up-btn"
+              onClick={()=>{window.location.href = "http://www.w3schools.com"}}
+            >
+              New Buyer
             </button>
           </div>
           <img src={log} className="image" alt="" />

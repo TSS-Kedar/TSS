@@ -90,12 +90,12 @@
 
 #nav-toggle:checked + .sidebar .sidebar-brand,
 #nav-toggle:checked + .sidebar li {
-  padding-left: 1rem;
+  padding-left: 0rem;
   text-align: center;
 }
 
 #nav-toggle:checked + .sidebar li a {
-  padding-left: 0rem;
+  padding-left: 1rem;
 }
 
 #nav-toggle:checked + .sidebar .sidebar-brand h2 span:last-child,

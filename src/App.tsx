@@ -3,7 +3,7 @@ import {Provider} from 'react-redux'
 import {ConfigureStore} from './TSS/Redux/configureStore'
 import {AuthorisationswitchComponent} from './Login/AuthorisationswitchComponent'
 import { PersistGate } from 'redux-persist/integration/react'
-
+import Buyer from './TSS/Admin/Buyer/Buyer'
 
 
 import React,{useState} from 'react'
@@ -30,7 +30,8 @@ export const App = () => {
       <PersistGate persistor={persistor}>
       {/* <React.StrictMode> */}
       {/* <Systems/> */}
-  <AuthorisationswitchComponent/>  
+      {/* <Buyer /> */}
+   <AuthorisationswitchComponent/>
 {/* </React.StrictMode> */}
  {/* <Login/> */}
     </PersistGate>

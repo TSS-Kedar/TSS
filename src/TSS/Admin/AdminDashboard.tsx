@@ -8,6 +8,8 @@ import UserListComponent from '../../User/UserListComponent'
 import UserComponent from '../../User/UserComponent'
 import Product from './Product/Product'
 import ProductList from './Product/ProductList'
+import Buyer from './Buyer/Buyer'
+import BuyerList from './Buyer/BuyerList'
 import {handleSignoutUsernameJWT,checkCurrentUsernameJWT,ActionToDispatch,ActionToRedirect} from '../../TSS/Redux/reducers/actions'
 function AdminDashboard(props:any) {
     const {systemsRedirect}=props
@@ -39,6 +41,13 @@ function AdminDashboard(props:any) {
               <Route exact path="/productedit">
                 <Product {...props}/>
               </Route>
+              <Route exact path="/buyerManagement">
+                <BuyerList {...props}/>
+              </Route>
+              <Route exact path="/buyeredit">
+                <Buyer {...props}/>
+              </Route>
+              
               <Route exact path="/bidderManagement">
               <></>
               </Route>

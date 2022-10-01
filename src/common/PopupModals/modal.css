@@ -76,8 +76,9 @@
 .header h2{
     color:white;
     padding-left: 2rem;
-    padding-top: 1rem;
+    padding-top: .5rem;
     font-weight: normal;
+    text-transform: capitalize;
 }
 
 .modal-container .fa-times{

@@ -24,6 +24,7 @@ function Login(props: any) {
 // if(sessionStorage.getItem('jwtToken') !== undefined || sessionStorage.getItem('jwtToken') !== null ){
 // props.checkuserLogggedIn()
 // }
+//check git 20220912
 
 const {companies,setCurrentCompany,currentcmpn,authenticated}= props;
           let selectedcmpn='';

@@ -3,7 +3,7 @@ import { FlatInput } from '../../../../common/InputFields/Input'
 
 function CSP({currdoc,modifydoc,wd}:any) {
   return (
-    <FlatInput wd={wd} label="CSP" name="csp" currdoc={currdoc} section={'csp'} modifydoc={modifydoc} />
+    <FlatInput wd={wd} label="CSP" name="yarncsp" currdoc={currdoc} section={'yarncsp'} modifydoc={modifydoc} />
   )
 }
 

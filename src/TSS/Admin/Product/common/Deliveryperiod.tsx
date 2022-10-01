@@ -11,8 +11,8 @@ const typeoption = [
         ]
 function Deliveryperiod({currdoc,modifydoc,wd}:any) {
   return (
-    <><SelectInput wd={wd} label="Delivery Period" options={typeoption} name="deliveryperiod" currdoc={currdoc} section={"deliveryperiod"} modifydoc={modifydoc} />
-    {currdoc.deliveryperiod==="Others(Custom)" && <FlatInput wd={wd} label="Others" name="others" currdoc={currdoc} section={'others'} modifydoc={modifydoc} />}
+    <><SelectInput wd={wd} label="Delivery Period" options={typeoption} name="deliverysch" currdoc={currdoc} section={"deliverysch"} modifydoc={modifydoc} />
+    {currdoc.deliverysch==="Others(Custom)" && <FlatInput wd={wd} label="Others" name="others" currdoc={currdoc} section={'othdeliverysch'} modifydoc={modifydoc} />}
     </>
   )
 }

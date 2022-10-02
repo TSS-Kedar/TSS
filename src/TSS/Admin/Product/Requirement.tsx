@@ -280,16 +280,25 @@ export const Requirement = (props:any) => {
                     <div className="row">
                     <Yarntype wd="1"  currdoc={currentdocument}  modifydoc={modifydocument} inpref={yarntypeinp} />
                     </div>
-                  </div>
-
-         <FlatInput wd="3" label="Reqquirement Id" name="reqid" currdoc={currentdocument} section={'reqid'} modifydoc={modifydocument} />   
-         <FlatInput wd="3" label="Buyer" name="buyid" currdoc={currentdocument} section={'buyid'} modifydoc={modifydocument} />
-         <CSP currdoc={currentdocument}  modifydoc={modifydocument}/>
-         <Deliveryperiod currdoc={currentdocument}  modifydoc={modifydocument}/>
+                  
+          <div className="row">
+            <FlatInput wd="3" label="Reqquirement Id" name="reqid" currdoc={currentdocument} section={'reqid'} modifydoc={modifydocument} />
+            <FlatInput wd="3" label="Buyer" name="buyid" currdoc={currentdocument} section={'buyid'} modifydoc={modifydocument} />
+            <CSP wd="3" currdoc={currentdocument} modifydoc={modifydocument} />
+            <div className={"col-3"}></div>
+          </div>
+          <div className="row">
+         <Deliveryperiod wd="3" currdoc={currentdocument}  modifydoc={modifydocument}/>
          <FlatInput wd="3" label="Required Qty" name="reqqty" currdoc={currentdocument} section={'reqqty'} modifydoc={modifydocument} />
          <FlatInput wd="3" label="Target Price" name="targetprice" currdoc={currentdocument} section={'targetprice'} modifydoc={modifydocument} />
+         <div className={"col-3"}></div>
+         </div>
+         <div className="row">
          <FlatInput wd="3" label="Target Mills" name="targetmills" currdoc={currentdocument} section={'targetmills'} modifydoc={modifydocument} />
          <Checkbox wd="3" label={"Test Report"}  name={"restreportreq"} currdoc={currentdocument} section={"restreportreq"} modifydoc={modifydocument} />
+         <div className={"col-6"}></div>
+         </div>
+         </div>
         {currentdocument.yarntype ==="Cotton" && <CottonComponent currdoc={currentdocument}  modifydoc={modifydocument}/>}
         {currentdocument.yarntype ==="Synthetic" && <SyntheticComponent currdoc={currentdocument}  modifydoc={modifydocument}/>}
         {currentdocument.yarntype ==="Viscose" && <ViscoseComponent currdoc={currentdocument}  modifydoc={modifydocument}/>}

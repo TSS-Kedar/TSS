@@ -47,7 +47,7 @@ const newDocument = (doctype: String, doctypetext: String) => {
 
 export const handleSaveCheck = (currentdocument: any) => {
   const { touched, firstname, lastname, country, city, inbusinesssince, email, primarynumber, addemail, addnumber,
-    addemailnumber, website, companyname, accounttype, category, address, completeaddress,gstnumber,tannumber,businesspannumber, validatemode } = currentdocument;
+    addemailnumber, website, companyname, accounttype, category,yarntypes, address, completeaddress,gstnumber,tannumber,businesspannumber, validatemode } = currentdocument;
 
 
   console.log('nvl(email, )', runCheck(nvl(email, ''), [requiredCheck]))
@@ -66,6 +66,7 @@ export const handleSaveCheck = (currentdocument: any) => {
   let companyname_check = runCheck(nvl(companyname, ''), [requiredCheck]);
   let accounttype_check = runCheck(nvl(accounttype, ''), [requiredCheck]);
   let category_check = runCheck(nvl(category, ''), [requiredCheck]);
+  let yarntypes_check = runCheck(nvl(yarntypes, ''), [requiredCheck]);
   let address_check = runCheck(nvl(address, ''), [requiredCheck])
   let completeaddress_check = runCheck(nvl(completeaddress, ''), [requiredCheck]);
   let gstnumber_check=runCheck(nvl(gstnumber, ''), [requiredCheck]);
@@ -90,6 +91,7 @@ export const handleSaveCheck = (currentdocument: any) => {
         companyname: companyname_check,
         accounttype: accounttype_check,
         category: category_check,
+        yarntypes: yarntypes_check,
         address: address_check,
         completeaddress: completeaddress_check,
         gstnumber:gstnumber_check,
@@ -115,6 +117,7 @@ export const handleSaveCheck = (currentdocument: any) => {
         companyname: checkTouched(nvl(touched.companyname, false), companyname_check),
         accounttype: checkTouched(nvl(touched.accounttype, false), accounttype_check),
         category: checkTouched(nvl(touched.category, false), category_check),
+        yarntypes: checkTouched(nvl(touched.yarntypes, false), yarntypes_check),
         address: checkTouched(nvl(touched.address, false), address_check),
         completeaddress: checkTouched(nvl(touched.completeaddress, false), completeaddress_check),
         gstnumber:checkTouched(nvl(touched.gstnumber, false), gstnumber_check),
@@ -150,6 +153,7 @@ export const handleSave = async (currentdocument: any) => {
       companyname: nvl(currentdocument.companyname, ''),
       accounttype: nvl(currentdocument.accounttype, ''),
       category: nvl(currentdocument.category, ''),
+      yarntypes: nvl(currentdocument.yarntypes, ''),
       address: nvl(currentdocument.address, ''),
       completeaddress: nvl(currentdocument.completeaddress, ''),
       gstnumber: nvl(currentdocument.gstnumber, ''),
@@ -167,6 +171,11 @@ export const handleSave = async (currentdocument: any) => {
     let cat:string[]=[]
     recoForSave.category.forEach((ele:any)=>{cat.push(ele.value)})
     recoForSave.category = cat.toString()
+
+    let yarn:string[]=[]
+    recoForSave.yarntypes.forEach((ele:any)=>{yarn.push(ele.value)})
+    recoForSave.yarntypes = yarn.toString()
+    
     result = await execGql('mutation', saveSupplier, recoForSave)
     if (!result) {
       console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })
@@ -208,7 +217,7 @@ const inbussinesssinceoptions  = [
   { 'key': '2000', 'value': '2000' },
   { 'key': '2010', 'value': '2010' },
 ]
-const timeframeoptions = [{ 'key': '0', 'value': '0' },
+const Categoryoptions = [{ 'label': '0', 'value': '0' },
 { 'label': 'Category-1', 'value': 'Category-1' },
 { 'label': 'Category-2', 'value': 'Category-2' },
 { 'label': 'Category-3', 'value': 'Category-3' },
@@ -220,6 +229,14 @@ const timeframeoptions = [{ 'key': '0', 'value': '0' },
 { 'label': 'Category-9', 'value': 'Category-9' },
 { 'label': 'Category-10', 'value': 'Category-10' }
 
+]
+
+const yarnoptions = [
+  { 'label': 'Cotton', 'value': 'Cotton' },
+  { 'label': 'Synthetic', 'value': 'Synthetic' }, 
+  { 'label': 'Viscose', 'value': 'Viscose' }, 
+  { 'label': 'Fancy', 'value': 'Fancy' },
+  { 'label': 'Blends', 'value': 'Blends' }
 ]
 async function getSupplier(values: any) {
   var result: any = '', errorMessage = '', errors = new Array();
@@ -292,6 +309,12 @@ export const SupplierComponent = (props: any) => {
           for(let i=0;i<category_arr.length;i++){
             data[0].category.push({'label': category_arr[i], 'value':category_arr[i]})
           }}
+          if(data[0].yarntypes!==null){
+            let yarntypes_arr:string[]=data[0].yarntypes?.split(',')
+            data[0].yarntypes = []
+            for(let i=0;i<yarntypes_arr?.length;i++){
+              data[0].yarntypes.push({'label': yarntypes_arr[i], 'value':yarntypes_arr[i]})
+            }}
           if(contact_arr.length===0){
             contact_arr.push({contactname:"", phoneno:"", email:"",index:0})
           }
@@ -388,7 +411,7 @@ export const SupplierComponent = (props: any) => {
               <div className="row">
                 <FlatInput wd="3" label="Company Name" name="companyname" currdoc={currentdocument1} section={'companyname'} modifydoc={modifydocument} />
                 <FlatInput wd="3" label="Account Type" name="accounttype" currdoc={currentdocument1} section={'accounttype'} modifydoc={modifydocument} />
-                <SearchSelectInput inpref={compinp} wd="6" label="" options={timeframeoptions} name="category" currdoc={currentdocument1} section={'category'} modifydoc={modifydocument} refresh={()=>{}} isMulti={true}/>
+                <SearchSelectInput inpref={compinp} wd="6" label="" options={yarnoptions} name="yarn type" currdoc={currentdocument1} section={'yarntypes'} modifydoc={modifydocument} refresh={()=>{}} isMulti={true}/>
                 {/* <FlatInput wd="3" label="Edit Category" name="editcategory" currdoc={currentdocument1} section={'category'} modifydoc={modifydocument} /> */}
                 {/* <div className={"col-3"}></div> */}
               </div>

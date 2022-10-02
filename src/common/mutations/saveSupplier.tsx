@@ -27,7 +27,8 @@ $gstnumber:String,
 $tannumber:String,
 $businesspannumber:String,
 $pan_files:[FileType],
-$gst_files:[FileType]
+$gst_files:[FileType],
+$yarntypes:String
 )
     {
         saveSupplier(
@@ -57,7 +58,8 @@ $gst_files:[FileType]
           tannumber:$tannumber,
           businesspannumber:$businesspannumber,
           pan_files:$pan_files,
-          gst_files:$gst_files
+          gst_files:$gst_files,
+          yarntypes:$yarntypes
       )
       {
         applicationid
@@ -88,6 +90,7 @@ $gst_files:[FileType]
     tannumber,
     businesspannumber,
     pan_files{fileid},
+    yarntypes,
     cdate,
     ctime,
     cuser,

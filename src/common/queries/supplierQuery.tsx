@@ -48,6 +48,7 @@ query suppliers($applicationid:String!,$client:String!,$lang:String!,$z_id:Strin
       filename,
       filetype,
       filesize},
+      yarntypes,
     cdate,
     ctime,
     cuser,

@@ -46,7 +46,7 @@ export function SearchSelect(props: any) {
           onChange={(value:any)=>{value.length>0 ? setCalValue(currdoc,section,value,modifydoc,cal):setCalValue(currdoc,section,null,modifydoc,cal)}} 
           onBlur={event => modifydoc(setValue(currdoc, 'touched.' + section, true))}
           //onBlur={event => modifydoc(setValue(currdoc,'touched.'+section,true))}
-          
+          placeholder={"Select "+ name}
           options={options}
           isClearable={true}
           className={""}

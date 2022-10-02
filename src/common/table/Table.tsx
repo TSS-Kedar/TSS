@@ -101,7 +101,7 @@ function Table(props: any) {
                                     })}
                                     {<Column data={<div className="table-button-container">{actions.map((action:any,k:any)=>{
                                         return action.fieldname===undefined  ? (<SMIconButton key={k+"#"+action.icon} action={action.action} id={data && data["z_id"]? data["z_id"]:""} icon={action.icon} className={action.className}/>)
-                                        :action.fieldname!==undefined && data[action.fieldname] == "Approved" ?
+                                        :action.fieldname!==undefined && data[action.fieldname] !== "Approved" ?
                                         <SMIconButton key={k+"#"+action.icon} action={action.action} id={data && data["z_id"]? data["z_id"]:""} icon={action.icon} className={action.className}/>:<SMIconButton/>})}</div>}/>
                                     }
                                     </tr>)})

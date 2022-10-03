@@ -65,7 +65,7 @@ export const handleSaveCheck = (currentdocument: any) => {
   let website_check = runCheck(nvl(website, ''), [requiredCheck]);
   let companyname_check = runCheck(nvl(companyname, ''), [requiredCheck]);
   let accounttype_check = runCheck(nvl(accounttype, ''), [requiredCheck]);
-  let category_check = runCheck(nvl(category, ''), [requiredCheck]);
+ // let category_check = runCheck(nvl(category, ''), [requiredCheck]);
   let yarntypes_check = runCheck(nvl(yarntypes, ''), [requiredCheck]);
   let address_check = runCheck(nvl(address, ''), [requiredCheck])
   let completeaddress_check = runCheck(nvl(completeaddress, ''), [requiredCheck]);
@@ -90,7 +90,7 @@ export const handleSaveCheck = (currentdocument: any) => {
         website: website_check,
         companyname: companyname_check,
         accounttype: accounttype_check,
-        category: category_check,
+     //   category: category_check,
         yarntypes: yarntypes_check,
         address: address_check,
         completeaddress: completeaddress_check,
@@ -116,7 +116,7 @@ export const handleSaveCheck = (currentdocument: any) => {
         website: checkTouched(nvl(touched.website, false), website_check),
         companyname: checkTouched(nvl(touched.companyname, false), companyname_check),
         accounttype: checkTouched(nvl(touched.accounttype, false), accounttype_check),
-        category: checkTouched(nvl(touched.category, false), category_check),
+       // category: checkTouched(nvl(touched.category, false), category_check),
         yarntypes: checkTouched(nvl(touched.yarntypes, false), yarntypes_check),
         address: checkTouched(nvl(touched.address, false), address_check),
         completeaddress: checkTouched(nvl(touched.completeaddress, false), completeaddress_check),
@@ -134,7 +134,7 @@ export const handleSaveCheck = (currentdocument: any) => {
 export const handleSave = async (currentdocument: any) => {
   var result: any = '', errorMessage = '', errors = new Array();
   return new Promise<void>(async(resolve, reject) => {
-    
+    console.log('saving record supplier***************')
   
   try {
     let recoForSave = {
@@ -152,7 +152,7 @@ export const handleSave = async (currentdocument: any) => {
       website: nvl(currentdocument.website, ''),
       companyname: nvl(currentdocument.companyname, ''),
       accounttype: nvl(currentdocument.accounttype, ''),
-      category: nvl(currentdocument.category, ''),
+    //  category: nvl(currentdocument.category, ''),
       yarntypes: nvl(currentdocument.yarntypes, ''),
       address: nvl(currentdocument.address, ''),
       completeaddress: nvl(currentdocument.completeaddress, ''),
@@ -164,13 +164,13 @@ export const handleSave = async (currentdocument: any) => {
      gst_files:nvl(currentdocument.gst_files,[]),
      pan_files:nvl(currentdocument.pan_files,[])
     }
-    
+    console.log('saving record supplier***************')
     recoForSave.gst_files.forEach((element:any) => {delete element.__typename});
     recoForSave.pan_files.forEach((element:any) => {delete element.__typename});
     //recoForSave.reffiles.forEach(element => {delete element.__typename});
-    let cat:string[]=[]
-    recoForSave.category.forEach((ele:any)=>{cat.push(ele.value)})
-    recoForSave.category = cat.toString()
+    // let cat:string[]=[]
+    // recoForSave.category.forEach((ele:any)=>{cat.push(ele.value)})
+    // recoForSave.category = cat.toString()
 
     let yarn:string[]=[]
     recoForSave.yarntypes.forEach((ele:any)=>{yarn.push(ele.value)})

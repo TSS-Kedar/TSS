@@ -443,6 +443,10 @@ export const BuyerComponent = (props: any) => {
                 <FlatInput wd="6" label="New Password" name="newpassword" currdoc={currentdocument1} section={'newpassword'} modifydoc={modifydocument} />
                 <div className={"col-6"}></div>
               </div>
+              <div className="row">
+                <FlatInput wd="6" label="OTP" name="otp" currdoc={currentdocument1} section={'otp'} modifydoc={modifydocument} />
+                <div className={"col-6"}></div>
+              </div>
             </div>
           </Step>
         </Stepper>

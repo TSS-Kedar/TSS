@@ -447,6 +447,15 @@ export const BuyerComponent = (props: any) => {
                 <FlatInput wd="6" label="OTP" name="otp" currdoc={currentdocument1} section={'otp'} modifydoc={modifydocument} />
                 <div className={"col-6"}></div>
               </div>
+              <div className="row">
+              <button type="button"  onClick={()=>{}}>Generate OTP</button>
+                <div className={"col-6"}></div>
+              </div>
+
+              <div className="row">
+              <button type="button"  onClick={()=>{}}>Verify OTP</button>
+                <div className={"col-6"}></div>
+              </div>
             </div>
           </Step>
         </Stepper>

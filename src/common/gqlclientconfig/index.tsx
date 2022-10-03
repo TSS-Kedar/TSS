@@ -5,6 +5,7 @@ import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { setContext } from 'apollo-link-context';
 import {gqlUrl,misUrl} from '../../shared/baseUrl'
+//30
 const defaultOptions = {
     watchQuery: {
       fetchPolicy: 'network-only',

@@ -55,7 +55,7 @@ function ApprovalUserAction(doctype:String,GraphQuery:any,getTableData:any,setlo
           docstatus.action= false;
           docstatus.snackbaropen=true;
           docstatus.snackbarseverity='success';
-          docstatus.snackbartext= doctype + ' Deleted'
+          docstatus.snackbartext= doctype + ' Approved'
           setDocumentstatus({...docstatus})
       }
       docstatus.noaction= () => {

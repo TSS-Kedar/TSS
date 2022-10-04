@@ -3,6 +3,7 @@ import {BrowserRouter as Rounter, Route, Switch} from 'react-router-dom'
 import Header from '../common/Header'
 import { SideBar } from '../Buyer/BuyerMenu'
 import Requirement from '../Admin/Product/Requirement'
+import RequirementList from '../Admin/Product/RequirementList'
 function BuyerDashboard(props:any) {
     const {systemsRedirect}=props
     const [displayComponent, setDisplayComponent] = useState('Dashboard')
@@ -23,6 +24,12 @@ function BuyerDashboard(props:any) {
               <Route exact path="/requirementedit">
                 <Requirement {...props}/>
               </Route>
+
+           
+              <Route exact path="/requirementManagement">
+                <RequirementList {...props}/>
+              </Route>
+
             </Switch>
           </main>
         </div>

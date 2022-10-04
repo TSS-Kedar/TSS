@@ -11,7 +11,7 @@ export function BuyerMenu(props: any) {
     {
       name: 'My Requirements',
       component: '',
-      slug: '/manageEnquires',
+      slug: '/requirementManagement',
       iconName: 'las la-igloo',
       active: '',
     },

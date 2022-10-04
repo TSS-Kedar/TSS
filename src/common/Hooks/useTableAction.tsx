@@ -4,13 +4,14 @@ import { execGql, execGql_xx } from '../../common/gqlclientconfig';
 import constant,{initDocumentstatus,newDocument} from '../constant';
 import { useCallback } from 'react';
 
-function useTableAction(fetchGraphQuery:any, doctype:String,deleteGraphQuery:any) {
+function useTableAction(fetchGraphQuery:any, doctype:String,deleteGraphQuery:any,values:any) {
+  console.log('valuesvaluesvaluesvaluesvaluesvaluesvaluesvalues',values)
     const [tableData, setTableData] = useState([])
     const [loaderDisplay, setloaderDisplay] = useState(true) 
     const [docno, setDocno] = useState('NO-ID')
     const [redirect, setRedirect] = useState(false)
     const [documentstatus, setDocumentstatus] = useState(initDocumentstatus)
-    const values = {...constant}
+    const default_values = {...constant}
    useEffect(() => {
      
     getTableData().then((data:any)=>{
@@ -25,9 +26,19 @@ function useTableAction(fetchGraphQuery:any, doctype:String,deleteGraphQuery:any
 
    const getTableData = useCallback(() => {
         var result: any = '';
+     
         return new Promise(async(reolve,reject)=>{
           try {       
-            result = await execGql('query', fetchGraphQuery, values)
+            if(values)
+            {
+              console.log('%%%%%%%%%%%%',values)
+            result = await execGql('query', fetchGraphQuery, {applicationid: '15001500', client: '45004500', lang: 'EN', buyid:'BUY1025' })
+            }
+            else
+            {
+              console.log('%%%%%tttttttttttttttttttttttt%%%%%%%',default_values)
+              result = await execGql('query', fetchGraphQuery, {applicationid: '15001500', client: '45004500', lang: 'EN', buyid:'BUY1025' })
+            }
             if (!result) {
               console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })
               alert("No data to display")

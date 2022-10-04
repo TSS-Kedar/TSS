@@ -1,6 +1,7 @@
 import React,{useState,useEffect,useRef} from 'react'
 import { connect } from 'react-redux'
 import { FlatInput } from "../../../common/InputFields/Input"
+import { SelectInput } from '../../../common/InputFields/Select'
 import {Checkbox} from    '../../../common/InputFields/Checkbox'
 import Loader from '../../../common/Loader/Loader'
 import BlendsComponent from './BlendsComponent'
@@ -28,6 +29,7 @@ import Messagesnackbar from '../../../common/Alert'
 import AlertDialog from '../../../common/PopupModals/ConfirmationModal'
 import AppbarBottom from '../../../common/AppbarBottom'
 import {Redirect,withRouter } from 'react-router-dom'
+import approvedBuyers from '../../../common/queries/approvedBuyersQuery'
 
 const newDocument = (doctype: String, doctypetext: String) => {
   return {
@@ -35,11 +37,14 @@ const newDocument = (doctype: String, doctypetext: String) => {
     doctypetext,
     status: 'active',
     validatemode: 'touch',
+    buyid:'',
     uploadfiles: [],
     onlineuploadfiles: [],
     t_id: shortid.generate()
   }
 };
+
+
 
 export const handleSaveCheck = (currentdocument: any) => {
   const { touched, yarntype, count, purposevariety, type, nature, quality, slug,composition1,composition2,percentage1,percentage2,tolerance,diff, 
@@ -237,7 +242,7 @@ export const handleSave = async (currentdocument: any) => {
     }
     
   }  
-export const Requirement = (props:any) => {
+export const Requirement =  (props:any) => {
   const yarntypeinp: any = useRef(0)
   const doctype = doctypes.REQUIREMENT;
   const doctypetext = 'Requirement';
@@ -245,8 +250,49 @@ export const Requirement = (props:any) => {
     setTimeout(() => yarntypeinp.current.focus(), 1000)
   }
   const [setDocumentAction, documentstatus, setDocumentstatus, currentdocument, modifydocument, redirect, goBack, closeSnackBar, loaderDisplay, setloaderDisplay]: any = useSaveAction(handleSave, handleSaveCheck, doctype, doctypetext, resetFocus, deleteRequirement)
+  const [approvedBuyersData, setApprovedBuyers] = useState([]);
+
+
+  async function getApprovedBuyers(values: any) {
+    var result: any = '', errorMessage = '', errors = new Array();
+  
+    try {
+    
+      result = await execGql('query', approvedBuyers, { client: '45004500', lang: 'EN',applicationid:"15001500" })
+      if (!result) {
+       
+        return [];
+        // return callback({"errors":[],"errorMessage":'No errors and results from GQL'} ,'');
+      }
+      else {
+        let apprBuyer=result.data.approvedBuyers.map((buyer:any)=>{return {'key': buyer.buyid , 'value': buyer.buyid }});
+        setApprovedBuyers(apprBuyer)
+      }
+    }
+    catch (err:any) {
+      errors = err.errorsGql;
+      errorMessage = err.errorMessageGql;
+      console.log({ "errors": errors, "errorMessage": errorMessage })
+      // return callback({"errors":errors,"errorMessage":errorMessage},'' );
+    }
+    
+  } 
+
+
 
     useEffect(() => {
+
+
+
+    
+      getApprovedBuyers({ client: '45004500', lang: 'EN',applicationid:"15001500" })
+
+      
+      
+      
+    
+
+
       let z_id = new URLSearchParams(window.location.search).get("z_id")
       yarntypeinp.current.focus()
       if (z_id != 'NO-ID') {
@@ -257,9 +303,14 @@ export const Requirement = (props:any) => {
         });
       }
       if (z_id == 'NO-ID') {
-          modifydocument(newDocument(doctype, doctypetext));
+        let newdoc=newDocument(doctype, doctypetext)
+        newdoc.buyid=props.authuser.username;
+          modifydocument(newdoc);
   
       }
+
+
+
     }, []);
     
     const { action, yesaction, noaction, dailogtext, dailogtitle } = documentstatus;
@@ -269,9 +320,23 @@ export const Requirement = (props:any) => {
   
        
     }
-
+ 
+    let buyerComp;
+    if (props.authuser.userauthorisations=='Buyer') {
+      buyerComp = <FlatInput wd="3" label="Buyer" name="buyid" currdoc={currentdocument} section={'buyid'} modifydoc={modifydocument} />;
+    } else {
+      buyerComp =  <SelectInput wd="3" label="Buyer DDL" options={approvedBuyersData} name="userauthorisations" currdoc={currentdocument} section={'buyid'} modifydoc={modifydocument} />
+      ;
+    }
     
   return (
+
+
+
+
+
+
+
     <>
      <div className="container">
      <Loader display={false}/>
@@ -283,7 +348,7 @@ export const Requirement = (props:any) => {
                   
           <div className="row">
             <FlatInput wd="3" label="Reqquirement Id" name="reqid" currdoc={currentdocument} section={'reqid'} modifydoc={modifydocument} />
-            <FlatInput wd="3" label="Buyer" name="buyid" currdoc={currentdocument} section={'buyid'} modifydoc={modifydocument} />
+            {buyerComp}
             <CSP wd="3" currdoc={currentdocument} modifydoc={modifydocument} />
             <div className={"col-3"}></div>
           </div>
@@ -317,7 +382,18 @@ export const Requirement = (props:any) => {
   )
 }
 
-const mapStateToProps = (state:any) => ({})
+
+
+const mapStateToProps = (state:any) => { 
+    
+  
+  return { authenticated:state.auth.authenticated,
+           authuser:state.auth.authuser ,
+           
+          };
+ };
+  
+
 
 const mapDispatchToProps = {}
 

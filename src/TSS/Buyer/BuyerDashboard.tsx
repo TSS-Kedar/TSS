@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import {BrowserRouter as Rounter, Route, Switch} from 'react-router-dom'
 import Header from '../common/Header'
 import { SideBar } from '../Buyer/BuyerMenu'
+import Requirement from '../Admin/Product/Requirement'
 function BuyerDashboard(props:any) {
     const {systemsRedirect}=props
     const [displayComponent, setDisplayComponent] = useState('Dashboard')
@@ -18,7 +19,10 @@ function BuyerDashboard(props:any) {
               </Route>
               <Route exact path="/managePassword">
               <></>
-              </Route>              
+              </Route>
+              <Route exact path="/requirementedit">
+                <Requirement {...props}/>
+              </Route>
             </Switch>
           </main>
         </div>

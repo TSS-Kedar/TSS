@@ -9,9 +9,16 @@ export function BuyerMenu(props: any) {
   const { selectcomponent, systemsRedirect} = props
   const menuList = [
     {
-      name: 'Manage Enquires',
+      name: 'My Requirements',
       component: '',
       slug: '/manageEnquires',
+      iconName: 'las la-igloo',
+      active: '',
+    },
+    {
+      name: 'New Requirement',
+      component: '',
+      slug: '/requirementedit?z_id=NO-ID',
       iconName: 'las la-igloo',
       active: '',
     },

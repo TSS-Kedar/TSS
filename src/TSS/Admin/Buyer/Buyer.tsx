@@ -27,6 +27,8 @@ import Stepper from '../../../common/Stepper/Stepper'
 import Step from '../../../common/Stepper/Step'
 import constant from '../../../common/constant'
 import saveBuyer from '../../../common/mutations/saveBuyer'
+import verifyBuyerMobileOTPJWT from '../../../common/mutations/verifyBuyerMobileOTPJWT'
+import sendBuyerMobileOTPJWT from '../../../common/mutations/sendBuyerMobileOTPJWT'
 import { execGql } from '../../../common/gqlclientconfig'
 import deleteGQL from '../../../common/mutations/deleteBuyer'
 import BuyerQuery from '../../../common/queries/buyerQuery'
@@ -335,6 +337,42 @@ export const BuyerComponent = (props: any) => {
   } else {
 
 
+    const funcsendBuyerMobileOTPJWT = async (currdoc:any) =>
+    {
+ 
+      let {applicationid,client,lang,z_id,primarynumber} = currdoc
+      let para ={applicationid,client,lang,z_id,primarynumber}
+      let result = await execGql('mutation', sendBuyerMobileOTPJWT , para)
+      if (!result) {
+        console.log('***rrrrr**',result)
+       // setValue(currdoc,'verificationuser',result.data.sendBuyerMobileOTPJWT.verificationuser)
+        
+        console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })
+        
+      }
+      else {
+        
+        return result.data.sendBuyerMobileOTPJWT.verificationuser;
+      }
+    }
+
+
+    const funcverifyBuyerMobileOTPJWT = async (currdoc:any) =>
+    {
+      let {applicationid,client,lang,z_id,primarynumber,verificationuser,mobileotp} = currdoc
+   
+      let para ={applicationid,client,lang,z_id,primarynumber,verificationuser,mobileotp}
+      console.log(para)
+      let result = await execGql('mutation', verifyBuyerMobileOTPJWT, para)
+      if (!result) {
+        console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })
+        
+      }
+      else {
+        
+        return result.data;
+      }
+    }
 
     let currentdocument1 = handleSaveCheck(currentdocument);
 
@@ -444,16 +482,16 @@ export const BuyerComponent = (props: any) => {
                 <div className={"col-6"}></div>
               </div>
               <div className="row">
-                <FlatInput wd="6" label="OTP" name="otp" currdoc={currentdocument1} section={'otp'} modifydoc={modifydocument} />
+                <FlatInput wd="6" label="OTP" name="otp" currdoc={currentdocument1} section={'mobileotp'} modifydoc={modifydocument} />
                 <div className={"col-6"}></div>
               </div>
               <div className="row">
-              <button type="button"  onClick={()=>{}}>Generate OTP</button>
+              <button type="button"  onClick={()=>{funcsendBuyerMobileOTPJWT(currentdocument1)}}>Generate OTP</button>
                 <div className={"col-6"}></div>
               </div>
 
               <div className="row">
-              <button type="button"  onClick={()=>{}}>Verify OTP</button>
+              <button type="button"  onClick={()=>{funcverifyBuyerMobileOTPJWT(currentdocument1)}}>Verify OTP</button>
                 <div className={"col-6"}></div>
               </div>
             </div>

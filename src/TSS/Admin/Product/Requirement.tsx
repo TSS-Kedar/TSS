@@ -92,7 +92,7 @@ export const handleSaveCheck = (currentdocument: any) => {
   }
 
 
-  reqid_check = runCheck(nvl(reqid, ''), [requiredCheck]);
+  reqid_check = ""//runCheck(nvl(reqid, ''), [requiredCheck]);
   buyid_check = runCheck(nvl(buyid, ''), [requiredCheck]);
   yarncsp_check = runCheck(nvl(yarncsp, ''), [requiredCheck,numberPositiveCheck]);
   deliverysch_check = runCheck(nvl(deliverysch, ''), [requiredCheck]);
@@ -285,18 +285,7 @@ export const Requirement = (props: any) => {
 
 
     useEffect(() => {
-
-
-
-    
       getApprovedBuyers({ client: '45004500', lang: 'EN',applicationid:"15001500" })
-
-      
-      
-      
-    
-
-
       let z_id = new URLSearchParams(window.location.search).get("z_id")
       yarntypeinp.current.focus()
       if (z_id != 'NO-ID') {
@@ -349,7 +338,7 @@ export const Requirement = (props: any) => {
 
         <div className="grid">
           <div className="row">
-            <FlatInput wd="3" label="Reqquirement Id" name="reqid" currdoc={currentdocument} section={'reqid'} modifydoc={modifydocument} />
+            <FlatInput wd="3" label="Req Id" name="reqid" currdoc={currentdocument} section={'reqid'} modifydoc={modifydocument} disabled={true}/>
             {buyerComp}
             <div className={"col-6"}></div>
           </div>

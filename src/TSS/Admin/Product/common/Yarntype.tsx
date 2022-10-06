@@ -19,6 +19,7 @@ function Yarntype({currdoc,modifydoc,wd,inpref,_onchange}:any) {
     if(backup.yarntype !==newcurrdoc.yarntype){     
       const newDoc:any = newDocument("PRODUCT","Product")
       newDoc['yarntype']=newcurrdoc.yarntype
+      newDoc['buyid']=newcurrdoc.buyid
       newDoc['z_id']=backup.z_id
       modifydoc({...newDoc})}
       else{

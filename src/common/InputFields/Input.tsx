@@ -18,10 +18,11 @@ interface Iinput {
   modifydoc:any;
   inpref?:any;
   onclick?:any;
+  disabled?:boolean
 }
 
 export function Input(props: Iinput) {
-  let { wd, label, name, section, currdoc,modifydoc,cal,inpref,onclick } = props
+  let { wd, label, name, section, currdoc,modifydoc,cal,inpref,onclick,disabled } = props
   let classname = 'input-field'
   const errorMsg = getErrorValueN(currdoc, 'errorsAll.' + section)
   if (errorMsg !== null) {
@@ -35,7 +36,8 @@ export function Input(props: Iinput) {
   return (
     <div className={`col-${wd}`}>
       <div className={classname}>
-        <input
+        {!disabled? <input
+          disabled={disabled}
           type="text"
           name={name}
           autoComplete="off"
@@ -47,10 +49,12 @@ export function Input(props: Iinput) {
           onBlur={event => modifydoc(setValue(currdoc, 'touched.' + section, true))}
           onClick={()=>onclick(true)}
           onFocus={()=>{onclick(true)}}
-        />
+        />:""}
         <label className="label-name">
-          <span className="content-name">{label}</span>
+          <span className="content-name"> {disabled? label+":"+getValue(currdoc, section):label}</span>
+         
         </label>
+        
       </div>
       <div className="field-error">{errorMsg}</div>
     </div>

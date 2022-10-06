@@ -21,11 +21,19 @@ interface Iinput {
 }
 export function Checkbox(props: Iinput) {
   let { wd, label, name, section, currdoc,modifydoc,cal } = props
+  const errorMsg = getErrorValueN(currdoc, 'errorsAll.' + section)
+  let classname = 'input-field'
+  if (errorMsg !== null) {
+    if (errorMsg !== undefined && errorMsg.length > 0) {
+      classname = 'error-input-field'
+    }
+  }
   return (
     <div className={`col-${wd}`}>
       <div className="checkbox-container">
-        <input type="checkbox" 
-        id="cb1" 
+        <input type="checkbox"
+        className={classname} 
+        id={label}
         required
           placeholder=" "
           checked = {getValue(currdoc, section)}
@@ -33,8 +41,9 @@ export function Checkbox(props: Iinput) {
           onChange={(event) => { setCalValue(currdoc, section, event.target.checked, modifydoc, cal) }}
           onBlur={event => modifydoc(setValue(currdoc, 'touched.' + section, true))}
         />
-        <label htmlFor="cb1">{label}</label>
+        <label htmlFor={label}>{label}</label>
       </div>
+      <div className="field-error">{errorMsg}</div>
     </div>
   )
 }

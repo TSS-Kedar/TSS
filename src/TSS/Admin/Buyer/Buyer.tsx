@@ -32,6 +32,7 @@ import sendBuyerMobileOTPJWT from '../../../common/mutations/sendBuyerMobileOTPJ
 import { execGql } from '../../../common/gqlclientconfig'
 import deleteGQL from '../../../common/mutations/deleteBuyer'
 import BuyerQuery from '../../../common/queries/buyerQuery'
+import OPTModal from '../../../common/PopupModals/OPTModal'
 const newDocument = (doctype: String, doctypetext: String) => {
   return {
     doctype,
@@ -497,7 +498,8 @@ export const BuyerComponent = (props: any) => {
             </div>
           </Step>
         </Stepper>
-        <AlertDialog open={action} handleno={noaction} handleyes={yesaction} dailogtext={dailogtext} dailogtitle={dailogtitle} />
+        <OPTModal open={action} handleno={noaction} handleyes={yesaction} dailogtext={dailogtext} dailogtitle={dailogtitle} currentdocument={currentdocument1} modifydocument={modifydocument}/>
+        {/* <AlertDialog open={action} handleno={noaction} handleyes={yesaction} dailogtext={dailogtext} dailogtitle={dailogtitle} /> */}
         <Messagesnackbar snackbaropen={documentstatus.snackbaropen} snackbarseverity={documentstatus.snackbarseverity} handlesnackbarclose={closeSnackBar} snackbartext={documentstatus.snackbartext} />
 
       </>

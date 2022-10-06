@@ -537,6 +537,8 @@ export const  isValidDate=(s:any) => {
 
 export const numberCheck = (value:any) =>
   value && isNaN(Number(value)) ? 'Must be a number' : ''
+  export const numberPositiveCheck = (value:any) =>
+  value && (Number(value)) !>=0 ? '' : 'Must be positive number'
 export const minValue = (min:any) => (value:any) =>
   value && value < min ? `Must be at least ${min}` : ''
 export const minValue18 = minValue(18)

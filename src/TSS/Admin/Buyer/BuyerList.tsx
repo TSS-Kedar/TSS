@@ -11,6 +11,7 @@ import Messagesnackbar from '../../../common/Alert'
 import AlertDialog from '../../../common/PopupModals/ConfirmationModal'
 import ApprovalUserAction from '../../../common/Hooks/ApproveUserAction'
 import approveBuyer from '../../../common/mutations/approveBuyer'
+import OPTModal from '../../../common/PopupModals/OPTModal'
 function BuyerList() {
 
    const fetchquery = useMemo(()=>(fetchGQL),[1])
@@ -79,7 +80,8 @@ function BuyerList() {
               </Table>
               
         </div>
-        <AlertDialog open={action}  handleno={noaction} handleyes={yesaction} dailogtext={dailogtext} dailogtitle={dailogtitle}/>           
+        
+        {/* <AlertDialog open={action}  handleno={noaction} handleyes={yesaction} dailogtext={dailogtext} dailogtitle={dailogtitle}/>            */}
         <Messagesnackbar snackbaropen={documentstatus.snackbaropen} snackbarseverity={documentstatus.snackbarseverity} handlesnackbarclose={closeSnackBar} snackbartext={documentstatus.snackbartext}/>                    
 
         </div>

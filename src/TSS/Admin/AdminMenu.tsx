@@ -46,7 +46,7 @@ export function AdminMenu(props: any) {
       name: 'Supplier & Buyer Mapping',
       component: '',
       slug: '/supplierBuyerManagement',
-      iconName: 'las la-shopping-bag',
+      iconName: 'las fa-users',
       active: '',
     },
     {

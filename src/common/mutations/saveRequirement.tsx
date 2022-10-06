@@ -75,6 +75,7 @@ mutation saveRequirement(
     type,
     nature,
     quality,
+    slug,
     z_id,
     composition1,
     percentage1,

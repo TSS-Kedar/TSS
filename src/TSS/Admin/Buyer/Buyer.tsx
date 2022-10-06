@@ -292,12 +292,6 @@ export const BuyerComponent = (props: any) => {
             const contact = {contactname:contactname[i], phoneno:phoneno[i], email:email[i],index:i}
             contact_arr.push(contact)
           }}
-          if(data[0].category!==null){
-          let category_arr:string[]=data[0].category.split(',')
-          data[0].category = []
-          for(let i=0;i<category_arr.length;i++){
-            data[0].category.push({'label': category_arr[i], 'value':category_arr[i]})
-          }}
           if(contact_arr.length===0){
             contact_arr.push({contactname:"", phoneno:"", email:"",index:0})
           }

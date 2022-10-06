@@ -33,9 +33,17 @@ export function SearchSelect(props: any) {
   if(yz===""){
     yz=null
   }
+
   // else{
   //   yz={  value: yz,  label: yz}
   // }
+
+  if(currdoc[section] !== undefined && currdoc[section]!==null && typeof currdoc[section]==='string'){
+    let category_arr:string[]=currdoc[section].split(',')
+    currdoc[section] = []
+    for(let i=0;i<category_arr.length;i++){
+      currdoc[section].push({'label': category_arr[i], 'value':category_arr[i]})
+    }}
   return (<>
   <div className={`col-${wd}`}>
     <div style={{display:'flex'}}>

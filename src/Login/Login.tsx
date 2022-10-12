@@ -26,7 +26,7 @@ function Login(props: any) {
 // }
 //check git 20220912
 
-const {companies,setCurrentCompany,currentcmpn,authenticated}= props;
+const {companies,setCurrentCompany,currentcmpn,authenticated,changeForm}= props;
           let selectedcmpn='';
           if(currentcmpn=='' && companies.length>0)
           {
@@ -86,7 +86,7 @@ if(authenticated){
             <button
               className="btn transparent"
               id="sign-up-btn"
-              onClick={()=>{window.location.href = "http://www.w3schools.com"}}
+              onClick={()=>{changeForm()}}
             >
               New Buyer
             </button>

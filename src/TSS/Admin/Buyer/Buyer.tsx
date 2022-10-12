@@ -372,7 +372,11 @@ export const BuyerComponent = (props: any) => {
     let currentdocument1 = handleSaveCheck(currentdocument);
 
     return (
-      <>
+      <div className={!props.authenticated?'container':""}>
+       {!props.authenticated?<div style={{width:"100%"}}> <a onClick={()=>{props.changeForm()}} style={{color:"red",fontSize:"20px",cursor:"pointer",float:"right"}}>
+        <span className="fas fa-angle-left" style={{fontSize:"25px",padding:"0rem .5rem"}}></span>
+        <span>{"Back to login"}</span>
+      </a></div>:<></>}
         <Loader display={loaderDisplay} />
         <Stepper onsubmit={addContactsToSaveDoc}>
           <Step name={"Step 1"} title="Basic Profile">
@@ -496,7 +500,7 @@ export const BuyerComponent = (props: any) => {
         {/* <AlertDialog open={action} handleno={noaction} handleyes={yesaction} dailogtext={dailogtext} dailogtitle={dailogtitle} /> */}
         <Messagesnackbar snackbaropen={documentstatus.snackbaropen} snackbarseverity={documentstatus.snackbarseverity} handlesnackbarclose={closeSnackBar} snackbartext={documentstatus.snackbartext} />
 
-      </>
+      </div>
     )
 
   }
@@ -515,7 +519,7 @@ const mapStateToProps = (state: any) => {
 
   return {
     stocks: state.stocks.stocks.stocks,
-
+    authenticated:state.auth.authenticated,
   }
 }
 

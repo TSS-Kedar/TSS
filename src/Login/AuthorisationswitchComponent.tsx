@@ -19,6 +19,7 @@ import {
 import AdminDashboard from "../TSS/Admin/AdminDashboard";
 import BuyerDashboard from "../TSS/Buyer/BuyerDashboard";
 import SupplierDashboard from "../TSS/Supplier/SupplierDashboard";
+import Buyer from "../TSS/Admin/Buyer/Buyer";
   
 
   interface IProps{
@@ -34,11 +35,14 @@ import SupplierDashboard from "../TSS/Supplier/SupplierDashboard";
 
         super(props);
          this.state = {
-        loader:false
+        loader:false,
+        changeform:false
                      };
       }
 
-
+changeForm=()=>{
+  this.setState({changeform:!this.state.changeform})
+}
 
     
 async componentDidMount(){
@@ -85,6 +89,9 @@ async componentDidMount(){
               )
 
           }
+          else if(!authenticated && this.state.changeform){
+              return(<Router><Buyer {...this.props} changeForm={this.changeForm}/></Router>)
+          }
           else
           {
             return    (
@@ -92,7 +99,7 @@ async componentDidMount(){
         
             
            
-                 <HomeComponent/>
+                 <HomeComponent changeForm={this.changeForm}/>
                 
                 {/* <Switch>
              <Route key={100} path={"/"} exact={true} children={<HomeComponent/>}/>

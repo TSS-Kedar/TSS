@@ -7,9 +7,9 @@ const typeoption = [
         { 'key': '4', 'value': '4' },
         { 'key': '5', 'value': '5' },
     ]
-function Tolerance({currdoc,modifydoc,wd,label,section}:any) {
+function Tolerance({currdoc,modifydoc,wd,label,section,disabled}:any) {
   return (
-    <SelectInput wd={wd} label={"Tolerance"} options={typeoption} name={"tolerance"} currdoc={currdoc} section={"tolerance"} modifydoc={modifydoc} />
+    <SelectInput wd={wd} label={"Tolerance"} options={typeoption} name={"tolerance"} currdoc={currdoc} section={"tolerance"} modifydoc={modifydoc} disabled={disabled}/>
   )
 }
 

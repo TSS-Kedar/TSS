@@ -13,7 +13,7 @@ const newDocument = (doctype: String, doctypetext: String) => {
     t_id: shortid.generate()
   }
 };
-function Yarntype({currdoc,modifydoc,wd,inpref,_onchange}:any) {
+function Yarntype({currdoc,modifydoc,wd,inpref,_onchange,disabled}:any) {
   const onYarnTypeChange = (newcurrdoc:any) => {
     const backup = {...currdoc} 
     if(backup.yarntype !==newcurrdoc.yarntype){     
@@ -27,7 +27,7 @@ function Yarntype({currdoc,modifydoc,wd,inpref,_onchange}:any) {
       }
     }
   return (
-    <><SelectInput wd={wd} label="Yarntype" options={typeoption} name="yarntype" currdoc={currdoc} section={"yarntype"} modifydoc={onYarnTypeChange} inpref={inpref} _onchange={_onchange}/></>
+    <><SelectInput wd={wd} label="Yarntype" options={typeoption} name="yarntype" currdoc={currdoc} section={"yarntype"} modifydoc={onYarnTypeChange} inpref={inpref} _onchange={_onchange} disabled={disabled}/></>
   )
 }
 

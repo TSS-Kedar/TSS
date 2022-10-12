@@ -87,3 +87,12 @@
 .input-field input:valid + .label-name::after {
   transform: translate(0%);
 }
+
+.input-label-container{
+  line-height: 1.5em;
+}
+
+.input-label-container .label-header{
+  font-size: 18px;
+  font-weight: 500;
+}

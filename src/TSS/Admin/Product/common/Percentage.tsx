@@ -14,10 +14,10 @@ const typeoption = [
         { 'key': '100/100', 'value': '100/100' },
     ]
 
-function Percentage({currdoc,modifydoc,wd,label,section,changepercent}:any) {
+function Percentage({currdoc,modifydoc,wd,label,section,changepercent,disabled}:any) {
   //const newOption = section==='percentage1'? typeoption.filter(item=>item.key!==currdoc['percentage2']) : typeoption.filter(item=>item.key!==currdoc['percentage1'])
   return (
-    <SelectInput wd={wd} label={label} options={typeoption} name={section} currdoc={currdoc} section={section} modifydoc={modifydoc} _onchange={changepercent}/>
+    <SelectInput wd={wd} label={label} options={typeoption} name={section} currdoc={currdoc} section={section} modifydoc={modifydoc} _onchange={changepercent} disabled={disabled}/>
   )
 }
 

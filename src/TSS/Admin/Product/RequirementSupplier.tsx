@@ -254,7 +254,7 @@ export const Requirement = (props: any) => {
   }
   const [setDocumentAction, documentstatus, setDocumentstatus, currentdocument, modifydocument, redirect, goBack, closeSnackBar, loaderDisplay, setloaderDisplay]: any = useSaveAction(handleSave, handleSaveCheck, doctype, doctypetext, resetFocus, deleteRequirement)
   const [approvedBuyersData, setApprovedBuyers] = useState([]);
-  let disabled=false
+  let disabled=true
   // if (props.authuser.userauthorisations=='Buyer') {
   //   disabled=false
   // }
@@ -289,8 +289,7 @@ export const Requirement = (props: any) => {
     useEffect(() => {
       getApprovedBuyers({ client: '45004500', lang: 'EN',applicationid:"15001500" })
       let z_id = new URLSearchParams(window.location.search).get("z_id")
-      
-      if(!disabled && yarntypeinp.current.focus!==undefined)yarntypeinp.current.focus()
+      if(!disabled){yarntypeinp.current.focus()}
       if (z_id != 'NO-ID') {
         setloaderDisplay(true)
         getRequirement({ client: '45004500', lang: 'EN', z_id,applicationid:"15001500" }).then((data: any) => {
@@ -319,9 +318,9 @@ export const Requirement = (props: any) => {
  
     let buyerComp;
     if (props.authuser.userauthorisations=='Buyer') {
-      buyerComp = <FlatInput wd="3" label="Buyer" name="buyid" currdoc={currentdocument} section={'buyid'} modifydoc={modifydocument} />;
+      buyerComp = <FlatInput wd="3" label="Buyer" name="buyid" currdoc={currentdocument} section={'buyid'} modifydoc={modifydocument} disabled={disabled}/>;
     } else {
-      buyerComp =  <SelectInput wd="3" label="Buyer" options={approvedBuyersData} name="userauthorisations" currdoc={currentdocument} section={'buyid'} modifydoc={modifydocument} />
+      buyerComp =  <SelectInput wd="3" label="Buyer DDL" options={approvedBuyersData} name="userauthorisations" currdoc={currentdocument} section={'buyid'} modifydoc={modifydocument} disabled={disabled}/>
       ;
     }
     
@@ -378,7 +377,7 @@ export const Requirement = (props: any) => {
         <Messagesnackbar snackbaropen={documentstatus.snackbaropen} snackbarseverity={documentstatus.snackbarseverity} handlesnackbarclose={closeSnackBar} snackbartext={documentstatus.snackbartext} />
       </div>
 
-      <AppbarBottom setAction={setDocumentAction} handleGoback={goBack} setfocus={resetFocus} />
+      {/* <AppbarBottom setAction={setDocumentAction} handleGoback={goBack} setfocus={resetFocus} /> */}
 
     </>
 

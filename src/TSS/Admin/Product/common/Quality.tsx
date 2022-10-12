@@ -8,9 +8,9 @@ const typeoption = [
             { 'key': 'Virgin', 'value': 'Virgin' },
             { 'key': 'Giza', 'value': 'Giza' }
         ]
-function Quality({currdoc,modifydoc,wd}:any) {
+function Quality({currdoc,modifydoc,wd,disabled}:any) {
   return (
-    <><SelectInput wd={wd} label="Quality" options={typeoption} name="quality" currdoc={currdoc} section={"quality"} modifydoc={modifydoc} /></>
+    <><SelectInput wd={wd} label="Quality" options={typeoption} name="quality" currdoc={currdoc} section={"quality"} modifydoc={modifydoc} disabled={disabled}/></>
   )
 }
 

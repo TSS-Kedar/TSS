@@ -9,9 +9,9 @@ const typeoption = [
             { 'key': 'Virgin', 'value': 'Virgin' },
             { 'key': 'Others(Custom)', 'value': 'Others(Custom)' }
         ]
-function Deliveryperiod({currdoc,modifydoc,wd}:any) {
+function Deliveryperiod({currdoc,modifydoc,wd,disabled}:any) {
   return (
-    <><SelectInput wd={wd} label="Delivery Period" options={typeoption} name="deliverysch" currdoc={currdoc} section={"deliverysch"} modifydoc={modifydoc} />
+    <><SelectInput wd={wd} label="Delivery Period" options={typeoption} name="deliverysch" currdoc={currdoc} section={"deliverysch"} modifydoc={modifydoc} disabled={disabled}/>
     {currdoc.deliverysch==="Others(Custom)" && <FlatInput wd={wd} label="Others" name="others" currdoc={currdoc} section={'othdeliverysch'} modifydoc={modifydoc} />}
     </>
   )

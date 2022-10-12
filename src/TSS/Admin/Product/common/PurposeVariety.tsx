@@ -19,9 +19,9 @@ import { SelectInput } from '../../../../common/InputFields/Select'
             { 'key': 'Tencel', 'value': 'Tencel' },
 ]}
 
-function PurposeVariety({currdoc,modifydoc,wd,yarntype,label}:any) {
+function PurposeVariety({currdoc,modifydoc,wd,yarntype,label,disabled}:any) {
   return (
-    <><SelectInput wd={wd} label={label} options={options[yarntype]} name="purposevariety" currdoc={currdoc} section={"purposevariety"} modifydoc={modifydoc} /></>
+    <><SelectInput wd={wd} label={label} options={options[yarntype]} name="purposevariety" currdoc={currdoc} section={"purposevariety"} modifydoc={modifydoc} disabled={disabled}/></>
   )
 }
 

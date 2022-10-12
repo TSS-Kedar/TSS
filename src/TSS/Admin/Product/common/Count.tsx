@@ -11,7 +11,7 @@ import {
      getErrorValue, getErrorValueN, setCalValue
   } from '../../../../common/validationlib';
 const typeoption = [{ 'key': 's', 'value': 'Single' }, { 'key': '2', 'value': 'Double' }]
-function TextileCount({currdoc,modifydoc,wd}: any) {
+function TextileCount({currdoc,modifydoc,wd,disabled}: any) {
     const [open, setOpen] = useState(false)
     const [selectedCount, setCount] = useState("0")
     const [selectedType, setType] = useState({type:""})
@@ -80,7 +80,7 @@ useEffect(() => {
     const errorMsg = getErrorValueN(currentdocument1, 'errorsAll.' + 'selectedCount')
     return (
         <>
-        <FlatInput wd={wd} label="Count" name="count" currdoc={currdoc} section={"count"} modifydoc={modifydoc} onclick={setOpen}/>
+        <FlatInput wd={wd} label="Count" name="count" currdoc={currdoc} section={"count"} modifydoc={modifydoc} onclick={setOpen} disabled={disabled}/>
         {open?<div className="textile-modal-container">
             <div className="center">
                 

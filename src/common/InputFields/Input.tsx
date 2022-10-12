@@ -8,6 +8,7 @@ import {
   getDateYYYYMMDDHHMI,
   getFromToDate
 } from '../validationlib';
+import {LabelField} from './LabelField'
 interface Iinput {
   wd?: string;
   label: string;
@@ -35,6 +36,7 @@ export function Input(props: Iinput) {
   ]
   return (
     <div className={`col-${wd}`}>
+      {!disabled?<>
       <div className={classname}>
         {!disabled? <input
           disabled={disabled}
@@ -56,9 +58,12 @@ export function Input(props: Iinput) {
         </label>
         
       </div>
-      <div className="field-error">{errorMsg}</div>
+      <div className="field-error">{errorMsg}</div></>:
+      <LabelField label={label} currdoc={currdoc} section={section} wd={"12"}/>
+      
+      }
     </div>
   )
 }
 
-export const FlatInput = React.memo(Input)
+ export const FlatInput = React.memo(Input)

@@ -279,7 +279,7 @@ export const BuyerComponent = (props: any) => {
       const location = props.location
       if(location !== undefined) z_id = new URLSearchParams(props?.location?.search).get("z_id")?.toString()
       compinp.current.focus()
-      if (z_id != 'NO-ID') {
+      if (z_id != 'NO-ID' && z_id!==undefined) {
         setloaderDisplay(true)
         getBuyer({ applicationid: '15001500', client: '45004500', lang: 'EN', z_id }).then((data: any) => {
           let contact_arr:any = []

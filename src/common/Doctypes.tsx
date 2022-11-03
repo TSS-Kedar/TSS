@@ -15,6 +15,7 @@ export const PRODUCT="PRODUCT"
 export const BUYER="BUYER"
 
 export const REQUIREMENT="REQUIREMENT"
+export const BID="BID"
 export const TRANSACTIONTYPES ='TRANSACTIONTYPES';
 
 

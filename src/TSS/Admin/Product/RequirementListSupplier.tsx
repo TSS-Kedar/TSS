@@ -11,9 +11,8 @@ import Loader from '../../../common/Loader/Loader'
 import Messagesnackbar from '../../../common/Alert'
 import AlertDialog from '../../../common/PopupModals/ConfirmationModal'
 import { connect } from 'react-redux'
-//function RequirementList() {
-  let url='/requirementedit'
-  export const RequirementList =  (props:any) => {
+//function RequirementListSupplier() {
+ const RequirementListSupplier =  (props:any) => {
 
    if (props.authuser.userauthorisations=='Buyer') {
     const fetchquery = useMemo(()=>(buyerRequirements),[1])
@@ -33,13 +32,11 @@ import { connect } from 'react-redux'
      setRedirect(redirect)
    }
  
-   const M_setDocStatus = useCallback((id,redirect) => {
-    url='/requirementedit';
-    setDocStatus(id,redirect)},[1])
+   const M_setDocStatus = useCallback((id,redirect) => {setDocStatus(id,redirect)},[1])
    const {action,yesaction,noaction,dailogtext,dailogtitle} = documentstatus;
    useAltKey("n",() =>{setDocStatus("NO-ID",true)})
    if (redirect) {
-     let redirectpath = `${url}?z_id=` + docno
+     let redirectpath = '/requirementedit?z_id=' + docno
      return <Redirect push to={redirectpath} /> 
    } else
     return (
@@ -55,26 +52,25 @@ import { connect } from 'react-redux'
                   onRowClick={M_setDocStatus}
                   
                  actions={[
-                  {
-                    action: (id: any) => {
-                      url='/bidlist';
-                      setDocStatus(id, true)
-                    },
-                    icon: 'fas fa-hammer',
-                    text: 'My Bid',
-                    className: 'table-button submit',
-                  },
-                   {
-                     action: (id: String) => {
-                         deleteDocument(id)
-                     },
-                     icon: 'fas fa-trash-alt',
-                     text: 'delete',
-                     className: 'table-button danger',
-                   }
+                   // {
+                   //   action: (id: any) => {
+                   //     setDocStatus(id, true)
+                   //   },
+                   //   icon: 'fas fa-edit',
+                   //   text: 'Edit',
+                   //   className: 'table-button submit',
+                   // },
+                  //  {
+                  //    action: (id: String) => {
+                  //        deleteDocument(id)
+                  //    },
+                  //    icon: 'fas fa-trash-alt',
+                  //    text: 'delete',
+                  //    className: 'table-button danger',
+                  //  }
                  ]}
                >
-                 <Column fieldname="reqid" columnname="Req Id"></Column>
+                <Column fieldname="reqid" columnname="Req Id"></Column>
                  <Column fieldname="yarntype" columnname="Yarn Type"></Column>
                  <Column fieldname="count" columnname="Count"></Column>
                  <Column fieldname="type" columnname="Type"></Column>
@@ -106,13 +102,11 @@ let tabledata:any=[]
     setRedirect(redirect)
   }
 
-  const M_setDocStatus = useCallback((id,redirect) => {
-    url='/requirementedit';
-    setDocStatus(id,redirect)},[1])
+  const M_setDocStatus = useCallback((id,redirect) => {setDocStatus(id,redirect)},[1])
   const {action,yesaction,noaction,dailogtext,dailogtitle} = documentstatus;
   useAltKey("n",() =>{setDocStatus("NO-ID",true)})
   if (redirect) {
-    let redirectpath = `${url}?z_id=` + docno
+    let redirectpath = '/requirementedit?z_id=' + docno +'&code='+props.authuser.username
     return <Redirect push to={redirectpath} /> 
   } else
    return (
@@ -130,24 +124,22 @@ let tabledata:any=[]
                 actions={[
                   {
                     action: (id: any) => {
-                      url='/bidlist';
                       setDocStatus(id, true)
                     },
                     icon: 'fas fa-hammer',
                     text: 'My Bid',
-                    className: 'table-button submit',
-                  },
-                  {
-                    action: (id: String) => {
-                        deleteDocument(id)
-                    },
-                    icon: 'fas fa-trash-alt',
-                    text: 'delete',
                     className: 'table-button danger',
-                  }
+                  },
+                  // {
+                  //   action: (id: String) => {
+                  //       deleteDocument(id)
+                  //   },
+                  //   icon: 'fas fa-trash-alt',
+                  //   text: 'delete',
+                  //   className: 'table-button danger',
+                  // }
                 ]}
               >
-                <Column fieldname="reqid" columnname="Req Id"></Column>
                 <Column fieldname="yarntype" columnname="Yarn Type"></Column>
                 <Column fieldname="count" columnname="Count"></Column>
                 <Column fieldname="type" columnname="Type"></Column>
@@ -186,7 +178,7 @@ const mapStateToProps = (state:any) => {
 
 const mapDispatchToProps = {}
 
-//export default RequirementList
+//export default RequirementListSupplier
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequirementList)
+export default connect(mapStateToProps, mapDispatchToProps)(RequirementListSupplier)
 

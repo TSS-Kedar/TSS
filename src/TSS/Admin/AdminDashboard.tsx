@@ -9,6 +9,7 @@ import UserComponent from '../../User/UserComponent'
 import Product from './Product/Product'
 import Requirement from './Product/Requirement'
 import ProductList from './Product/ProductList'
+import BidList from './Product/BidList'
 import Buyer from './Buyer/Buyer'
 import BuyerList from './Buyer/BuyerList'
 import RequirementList from './Product/RequirementList'
@@ -55,7 +56,9 @@ function AdminDashboard(props:any) {
               <Route exact path="/buyeredit">
                 <Buyer {...props}/>
               </Route>
-              
+              <Route exact path="/bidlist">
+                <BidList {...props}/>
+              </Route>
               <Route exact path="/bidderManagement">
               <></>
               </Route>

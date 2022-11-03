@@ -24,7 +24,9 @@ import * as doctypes from '../../../common/Doctypes';
 import deleteRequirement from '../../../common/mutations/deleteRequirement'
 import constant from '../../../common/constant'
 import requirementQuery from '../../../common/queries/requirementQuery'
+import bidQuery from '../../../common/queries/bidQuery'
 import saveRequirement from '../../../common/mutations/saveRequirement';
+import saveBid from '../../../common/mutations/saveBid';
 import { execGql, execGql_xx } from '../../../common/gqlclientconfig';
 import Messagesnackbar from '../../../common/Alert'
 import AlertDialog from '../../../common/PopupModals/ConfirmationModal'
@@ -45,7 +47,7 @@ const newDocument = (doctype: String, doctypetext: String) => {
   }
 };
 
-
+let backupdoc:any=null
 
 export const handleSaveCheck = (currentdocument: any) => {
   const { touched, yarntype, count, purposevariety, type, nature, quality, slug, composition1, composition2, percentage1, percentage2, tolerance, diff,
@@ -86,8 +88,6 @@ export const handleSaveCheck = (currentdocument: any) => {
     percentage1_check = runCheck(nvl(percentage1, ''), [requiredCheck]);
     percentage2_check = runCheck(nvl(percentage2, ''), [requiredCheck]);
     tolerance_check = runCheck(nvl(tolerance, ''), [requiredCheck]);
-
-
     //diff_check=runCheck(nvl(diff, ''), [requiredCheck]);
   }
 
@@ -164,6 +164,48 @@ export const handleSaveCheck = (currentdocument: any) => {
 
   return currentdocument;
 }
+export const handleSaveCheckBid = (currentdocument: any) => {
+  const { 
+    reqid, supid, amount1, amount2, supremarks,validatemode,touched,
+    status
+  } = currentdocument;
+
+  let reqid_check, supid_check, amount1_check, amount2_check, supremark_check,status_check
+  reqid_check = runCheck(nvl(reqid, ''), [requiredCheck]);
+  supid_check = runCheck(nvl(supid, ''), [requiredCheck]);
+  amount1_check = runCheck(nvl(amount1, ''), [requiredCheck,numberPositiveCheck]);
+  amount2_check = runCheck(nvl(amount2, ''), [requiredCheck,numberPositiveCheck]);
+  supremark_check = runCheck(nvl(supremarks, ''), [requiredCheck]);
+  status_check = runCheck(nvl(status, ''), [requiredCheck]);
+
+
+  console.log('currentdocument.errorsAll', currentdocument.errorsAll)
+  if (validatemode == 'save') {
+    currentdocument.errorsAll = {
+      reqid: reqid_check,
+      supid: supid_check,
+      amount2: amount2_check,
+      amount1: amount1_check,
+      supremarks: supremark_check,
+      status:status_check
+      //diff:diff_check
+    }
+    validatemode == 'touch'
+  }
+  if (validatemode == 'touch' && touched != null) {
+    currentdocument.errorsAll = {
+      reqid: checkTouched(nvl(touched.reqid, false), reqid_check),
+      supid: checkTouched(nvl(touched.supid, false), supid_check),
+      amount2: checkTouched(nvl(touched.amount2, false), amount2_check),
+      amount1: checkTouched(nvl(touched.amount1, false), amount1_check),
+      supremarks: checkTouched(nvl(touched.supremarks, false), supremark_check),
+      status: checkTouched(nvl(touched.status, false), status_check)
+    }
+  }
+
+
+  return currentdocument;
+}
 
 export const handleSave = async (currentdocument: any) => {
   var result: any = '', errorMessage = '', errors = new Array();
@@ -222,6 +264,68 @@ export const handleSave = async (currentdocument: any) => {
 
   })
 }
+
+export const handleSaveBid = async (currentdocument: any) => {
+  var result: any = '', errorMessage = '', errors = new Array();
+  return new Promise<void>(async (resolve, reject) => {
+
+
+    try {
+      let recoForSave = {
+        ...constant,
+        reqid: nvl(currentdocument.reqid, ''),
+        supid: nvl(currentdocument.supid, ''),
+        amount2: nvl(currentdocument.amount2, ''),
+        amount1: nvl(currentdocument.amount1, ''),
+        supremarks: nvl(currentdocument.supremarks, ''),
+        status: nvl(currentdocument.status, ''),
+        z_id:nvl(currentdocument.z_id,'')
+      }
+
+      //recoForSave.reffiles.forEach(element => {delete element.__typename});
+
+
+      result = await execGql('mutation', saveBid, recoForSave)
+      if (!result) {
+        console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })
+        reject({ "errors": [], "errorMessage": 'No errors and results from GQL' })
+      }
+      else {
+        resolve(result.data)
+        return result.data;
+      }
+    }
+    catch (err: any) {
+      errors = err.errorsGql;
+      errorMessage = err.errorMessageGql;
+      console.log({ "errors": errors, "errorMessage": errorMessage })
+    }
+
+  })
+}
+
+async function getBid(values: any) {
+  var result: any = '', errorMessage = '', errors = new Array();
+  try {
+    result = await execGql('query', bidQuery, values)
+    if (!result) {
+      console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })
+      return [];
+      // return callback({"errors":[],"errorMessage":'No errors and results from GQL'} ,'');
+    }
+    else {
+      //return result.data;
+      console.log(result.data)
+      return result.data.bids;
+    }
+  }
+  catch (err: any) {
+    errors = err.errorsGql;
+    errorMessage = err.errorMessageGql;
+    console.log({ "errors": errors, "errorMessage": errorMessage })
+    // return callback({"errors":errors,"errorMessage":errorMessage},'' );
+  }
+}
 async function getRequirement(values: any) {
   var result: any = '', errorMessage = '', errors = new Array();
   try {
@@ -248,11 +352,12 @@ async function getRequirement(values: any) {
 export const Requirement = (props: any) => {
   const yarntypeinp: any = useRef(0)
   const doctype = doctypes.REQUIREMENT;
-  const doctypetext = 'Requirement';
+  const doctypetext = 'Bid';
   const resetFocus = () => {
     setTimeout(() => yarntypeinp.current.focus(), 1000)
   }
-  const [setDocumentAction, documentstatus, setDocumentstatus, currentdocument, modifydocument, redirect, goBack, closeSnackBar, loaderDisplay, setloaderDisplay]: any = useSaveAction(handleSave, handleSaveCheck, doctype, doctypetext, resetFocus, deleteRequirement)
+  const [setDocumentAction, documentstatus, setDocumentstatus, currentdocument, modifydocument, redirect, goBack, closeSnackBar, loaderDisplay, setloaderDisplay]: any = useSaveAction(handleSaveBid, handleSaveCheckBid, doctype, doctypetext, resetFocus, deleteRequirement)
+  const bidacc: any = useSaveAction(handleSaveBid, handleSaveCheckBid, doctype, doctypetext, resetFocus, deleteRequirement)
   const [approvedBuyersData, setApprovedBuyers] = useState([]);
   let disabled=true
   // if (props.authuser.userauthorisations=='Buyer') {
@@ -285,16 +390,38 @@ export const Requirement = (props: any) => {
 
 
 
-
+useEffect(()=>{
+  if(!currentdocument.yarntype && backupdoc!==null){
+   modifydocument({...backupdoc,...currentdocument})
+}
+}, [currentdocument.yarntype])
     useEffect(() => {
+      console.log(props.authenticated)
       getApprovedBuyers({ client: '45004500', lang: 'EN',applicationid:"15001500" })
       let z_id = new URLSearchParams(window.location.search).get("z_id")
+      let code = new URLSearchParams(window.location.search).get("code")
+      let currdoc:any = {...currentdocument}
+      currdoc['supid']=code
       if(!disabled){yarntypeinp.current.focus()}
       if (z_id != 'NO-ID') {
         setloaderDisplay(true)
+        
         getRequirement({ client: '45004500', lang: 'EN', z_id,applicationid:"15001500" }).then((data: any) => {
-          modifydocument(data[0])
-          setloaderDisplay(false)
+          currdoc = {...currdoc,...data[0]}
+          backupdoc ={...currdoc}
+          currdoc.z_id = ""
+          modifydocument(currdoc)
+
+          //setloaderDisplay(false)
+          getBid({ client: '45004500', lang: 'EN', z_id:"",applicationid:"15001500",supid:code,reqid:data[0].reqid }).then((data1: any) => {
+          
+            if(data1[0]){
+              currdoc = {...currdoc,...data1[0]}
+              modifydocument(currdoc)
+          }
+        });
+        
+        setloaderDisplay(false)
         });
       }
       if (z_id == 'NO-ID') {
@@ -308,7 +435,14 @@ export const Requirement = (props: any) => {
 
     }, []);
     
-    const { action, yesaction, noaction, dailogtext, dailogtitle } = documentstatus;
+    const { action,  noaction, dailogtext, dailogtitle } = documentstatus;
+    let {yesaction} = documentstatus
+    yesaction = ()=>{
+      const docstatus = {...documentstatus}
+      docstatus.action = false
+      setDocumentstatus({...docstatus})
+      onClickSave('submit')
+    }
     if(redirect){
       let redirectpath='/requirementManagement'
       return <Redirect push to={redirectpath} />;
@@ -324,6 +458,25 @@ export const Requirement = (props: any) => {
       ;
     }
     
+    const onClickSave=(status:string)=>{
+      const curdoc = {...currentdocument}
+      curdoc['status'] =status
+      currentdocument['status']=status
+      //modifydocument({...curdoc})
+      setDocumentAction('save')
+    }
+    const onClickSubmit=(status:string)=>{
+      const docstatus = {...documentstatus}
+      docstatus.action = true
+      docstatus.dailogtext="Are you sure you want to submit the bid. Once submitted cannot be edited" 
+      docstatus.dailogtitle="Sumbit Bid"
+      setDocumentstatus({...docstatus})
+      // const curdoc = {...currentdocument}
+      // curdoc['status'] =status
+      // currentdocument['status']=status
+      // //modifydocument({...curdoc})
+      // setDocumentAction('save')
+    }
 
   return (
 
@@ -339,6 +492,21 @@ export const Requirement = (props: any) => {
 
 
         <div className="grid">
+        <div className="row">
+        <FlatInput wd="3" label="Amount without Transportation" name="Amount1" currdoc={currentdocument} section={'amount1'} modifydoc={modifydocument} />
+        <FlatInput wd="3" label="Amount with Transportation" name="Amount2" currdoc={currentdocument} section={'amount2'} modifydoc={modifydocument} />
+        <div className={"col-6"}>
+        <div className="stepper-container">
+        <div className="btn-box">
+        {currentdocument.status !== 'submit'? <><button type="button" id={"SaveBid"} onClick={()=>{onClickSave('save')}}>Save Bid</button>&nbsp;&nbsp;&nbsp;
+        <button type="button" id={"back"} onClick={()=>{onClickSubmit('submit')}}>Submit Bid</button></>:<></>}
+        </div>
+        </div>
+        </div>
+        </div>
+        <div className="row">
+        <FlatInput wd="12" label="Remarks" name="Remarks" currdoc={currentdocument} section={'supremarks'} modifydoc={modifydocument} />
+        </div>
           <div className="row">
             <FlatInput wd="3" label="Requirement Id" name="reqid" currdoc={currentdocument} section={'reqid'} modifydoc={modifydocument} disabled={true}/>
             {buyerComp}

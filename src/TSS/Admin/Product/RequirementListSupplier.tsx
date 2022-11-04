@@ -140,6 +140,7 @@ let tabledata:any=[]
                   // }
                 ]}
               >
+                <Column fieldname="reqid" columnname="Req Id"></Column>
                 <Column fieldname="yarntype" columnname="Yarn Type"></Column>
                 <Column fieldname="count" columnname="Count"></Column>
                 <Column fieldname="type" columnname="Type"></Column>

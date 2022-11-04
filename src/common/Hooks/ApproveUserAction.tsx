@@ -49,14 +49,15 @@ function ApprovalUserAction(doctype:String,GraphQuery:any,getTableData:any,setlo
         setloaderDisplay(loaderDisplay) 
         getTableData().then((data:any)=>{
           
-               setTableData(data)
-               setloaderDisplay(!loaderDisplay)         
-           });
+          setTableData(data)
+          setloaderDisplay(!loaderDisplay)
           docstatus.action= false;
           docstatus.snackbaropen=true;
           docstatus.snackbarseverity='success';
           docstatus.snackbartext= doctype + ' Approved'
-          setDocumentstatus({...docstatus})
+          setDocumentstatus({...docstatus})         
+           });
+          
       }
       docstatus.noaction= () => {
         docstatus.action = false;

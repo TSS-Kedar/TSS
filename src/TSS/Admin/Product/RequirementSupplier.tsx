@@ -176,7 +176,7 @@ export const handleSaveCheckBid = (currentdocument: any) => {
   amount1_check = runCheck(nvl(amount1, ''), [requiredCheck,numberPositiveCheck]);
   amount2_check = runCheck(nvl(amount2, ''), [requiredCheck,numberPositiveCheck]);
   supremark_check = runCheck(nvl(supremarks, ''), [requiredCheck]);
-  status_check = runCheck(nvl(status, ''), [requiredCheck]);
+  //status_check = runCheck(nvl(status, ''), [requiredCheck]);
 
 
   console.log('currentdocument.errorsAll', currentdocument.errorsAll)
@@ -357,8 +357,9 @@ export const Requirement = (props: any) => {
     setTimeout(() => yarntypeinp.current.focus(), 1000)
   }
   const [setDocumentAction, documentstatus, setDocumentstatus, currentdocument, modifydocument, redirect, goBack, closeSnackBar, loaderDisplay, setloaderDisplay]: any = useSaveAction(handleSaveBid, handleSaveCheckBid, doctype, doctypetext, resetFocus, deleteRequirement)
-  const bidacc: any = useSaveAction(handleSaveBid, handleSaveCheckBid, doctype, doctypetext, resetFocus, deleteRequirement)
+  //const bidacc: any = useSaveAction(handleSaveBid, handleSaveCheckBid, doctype, doctypetext, resetFocus, deleteRequirement)
   const [approvedBuyersData, setApprovedBuyers] = useState([]);
+  const [action1, setAction] = useState(false);
   let disabled=true
   // if (props.authuser.userauthorisations=='Buyer') {
   //   disabled=false
@@ -395,7 +396,7 @@ useEffect(()=>{
    modifydocument({...backupdoc,...currentdocument})
 }
 }, [currentdocument.yarntype])
-    useEffect(() => {
+useEffect(() => {
       console.log(props.authenticated)
       getApprovedBuyers({ client: '45004500', lang: 'EN',applicationid:"15001500" })
       let z_id = new URLSearchParams(window.location.search).get("z_id")
@@ -439,6 +440,7 @@ useEffect(()=>{
     let {yesaction} = documentstatus
     yesaction = ()=>{
       const docstatus = {...documentstatus}
+      setAction(false)
       docstatus.action = false
       setDocumentstatus({...docstatus})
       onClickSave('submit')
@@ -466,11 +468,20 @@ useEffect(()=>{
       setDocumentAction('save')
     }
     const onClickSubmit=(status:string)=>{
+      currentdocument['validatemode']="save"
+      //currentdocument['status']="submit"
+     const currentdocument0= handleSaveCheckBid(currentdocument)
+      let isSaveOk = !Object.keys(currentdocument0.errorsAll).some((x: any) => currentdocument0.errorsAll[x]);
+      if(isSaveOk){
       const docstatus = {...documentstatus}
-      docstatus.action = true
+      setAction(true)
+      docstatus.action = false
       docstatus.dailogtext="Are you sure you want to submit the bid. Once submitted cannot be edited" 
       docstatus.dailogtitle="Sumbit Bid"
       setDocumentstatus({...docstatus})
+    }else{
+      modifydocument({...currentdocument0})
+    }
       // const curdoc = {...currentdocument}
       // curdoc['status'] =status
       // currentdocument['status']=status
@@ -541,7 +552,7 @@ useEffect(()=>{
         
         {/* {JSON.stringify(currentdocument)} 
               <button type="button" onClick={()=>{console.log(currentdocument)}}>Submit</button>:<></> */}
-        <AlertDialog open={action} handleno={noaction} handleyes={yesaction} dailogtext={dailogtext} dailogtitle={dailogtitle} />
+        <AlertDialog open={action1} handleno={noaction} handleyes={yesaction} dailogtext={dailogtext} dailogtitle={dailogtitle} />
         <Messagesnackbar snackbaropen={documentstatus.snackbaropen} snackbarseverity={documentstatus.snackbarseverity} handlesnackbarclose={closeSnackBar} snackbartext={documentstatus.snackbartext} />
       </div>
 

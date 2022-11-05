@@ -258,6 +258,7 @@ export const BuyerComponent = (props: any) => {
   }
   const [setDocumentAction, documentstatus, setDocumentstatus, currentdocument, modifydocument, redirect, goBack, closeSnackBar, loaderDisplay, setloaderDisplay]: any = useSaveAction(handleSave, handleSaveCheck, doctype, doctypetext, resetFocus, deleteGQL)
   const [contactList, setContactList] = useState([{contactname:"", phoneno:"", email:"",index:0}])
+  const [errMsg, setErrMsg] = useState("")
   const addNewcontact=()=>{
     const contact_arr=[...contactList];
     contact_arr.push({contactname:"", phoneno:"", email:"",index:(contactList.length)})
@@ -334,21 +335,29 @@ export const BuyerComponent = (props: any) => {
 
     const funcsendBuyerMobileOTPJWT = async (currdoc:any) =>
     {
- 
-      let {applicationid,client,lang,z_id,primarynumber} = currdoc
-      let para ={applicationid,client,lang,z_id,primarynumber}
-      let result = await execGql('mutation', sendBuyerMobileOTPJWT , para)
-      if (!result) {
-        console.log('***rrrrr**',result)
-       // setValue(currdoc,'verificationuser',result.data.sendBuyerMobileOTPJWT.verificationuser)
-        
-        console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })
-        
-      }
-      else {
-        
-        return result.data.sendBuyerMobileOTPJWT.verificationuser;
-      }
+      return new Promise(async (resolve, reject)=>{
+        try{
+          let {applicationid,client,lang,z_id,primarynumber} = currdoc
+          let para ={applicationid,client,lang,z_id,primarynumber}
+          let result:any = await execGql('mutation', sendBuyerMobileOTPJWT , para)
+          console.log(result)
+          if (!result) {
+            console.log('***rrrrr**',result)
+           // setValue(currdoc,'verificationuser',result.data.sendBuyerMobileOTPJWT.verificationuser)
+            
+            console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })
+            
+          } else {
+            console.log(result)
+            return result.data.sendBuyerMobileOTPJWT.verificationuser;
+          }
+        }catch(err:any){
+            console.log(err)
+            resolve(err.errorMessageGql)
+            return err.errorMessageGql
+          }
+      })
+     
     }
 
 
@@ -484,9 +493,15 @@ export const BuyerComponent = (props: any) => {
                 <FlatInput wd="6" label="OTP" name="otp" currdoc={currentdocument1} section={'mobileotp'} modifydoc={modifydocument} />
                 <div className={"col-6"}></div>
               </div>
+              <div className='row'>
+              <div className={"col-6 field-error"}>{errMsg}</div>
+              </div>
               <div className="row">
-              <button type="button"  onClick={()=>{funcsendBuyerMobileOTPJWT(currentdocument1)}}>Generate OTP</button>
-                <div className={"col-6"}></div>
+              <button type="button"  onClick={async ()=>{
+                const err:any = await funcsendBuyerMobileOTPJWT(currentdocument1);
+                setErrMsg(err)
+              }}>Generate OTP</button>
+                <div className={"col-6 "}></div>
               </div>
 
               <div className="row">

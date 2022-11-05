@@ -71,6 +71,7 @@ function BuyerList() {
                   }
                 ]}
               >
+                <Column fieldname="buyid" columnname="Buyer Id"></Column>
                 <Column fieldname="firstname" columnname="First Name"></Column>
                 <Column fieldname="lastname" columnname="Last Name"></Column>
                 <Column fieldname="companyname" columnname="Company Name"></Column>

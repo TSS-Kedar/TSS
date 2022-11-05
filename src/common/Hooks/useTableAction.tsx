@@ -32,7 +32,7 @@ function useTableAction(fetchGraphQuery:any, doctype:String,deleteGraphQuery:any
             if(values)
             {
               console.log('%%%%%%%%%%%%',values)
-            result = await execGql('query', fetchGraphQuery, {applicationid: '15001500', client: '45004500', lang: 'EN', buyid:'BUY1025' })
+            result = await execGql('query', fetchGraphQuery, {...values })
             }
             else
             {

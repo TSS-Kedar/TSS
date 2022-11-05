@@ -165,7 +165,7 @@ export const BidList = (props:any) => {
                  {/* <Column fieldname="reqid" columnname="Request Id"></Column> */}
                  <Column fieldname="amount1" columnname="Amount with transportation"></Column>
                  <Column fieldname="amount2" columnname="Amount without transportation"></Column>
-                 <Column fieldname="supremark" columnname="Supplier remark"></Column>
+                 <Column fieldname="supremarks" columnname="Supplier remark"></Column>
                </Table>
     </div>
   )

@@ -19,15 +19,7 @@ $mobileotp:String,
          verificationuser :$verificationuser,
           primarynumber:$primarynumber
        )
-      {
-        applicationid
-    client
-    lang
-    z_id,
-    
-  verificationuser
-       
- }
+      
     }
   
 `;

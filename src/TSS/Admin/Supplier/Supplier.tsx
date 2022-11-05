@@ -361,7 +361,7 @@ export const SupplierComponent = (props: any) => {
     return (
       <>
         <Loader display={loaderDisplay} />
-        <Stepper onsubmit={addContactsToSaveDoc}>
+        <Stepper onsubmit={addContactsToSaveDoc} displaySubmit={true}>
           <Step name={"Step 1"} title="Basic Profile">
             <div className="grid">
               <div className="row">

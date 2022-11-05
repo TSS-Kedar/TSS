@@ -335,8 +335,10 @@ export const BuyerComponent = (props: any) => {
 
     const funcsendBuyerMobileOTPJWT = async (currdoc:any) =>
     {
+      let obj:any={}
       return new Promise(async (resolve, reject)=>{
         try{
+
           let {applicationid,client,lang,z_id,primarynumber} = currdoc
           let para ={applicationid,client,lang,z_id,primarynumber}
           let result:any = await execGql('mutation', sendBuyerMobileOTPJWT , para)
@@ -348,13 +350,15 @@ export const BuyerComponent = (props: any) => {
             console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })
             
           } else {
+            obj={ status:"success", msg:result.data.sendBuyerMobileOTPJWT}
             console.log(result)
-            return result.data.sendBuyerMobileOTPJWT.verificationuser;
+            resolve(obj)
+            //return result.data.sendBuyerMobileOTPJWT.verificationuser;
           }
         }catch(err:any){
-            console.log(err)
-            resolve(err.errorMessageGql)
-            return err.errorMessageGql
+          obj={ status:"failed", msg:err.errorMessageGql}
+            resolve(obj)
+            return obj
           }
       })
      
@@ -363,19 +367,40 @@ export const BuyerComponent = (props: any) => {
 
     const funcverifyBuyerMobileOTPJWT = async (currdoc:any) =>
     {
-      let {applicationid,client,lang,z_id,primarynumber,verificationuser,mobileotp} = currdoc
-   
-      let para ={applicationid,client,lang,z_id,primarynumber,verificationuser,mobileotp}
-      console.log(para)
-      let result = await execGql('mutation', verifyBuyerMobileOTPJWT, para)
-      if (!result) {
-        console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })
-        
-      }
-      else {
-        
-        return result.data;
-      }
+      let obj={ }
+      
+        return new Promise(async (resolve, reject)=>{
+          try{
+        let {applicationid,client,lang,z_id,primarynumber,verificationuser,mobileotp} = currdoc
+        let para ={applicationid,client,lang,z_id,primarynumber,verificationuser,mobileotp}
+        console.log(para)
+        let result = await execGql('mutation', verifyBuyerMobileOTPJWT, para)
+        if (!result) {
+          console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })
+          obj={
+            status:"failed",
+            msg:'No errors and results from GQL'
+          }
+        }
+        else {
+          obj={
+            status:"success",
+            msg:result.data.verifyBuyerMobileOTPJWT
+          }  
+          resolve(obj)      
+          return result.data.verifyBuyerMobileOTPJWT;
+        }
+      }catch(err:any){
+        obj={
+          status:"failed",
+          msg:err.errorMessageGql
+        }
+        resolve(obj) 
+    }
+        })
+      
+      
+      
     }
 
     let currentdocument1 = handleSaveCheck(currentdocument);
@@ -387,7 +412,7 @@ export const BuyerComponent = (props: any) => {
         <span>{"Back to login"}</span>
       </a></div>:<></>}
         <Loader display={loaderDisplay} />
-        <Stepper onsubmit={addContactsToSaveDoc}>
+        <Stepper onsubmit={addContactsToSaveDoc} displaySubmit={currentdocument.isotpverified!==undefined?true:false}>
           <Step name={"Step 1"} title="Basic Profile">
             <div className="grid">
               <div className="row">
@@ -489,25 +514,43 @@ export const BuyerComponent = (props: any) => {
                 <FlatInput wd="6" label="New Password" name="newpassword" currdoc={currentdocument1} section={'newpassword'} modifydoc={modifydocument} />
                 <div className={"col-6"}></div>
               </div>
-              <div className="row">
+              <>{currentdocument.verificationuser!==undefined && currentdocument.isotpverified===undefined?<div className="row">
                 <FlatInput wd="6" label="OTP" name="otp" currdoc={currentdocument1} section={'mobileotp'} modifydoc={modifydocument} />
                 <div className={"col-6"}></div>
-              </div>
+              </div>:<></>}</>
               <div className='row'>
               <div className={"col-6 field-error"}>{errMsg}</div>
               </div>
-              <div className="row">
+
+              <>{currentdocument.verificationuser===undefined?<div className="row">
               <button type="button"  onClick={async ()=>{
-                const err:any = await funcsendBuyerMobileOTPJWT(currentdocument1);
-                setErrMsg(err)
+                setErrMsg("")
+                const obj:any = await funcsendBuyerMobileOTPJWT(currentdocument1);
+                if(obj.status==="failed"){
+                  setErrMsg(obj.msg)
+                }else{
+                  modifydocument({...currentdocument, verificationuser:obj.msg})
+                  setErrMsg("enter otp")
+                }
+                
               }}>Generate OTP</button>
                 <div className={"col-6 "}></div>
-              </div>
+              </div>:<></>}</>
 
-              <div className="row">
-              <button type="button"  onClick={()=>{funcverifyBuyerMobileOTPJWT(currentdocument1)}}>Verify OTP</button>
+              <>{currentdocument.verificationuser!==undefined && currentdocument.isotpverified===undefined?<div className="row">
+              <button type="button"  onClick={async ()=>{
+                setErrMsg("");
+                let res:any=await funcverifyBuyerMobileOTPJWT(currentdocument1)
+              if(res.status==='failed'){
+                setErrMsg(res.msg)
+              }else{
+              modifydocument({...currentdocument,isotpverified:res.msg})
+              setErrMsg("")
+            }
+              }}>Verify OTP</button>
                 <div className={"col-6"}></div>
-              </div>
+              </div>:<></>}</>
+
             </div>
           </Step>
         </Stepper>

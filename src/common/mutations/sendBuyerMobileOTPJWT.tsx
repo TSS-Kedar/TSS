@@ -16,15 +16,6 @@ $primarynumber:String
         primarynumber:$primarynumber
        
        )
-      {
-        applicationid
-    client
-    lang
-    z_id,
-        
-    
-  verificationuser
-       
- }
+      
     }
 `;

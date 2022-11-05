@@ -62,6 +62,7 @@ function SupplierList() {
                   }
                 ]}
               >
+                <Column fieldname="supid" columnname="Sup Id"></Column>
                 <Column fieldname="firstname" columnname="First Name"></Column>
                 <Column fieldname="lastname" columnname="Last Name"></Column>
                 <Column fieldname="companyname" columnname="Company Name"></Column>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Step from './Step'
 import "./stepper.css"
 function Stepper(props: any) {
-    const {onsubmit} = props
+    const {onsubmit,displaySubmit} = props
     useEffect(() => {
         const form1:any = document.getElementById("form1")
         const form2:any = document.getElementById("form2")
@@ -46,7 +46,7 @@ function Stepper(props: any) {
                 <div className="btn-box">
                 {i>0?<button type="button" id={"back"+(i+1)} onClick={()=>onBackButtonClick(i)}>Back</button>:<></>}
                 {i !== props.children.length-1 ?<button type="button" id={"next"+(i+1)} onClick={()=>{onNextButtonClick(i)}}>Next</button>:<></>}
-                { i === props.children.length-1 ?<button type="button" id={"back"+(i+1)} onClick={()=>onsubmit("save")}>Submit</button>:<></>} 
+                { i === props.children.length-1 && displaySubmit?<button type="button" id={"back"+(i+1)} onClick={()=>onsubmit("save")}>Submit</button>:<></>} 
             </div>
             </div>))}
         <div className="step-row">

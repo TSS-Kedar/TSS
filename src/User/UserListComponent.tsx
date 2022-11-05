@@ -75,8 +75,8 @@ useAltKey("n",() =>{setDocStatus("NO-ID",true)})
                   fieldname="firstname"
                   columnname="First Name"
                 ></Column>
-
                 <Column fieldname="lastname" columnname="Last Name"></Column>
+                <Column fieldname="username" columnname="User Id"></Column>
                 <Column fieldname="username" columnname="User Name"></Column>
                 <Column fieldname="email" columnname="Email Id"></Column>
                 <Column fieldname="mobile" columnname="Phone No."></Column>

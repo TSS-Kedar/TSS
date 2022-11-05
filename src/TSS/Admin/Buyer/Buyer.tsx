@@ -67,7 +67,7 @@ export const handleSaveCheck = (currentdocument: any) => {
   let addemailnumber_check = ""//runCheck(nvl(addemailnumber, ''), [requiredCheck]);
   let website_check = runCheck(nvl(website, ''), [requiredCheck]);
   let companyname_check = runCheck(nvl(companyname, ''), [requiredCheck]);
-  let accounttype_check = runCheck(nvl(accounttype, ''), [requiredCheck]);
+  let accounttype_check = ""//runCheck(nvl(accounttype, ''), [requiredCheck]);
   let category_check = runCheck(nvl(category, ''), [requiredCheck]);
   let address_check = runCheck(nvl(address, ''), [requiredCheck])
   let completeaddress_check = runCheck(nvl(completeaddress, ''), [requiredCheck]);
@@ -404,7 +404,13 @@ export const BuyerComponent = (props: any) => {
     }
 
     let currentdocument1 = handleSaveCheck(currentdocument);
-
+    const yarnoptions = [
+      { 'label': 'Cotton', 'value': 'Cotton' },
+      { 'label': 'Synthetic', 'value': 'Synthetic' }, 
+      { 'label': 'Viscose', 'value': 'Viscose' }, 
+      { 'label': 'Fancy', 'value': 'Fancy' },
+      { 'label': 'Blends', 'value': 'Blends' }
+    ]
     return (
       <div className={!props.authenticated?'container':""}>
        {!props.authenticated?<div style={{width:"100%"}}> <a onClick={()=>{props.changeForm()}} style={{color:"red",fontSize:"20px",cursor:"pointer",float:"right"}}>
@@ -460,11 +466,11 @@ export const BuyerComponent = (props: any) => {
           <Step name={"Step 2"} title="Business Details">
             <div className="grid">
               <div className="row">
-                <FlatInput wd="3" label="Company Name" name="companyname" currdoc={currentdocument1} section={'companyname'} modifydoc={modifydocument} />
-                <FlatInput wd="3" label="Account Type" name="accounttype" currdoc={currentdocument1} section={'accounttype'} modifydoc={modifydocument} />
-                <SearchSelectInput inpref={compinp} wd="6" label="" options={timeframeoptions} name="category" currdoc={currentdocument1} section={'category'} modifydoc={modifydocument} refresh={()=>{}} isMulti={true}/>
+                <FlatInput wd="4" label="Company Name" name="companyname" currdoc={currentdocument1} section={'companyname'} modifydoc={modifydocument} />
+                {/* <FlatInput wd="3" label="Account Type" name="accounttype" currdoc={currentdocument1} section={'accounttype'} modifydoc={modifydocument} /> */}
+                <SearchSelectInput inpref={compinp} wd="8" label="" options={yarnoptions} name="category" currdoc={currentdocument1} section={'category'} modifydoc={modifydocument} refresh={()=>{}} isMulti={true}/>
                 {/* <FlatInput wd="3" label="Edit Category" name="editcategory" currdoc={currentdocument1} section={'category'} modifydoc={modifydocument} /> */}
-                {/* <div className={"col-3"}></div> */}
+                <div className={"col-1"}></div> 
               </div>
               <div className="row">
                 <FlatInput wd="6" label="Address" name="address" currdoc={currentdocument1} section={'address'} modifydoc={modifydocument} />

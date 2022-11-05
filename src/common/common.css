@@ -90,6 +90,11 @@
     width: calc((100% / 12 - 2px) * 6);
   }
 
+  .grid .row .col-9 {
+    display: flex;
+    flex-flow: column;
+    width: calc((100% / 12 - 2px) * 9);
+  }
   .grid .row .col-4 {
     display: flex;
     flex-flow: column;
@@ -120,7 +125,11 @@
     flex-flow: column;
     width: calc((100% / 12 - 2px) * 3);
   }
-
+  .grid .row .col-9 {
+    display: flex;
+    flex-flow: column;
+    width: calc((100% / 12 - 2px) * 1.5);
+  }
   .grid .row .col-4 {
     display: flex;
     flex-flow: column;

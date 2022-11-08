@@ -26,6 +26,12 @@ mutation saveRequirement(
   $targetprice: String ,
   $restreportreq: String ,
   $targetmills: String ,
+
+  $remarks: String ,
+  $uom: String ,
+  $paymentterms: String ,
+  $bcicertificate: String ,
+$deliverylocation: String,
   $reqid: String ,
   $buyid: String 
 
@@ -57,6 +63,14 @@ mutation saveRequirement(
   targetprice: $targetprice ,
   restreportreq: $restreportreq ,
   targetmills: $targetmills,
+
+deliverylocation: $deliverylocation,
+  remarks: $remarks ,
+  uom: $uom ,
+  paymentterms: $paymentterms ,
+  bcicertificate: $bcicertificate ,
+
+
   reqid: $reqid,
   buyid : $buyid
 
@@ -64,8 +78,8 @@ mutation saveRequirement(
 
     )
     {
-    applicationid
-    client
+    applicationid,
+    client,
     lang,
     z_id,
     t_id
@@ -89,6 +103,11 @@ mutation saveRequirement(
     targetprice ,
     restreportreq ,
     targetmills,
+    remarks ,
+    uom,
+    paymentterms ,
+    bcicertificate ,
+    deliverylocation,
     reqid,
     buyid 
   }

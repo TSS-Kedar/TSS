@@ -57,6 +57,11 @@ export const handleSaveCheck = (currentdocument: any) => {
     targetprice,
     restreportreq,
     targetmills,
+    remarks,
+uom,
+paymentterms,
+deliverylocation,
+bcicertificate,
     validatemode } = currentdocument;
 
   let yarntype_check, count_check, purposevariety_check, type_check, nature_check, quality_check, slug_check, composition1_check
@@ -67,7 +72,15 @@ export const handleSaveCheck = (currentdocument: any) => {
     reqqty_check,
     targetprice_check,
     restreportreq_check,
-    targetmills_check, diff_check = "";
+    targetmills_check,
+    remarks_check,
+    uom_check,
+    paymentterms_check,
+    deliverylocation_check,
+    bcicertificate_check,
+    diff_check = "";
+
+
   yarntype_check = runCheck(nvl(yarntype, ''), [requiredCheck]);
   if (yarntype !== 'Blends') {
     count_check = runCheck(nvl(count, ''), [requiredCheck]);
@@ -100,7 +113,11 @@ export const handleSaveCheck = (currentdocument: any) => {
   targetprice_check = runCheck(nvl(targetprice, ''), [requiredCheck,numberPositiveCheck]);
   restreportreq_check = runCheck(nvl(restreportreq, 'N'), [requiredCheck]);
   targetmills_check = runCheck(nvl(targetmills, ''), [requiredCheck]);
-
+  remarks_check = runCheck(nvl(remarks, ''), [maxLength40]);
+  uom_check = runCheck(nvl(uom, ''), [requiredCheck]);
+  paymentterms_check = runCheck(nvl(paymentterms, ''), [requiredCheck]);
+  deliverylocation_check = runCheck(nvl(deliverylocation, ''), [requiredCheck]);
+  bcicertificate_check = runCheck(nvl(bcicertificate, 'N'), [requiredCheck]);
 
   console.log('currentdocument.errorsAll', currentdocument.errorsAll)
   if (validatemode == 'save') {
@@ -126,6 +143,12 @@ export const handleSaveCheck = (currentdocument: any) => {
       targetprice: targetprice_check,
       restreportreq: restreportreq_check,
       targetmills: targetmills_check,
+
+      remarks: remarks_check,
+      uom: uom_check,
+      paymentterms: paymentterms_check,
+      deliverylocation: deliverylocation_check,
+      bcicertificate: bcicertificate_check,
 
 
 
@@ -156,7 +179,11 @@ export const handleSaveCheck = (currentdocument: any) => {
       targetprice: checkTouched(nvl(touched.targetprice, false), targetprice_check),
       restreportreq: checkTouched(nvl(touched.restreportreq, false), restreportreq_check),
       targetmills: checkTouched(nvl(touched.targetmills, false), targetmills_check),
-
+      remarks: checkTouched(nvl(touched.remarks, false), remarks_check),
+      uom: checkTouched(nvl(touched.uom, false), uom_check),
+      paymentterms: checkTouched(nvl(touched.paymentterms, false), paymentterms_check),
+      deliverylocation: checkTouched(nvl(touched.deliverylocation, false), deliverylocation_check),
+      bcicertificate: checkTouched(nvl(touched.bcicertificate, false), bcicertificate_check),
       //diff:checkTouched(nvl(touched.diff, false), diff_check)
     }
   }
@@ -198,6 +225,12 @@ export const handleSave = async (currentdocument: any) => {
         targetprice: nvl(currentdocument.targetprice, ''),
         restreportreq: nvl(currentdocument.restreportreq, 'N'),
         targetmills: nvl(currentdocument.targetmills, ''),
+        remarks: nvl(currentdocument.remarks, ''),
+        uom: nvl(currentdocument.uom, ''),
+        paymentterms: nvl(currentdocument.paymentterms, ''),
+        deliverylocation: nvl(currentdocument.deliverylocation, ''),
+        bcicertificate: nvl(currentdocument.bcicertificate, 'N'),
+
         //reffiles:nvl(currentdocument.reffiles,[])
       }
 
@@ -245,6 +278,17 @@ async function getRequirement(values: any) {
   }
 
 }
+
+
+const uomoptions = [{ 'key': 'Tonne', 'value': 'Tonne' },
+			  { 'key': 'KG', 'value': 'KG' }
+			 ]
+
+const paymenttermsoptions = [{ 'key': 'Advance', 'value': 'Advance' },
+			           { 'key': '30-Days', 'value': '30-Days' },
+ 				     { 'key': '60-Days', 'value': '60-Days' },
+				     { 'key': 'LC', 'value': 'LC' }
+			 ]
 export const Requirement = (props: any) => {
   const yarntypeinp: any = useRef(0)
   const doctype = doctypes.REQUIREMENT;
@@ -358,17 +402,25 @@ export const Requirement = (props: any) => {
           <div className="row">
             <Deliveryperiod wd="3" currdoc={currentdocument} modifydoc={modifydocument} disabled={disabled}/>
             <FlatInput wd="3" label="Required Qty" name="reqqty" currdoc={currentdocument} section={'reqqty'} modifydoc={modifydocument} disabled={disabled}/>
-
+            <SelectInput wd="3" label="Unit" options={uomoptions} name="uomoptions" currdoc={currentdocument} section={'uom'} modifydoc={modifydocument} />
             <CSP wd="3" currdoc={currentdocument} modifydoc={modifydocument} disabled={disabled}/>
             <div className={"col-3"}></div>
           </div>
           <div className="row">
             <FlatInput wd="3" label="Target Price" name="targetprice" currdoc={currentdocument} section={'targetprice'} modifydoc={modifydocument} disabled={disabled}/>
+            <SelectInput wd="3" label="Payment Terms" options={paymenttermsoptions} name="paymenttermoptions" currdoc={currentdocument} section={'paymentterms'} modifydoc={modifydocument} />
             <Checkbox wd="3" label={"Test Report"} name={"restreportreq"} currdoc={currentdocument} section={"restreportreq"} modifydoc={modifydocument} disabled={disabled}/>
+            <Checkbox wd="3" label={"BCI Certificate"} name={"bcicertificate"} currdoc={currentdocument} section={"bcicertificate"} modifydoc={modifydocument} disabled={disabled}/>
             <div className={"col-6"}></div>
           </div>
           <div className="row">
+            <FlatInput wd="12" label="Delivery Location" name="deliverylocation" currdoc={currentdocument} section={'deliverylocation'} modifydoc={modifydocument} disabled={disabled}/>
+          </div>
+          <div className="row">
             <FlatInput wd="12" label="Target Mills" name="targetmills" currdoc={currentdocument} section={'targetmills'} modifydoc={modifydocument} disabled={disabled}/>
+          </div>
+          <div className="row">
+            <FlatInput wd="12" label="Remarks" name="remarks" currdoc={currentdocument} section={'remarks'} modifydoc={modifydocument} disabled={disabled}/>
           </div>
         </div>
         

@@ -34,6 +34,11 @@ query($client:String!,$lang:String!,$z_id:String,$applicationid:String!,$buyid:S
     targetprice 
     restreportreq 
     targetmills 
+    remarks
+    uom
+    paymentterms
+    deliverylocation
+    bcicertificate
     reqid
     buyid
     cdate

@@ -13,6 +13,7 @@ import FancyComponent from './FancyComponent';
 import BlendsComponent from './BlendsComponent';
 import Deliveryperiod from './common/Deliveryperiod';
 import CSP from './common/CSP';
+import { SelectInput } from '../../../common/InputFields/Select'
 import { Checkbox } from '../../../common/InputFields/Checkbox';
 
 async function getBid(values: any) {
@@ -61,6 +62,9 @@ async function getBid(values: any) {
   
   }
 export const BidList = (props:any) => {
+
+
+  console.log('props***************',props.authuser.userauthorisations)
     const [currentdocument, modifydocument] = useState({})
     const [loaderDisplay, setloaderDisplay] = useState(false)
     useEffect(() => {
@@ -104,6 +108,8 @@ export const BidList = (props:any) => {
       console.log("Kedar",currentdocument)
       let buyerComp;
       let disabled = true
+
+  
     //if (props.authuser.userauthorisations=='Buyer') {
       buyerComp = <FlatInput wd="3" label="Buyer" name="buyid" currdoc={currentdocument} section={'buyid'} modifydoc={modifydocument} disabled={disabled}/>;
    // }
@@ -129,17 +135,26 @@ export const BidList = (props:any) => {
           <div className="row">
             <Deliveryperiod wd="3" currdoc={currentdocument} modifydoc={modifydocument} disabled={disabled}/>
             <FlatInput wd="3" label="Required Qty" name="reqqty" currdoc={currentdocument} section={'reqqty'} modifydoc={modifydocument} disabled={disabled}/>
-
+            <SelectInput wd="3" label="Unit" name="uomoptions" currdoc={currentdocument} section={'uom'} modifydoc={modifydocument} disabled={disabled}/>
+         
             <CSP wd="3" currdoc={currentdocument} modifydoc={modifydocument} disabled={disabled}/>
             <div className={"col-3"}></div>
           </div>
           <div className="row">
             <FlatInput wd="3" label="Target Price" name="targetprice" currdoc={currentdocument} section={'targetprice'} modifydoc={modifydocument} disabled={disabled}/>
+            <SelectInput wd="3" label="Payment Terms" name="paymenttermoptions" currdoc={currentdocument} section={'paymentterms'} modifydoc={modifydocument} disabled={disabled} />
             <Checkbox wd="3" label={"Test Report"} name={"restreportreq"} currdoc={currentdocument} section={"restreportreq"} modifydoc={modifydocument} disabled={disabled}/>
+            <Checkbox wd="3" label={"BCI Certificate"} name={"bcicertificate"} currdoc={currentdocument} section={"bcicertificate"} modifydoc={modifydocument} disabled={disabled}/>
             <div className={"col-6"}></div>
           </div>
           <div className="row">
+            <FlatInput wd="12" label="Delivery Location" name="deliverylocation" currdoc={currentdocument} section={'deliverylocation'} modifydoc={modifydocument} disabled={disabled}/>
+          </div>
+          <div className="row">
             <FlatInput wd="12" label="Target Mills" name="targetmills" currdoc={currentdocument} section={'targetmills'} modifydoc={modifydocument} disabled={disabled}/>
+          </div>
+          <div className="row">
+            <FlatInput wd="12" label="Remarks" name="remarks" currdoc={currentdocument} section={'remarks'} modifydoc={modifydocument} disabled={disabled}/>
           </div>
         </div>
         <Table
@@ -161,10 +176,9 @@ export const BidList = (props:any) => {
                   ]}
                  
                >
-                 <Column fieldname="supid" columnname="Supplier Id"></Column>
-                 {/* <Column fieldname="reqid" columnname="Request Id"></Column> */}
-                 <Column fieldname="amount1" columnname="Amount with transportation"></Column>
-                 <Column fieldname="amount2" columnname="Amount without transportation"></Column>
+               {props.authuser.userauthorisations==='Admin'?<Column fieldname="supid" columnname="Supplier Id"/>:<div/>}
+                 <Column fieldname="amount1" columnname="Ex Mills Amount"></Column>
+                 <Column fieldname="amount2" columnname="Landed Amount"></Column>
                  <Column fieldname="supremarks" columnname="Supplier remark"></Column>
                </Table>
     </div>

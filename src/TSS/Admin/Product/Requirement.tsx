@@ -422,6 +422,7 @@ export const Requirement = (props: any) => {
           <div className="row">
             <FlatInput wd="12" label="Remarks" name="remarks" currdoc={currentdocument} section={'remarks'} modifydoc={modifydocument} disabled={disabled}/>
           </div>
+          
         </div>
         
         {/* {JSON.stringify(currentdocument)} 

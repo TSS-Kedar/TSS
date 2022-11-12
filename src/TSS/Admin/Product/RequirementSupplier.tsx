@@ -504,8 +504,8 @@ useEffect(() => {
 
         <div className="grid">
         <div className="row">
-        <FlatInput wd="3" label="Amount without Transportation" name="Amount1" currdoc={currentdocument} section={'amount1'} modifydoc={modifydocument} />
-        <FlatInput wd="3" label="Amount with Transportation" name="Amount2" currdoc={currentdocument} section={'amount2'} modifydoc={modifydocument} />
+        <FlatInput wd="3" label="Ex Mills Amount" name="Amount1" currdoc={currentdocument} section={'amount1'} modifydoc={modifydocument} />
+        <FlatInput wd="3" label="Landed Amount" name="Amount2" currdoc={currentdocument} section={'amount2'} modifydoc={modifydocument} />
         <div className={"col-6"}>
         <div className="stepper-container">
         <div className="btn-box">
@@ -536,17 +536,26 @@ useEffect(() => {
           <div className="row">
             <Deliveryperiod wd="3" currdoc={currentdocument} modifydoc={modifydocument} disabled={disabled}/>
             <FlatInput wd="3" label="Required Qty" name="reqqty" currdoc={currentdocument} section={'reqqty'} modifydoc={modifydocument} disabled={disabled}/>
-
+            <SelectInput wd="3" label="Unit" name="uomoptions" currdoc={currentdocument} section={'uom'} modifydoc={modifydocument} disabled={disabled}/>
+          
             <CSP wd="3" currdoc={currentdocument} modifydoc={modifydocument} disabled={disabled}/>
             <div className={"col-3"}></div>
           </div>
           <div className="row">
             <FlatInput wd="3" label="Target Price" name="targetprice" currdoc={currentdocument} section={'targetprice'} modifydoc={modifydocument} disabled={disabled}/>
+            <SelectInput wd="3" label="Payment Terms" name="paymenttermoptions" currdoc={currentdocument} section={'paymentterms'} modifydoc={modifydocument} disabled={disabled} />
             <Checkbox wd="3" label={"Test Report"} name={"restreportreq"} currdoc={currentdocument} section={"restreportreq"} modifydoc={modifydocument} disabled={disabled}/>
+            <Checkbox wd="3" label={"BCI Certificate"} name={"bcicertificate"} currdoc={currentdocument} section={"bcicertificate"} modifydoc={modifydocument} disabled={disabled}/>
             <div className={"col-6"}></div>
           </div>
           <div className="row">
+            <FlatInput wd="12" label="Delivery Location" name="deliverylocation" currdoc={currentdocument} section={'deliverylocation'} modifydoc={modifydocument} disabled={disabled}/>
+          </div>
+          <div className="row">
             <FlatInput wd="12" label="Target Mills" name="targetmills" currdoc={currentdocument} section={'targetmills'} modifydoc={modifydocument} disabled={disabled}/>
+          </div>
+          <div className="row">
+            <FlatInput wd="12" label="Remarks" name="remarks" currdoc={currentdocument} section={'remarks'} modifydoc={modifydocument} disabled={disabled}/>
           </div>
         </div>
         

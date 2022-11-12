@@ -179,7 +179,10 @@ export const BidList = (props:any) => {
                {props.authuser.userauthorisations==='Admin'?<Column fieldname="supid" columnname="Supplier Id"/>:<div/>}
                  <Column fieldname="amount1" columnname="Ex Mills Amount"></Column>
                  <Column fieldname="amount2" columnname="Landed Amount"></Column>
+                 <Column fieldname="uombid" columnname="Unit"></Column>
+                 <Column fieldname="paymenttermsbid" columnname="Payment Terms"></Column>
                  <Column fieldname="supremarks" columnname="Supplier remark"></Column>
+
                </Table>
     </div>
   )

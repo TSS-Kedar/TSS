@@ -33,6 +33,7 @@ import AlertDialog from '../../../common/PopupModals/ConfirmationModal'
 import AppbarBottom from '../../../common/AppbarBottom'
 import approvedBuyers from '../../../common/queries/approvedBuyersQuery'
 import { Redirect, withRouter } from 'react-router-dom'
+import { OnlineFileuploadComponent } from '../../../common/OnlineFileuploadComponent'
 
 const newDocument = (doctype: String, doctypetext: String) => {
   return {
@@ -167,15 +168,18 @@ export const handleSaveCheck = (currentdocument: any) => {
 export const handleSaveCheckBid = (currentdocument: any) => {
   const { 
     reqid, supid, amount1, amount2, supremarks,validatemode,touched,
-    status
+    status,uombid,paymenttermsbid
   } = currentdocument;
 
-  let reqid_check, supid_check, amount1_check, amount2_check, supremark_check,status_check
+  let reqid_check, supid_check, amount1_check, amount2_check, supremark_check,status_check,uombid_check,paymenttermsbid_check
   reqid_check = runCheck(nvl(reqid, ''), [requiredCheck]);
   supid_check = runCheck(nvl(supid, ''), [requiredCheck]);
   amount1_check = runCheck(nvl(amount1, ''), [requiredCheck,numberPositiveCheck]);
   amount2_check = runCheck(nvl(amount2, ''), [requiredCheck,numberPositiveCheck]);
   supremark_check = runCheck(nvl(supremarks, ''), [requiredCheck]);
+  uombid_check = runCheck(nvl(uombid, ''), [requiredCheck]);
+  paymenttermsbid_check = runCheck(nvl(paymenttermsbid, ''), [requiredCheck]);
+
   //status_check = runCheck(nvl(status, ''), [requiredCheck]);
 
 
@@ -187,7 +191,9 @@ export const handleSaveCheckBid = (currentdocument: any) => {
       amount2: amount2_check,
       amount1: amount1_check,
       supremarks: supremark_check,
-      status:status_check
+      status:status_check,
+      uombid_files:uombid_check,
+      paymenttermsbid_files:paymenttermsbid_check
       //diff:diff_check
     }
     validatemode == 'touch'
@@ -199,7 +205,9 @@ export const handleSaveCheckBid = (currentdocument: any) => {
       amount2: checkTouched(nvl(touched.amount2, false), amount2_check),
       amount1: checkTouched(nvl(touched.amount1, false), amount1_check),
       supremarks: checkTouched(nvl(touched.supremarks, false), supremark_check),
-      status: checkTouched(nvl(touched.status, false), status_check)
+      status: checkTouched(nvl(touched.status, false), status_check),
+      uombid: checkTouched(nvl(touched.uombid, false), uombid_check),
+      paymenttermsbid: checkTouched(nvl(touched.paymenttermsbid, false), paymenttermsbid_check)
     }
   }
 
@@ -279,9 +287,16 @@ export const handleSaveBid = async (currentdocument: any) => {
         amount1: nvl(currentdocument.amount1, ''),
         supremarks: nvl(currentdocument.supremarks, ''),
         status: nvl(currentdocument.status, ''),
-        z_id:nvl(currentdocument.z_id,'')
+        uombid: nvl(currentdocument.uombid, ''),
+        paymenttermsbid: nvl(currentdocument.paymenttermsbid, ''),
+        z_id:nvl(currentdocument.z_id,''),
+        testcertificate_files:nvl(currentdocument.testcertificate_files,[]),
+        bcicertificate_files:nvl(currentdocument.bcicertificate_files,[])
       }
 
+
+      recoForSave.testcertificate_files.forEach((element:any) => {delete element.__typename});
+      recoForSave.bcicertificate_files.forEach((element:any) => {delete element.__typename});
       //recoForSave.reffiles.forEach(element => {delete element.__typename});
 
 
@@ -349,6 +364,15 @@ async function getRequirement(values: any) {
   }
 
 }
+const uomoptions = [{ 'key': 'Tonne', 'value': 'Tonne' },
+			  { 'key': 'KG', 'value': 'KG' }
+			 ]
+
+const paymenttermsoptions = [{ 'key': 'Advance', 'value': 'Advance' },
+			           { 'key': '30-Days', 'value': '30-Days' },
+ 				     { 'key': '60-Days', 'value': '60-Days' },
+				     { 'key': 'LC', 'value': 'LC' }
+			 ]
 export const Requirement = (props: any) => {
   const yarntypeinp: any = useRef(0)
   const doctype = doctypes.REQUIREMENT;
@@ -506,6 +530,37 @@ useEffect(() => {
         <div className="row">
         <FlatInput wd="3" label="Ex Mills Amount" name="Amount1" currdoc={currentdocument} section={'amount1'} modifydoc={modifydocument} />
         <FlatInput wd="3" label="Landed Amount" name="Amount2" currdoc={currentdocument} section={'amount2'} modifydoc={modifydocument} />
+        <SelectInput wd="3" label="Unit" options={uomoptions} name="uomoptions" currdoc={currentdocument} section={'uombid'} modifydoc={modifydocument} />
+        <SelectInput wd="3" label="Payment Terms" options={paymenttermsoptions} name="paymenttermoptions" currdoc={currentdocument} section={'paymenttermsbid'} modifydoc={modifydocument} />
+        <div className="row">
+        <FlatInput wd="12" label="Remarks" name="Remarks" currdoc={currentdocument} section={'supremarks'} modifydoc={modifydocument} />
+        </div>
+
+                   <div className="row">
+                <div className={"col-3"}>
+                  Attach Test Certificate
+                  <OnlineFileuploadComponent
+                    section={'testcertificate_files'}
+                    autoupload={true}
+
+                    saveasis={() => { }}
+                    currdoc={currentdocument}
+                    modifydoc={modifydocument}
+                  />
+                </div>
+                <div className={"col-3"}>
+                  Attach BCI Certificate
+                  <OnlineFileuploadComponent
+                    section={'bcicertificate_files'}
+                    autoupload={true}
+
+                    saveasis={() => { }}
+                    currdoc={currentdocument}
+                    modifydoc={modifydocument}
+                  />
+                </div>
+              </div>
+
         <div className={"col-6"}>
         <div className="stepper-container">
         <div className="btn-box">
@@ -515,9 +570,7 @@ useEffect(() => {
         </div>
         </div>
         </div>
-        <div className="row">
-        <FlatInput wd="12" label="Remarks" name="Remarks" currdoc={currentdocument} section={'supremarks'} modifydoc={modifydocument} />
-        </div>
+     
           <div className="row">
             <FlatInput wd="3" label="Requirement Id" name="reqid" currdoc={currentdocument} section={'reqid'} modifydoc={modifydocument} disabled={true}/>
             {buyerComp}

@@ -10,7 +10,12 @@ export default gql`mutation saveBid(
     $amount1:String,
     $amount2:String,
     $supremarks:String,
-    $status:String
+    $status:String,
+
+    $uombid:String,
+$paymenttermsbid:String,
+$testcertificate_files:[FileType],
+$bcicertificate_files:[FileType],
   )
       {
           saveBid(
@@ -24,7 +29,11 @@ export default gql`mutation saveBid(
             amount1:$amount1,
             amount2:$amount2,
             supremarks:$supremarks,
-            status:$status
+            status:$status,
+            uombid:$uombid,
+            paymenttermsbid:$paymenttermsbid,
+            testcertificate_files:$testcertificate_files,
+            bcicertificate_files:$bcicertificate_files,
         )
         {
           applicationid,
@@ -41,6 +50,10 @@ export default gql`mutation saveBid(
       amount1,
       amount2,
       supremarks,
+      uombid,
+      paymenttermsbid,
+            testcertificate_files{fileid},
+            bcicertificate_files{fileid},
       cdate,
       ctime,
       cuser,

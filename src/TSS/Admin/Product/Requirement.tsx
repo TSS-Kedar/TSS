@@ -88,7 +88,7 @@ bcicertificate,
     type_check = runCheck(nvl(type, ''), [requiredCheck]);
     nature_check = runCheck(nvl(nature, ''), [requiredCheck]);
 
-    slug_check = runCheck(nvl(slug, ''), [requiredCheck])
+    slug_check = ""//runCheck(nvl(slug, ''), [requiredCheck])
   }
   if (yarntype === 'Cotton') {
     quality_check = runCheck(nvl(quality, ''), [requiredCheck]);
@@ -111,13 +111,13 @@ bcicertificate,
   deliverysch_check = runCheck(nvl(deliverysch, ''), [requiredCheck]);
   reqqty_check = runCheck(nvl(reqqty, ''), [requiredCheck,numberPositiveCheck]);
   targetprice_check = runCheck(nvl(targetprice, ''), [requiredCheck,numberPositiveCheck]);
-  restreportreq_check = runCheck(nvl(restreportreq, 'N'), [requiredCheck]);
+  restreportreq_check = ""//runCheck(nvl(restreportreq, 'N'), [requiredCheck]);
   targetmills_check = runCheck(nvl(targetmills, ''), [requiredCheck]);
   remarks_check = runCheck(nvl(remarks, ''), [maxLength40]);
   uom_check = runCheck(nvl(uom, ''), [requiredCheck]);
   paymentterms_check = runCheck(nvl(paymentterms, ''), [requiredCheck]);
   deliverylocation_check = runCheck(nvl(deliverylocation, ''), [requiredCheck]);
-  bcicertificate_check = runCheck(nvl(bcicertificate, 'N'), [requiredCheck]);
+  bcicertificate_check = ""//runCheck(nvl(bcicertificate, 'N'), [requiredCheck]);
 
   console.log('currentdocument.errorsAll', currentdocument.errorsAll)
   if (validatemode == 'save') {
@@ -363,7 +363,7 @@ export const Requirement = (props: any) => {
  
     let buyerComp;
     if (props.authuser.userauthorisations=='Buyer') {
-      buyerComp = <FlatInput wd="3" label="Buyer" name="buyid" currdoc={currentdocument} section={'buyid'} modifydoc={modifydocument} />;
+      buyerComp = <></>//<FlatInput wd="3" label="Buyer" name="buyid" currdoc={currentdocument} section={'buyid'} modifydoc={modifydocument} />;
     } else {
       buyerComp =  <SelectInput wd="3" label="Buyer" options={approvedBuyersData} name="userauthorisations" currdoc={currentdocument} section={'buyid'} modifydoc={modifydocument} />
       ;

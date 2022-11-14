@@ -65,7 +65,7 @@ export const handleSaveCheck = (currentdocument: any) => {
   let addemail_check = ""//runCheck(nvl(addemail, ''), [requiredCheck]);
   let addnumber_check = ""//runCheck(nvl(addnumber, ''), [requiredCheck]);
   let addemailnumber_check = ""//runCheck(nvl(addemailnumber, ''), [requiredCheck]);
-  let website_check = runCheck(nvl(website, ''), [requiredCheck]);
+  let website_check = ""//runCheck(nvl(website, ''), [requiredCheck]);
   let companyname_check = runCheck(nvl(companyname, ''), [requiredCheck]);
   let accounttype_check = ""//runCheck(nvl(accounttype, ''), [requiredCheck]);
   let category_check = runCheck(nvl(category, ''), [requiredCheck]);
@@ -259,6 +259,8 @@ export const BuyerComponent = (props: any) => {
   const [setDocumentAction, documentstatus, setDocumentstatus, currentdocument, modifydocument, redirect, goBack, closeSnackBar, loaderDisplay, setloaderDisplay]: any = useSaveAction(handleSave, handleSaveCheck, doctype, doctypetext, resetFocus, deleteGQL)
   const [contactList, setContactList] = useState([{contactname:"", phoneno:"", email:"",index:0}])
   const [errMsg, setErrMsg] = useState("")
+  const [addContact, setDisplayAddContact] = useState(false)
+  const [msgField, setMsgField] = useState("")
   const addNewcontact=()=>{
     const contact_arr=[...contactList];
     contact_arr.push({contactname:"", phoneno:"", email:"",index:(contactList.length)})
@@ -275,6 +277,10 @@ export const BuyerComponent = (props: any) => {
     contact_arr[contact.index] = contact
     setContactList(contact_arr)
   }
+  useEffect(()=>{
+    if(documentstatus?.snackbarseverity==="success")
+    setMsgField("Your details are save we will get back to you")
+  },[documentstatus.snackbarseverity])
     useEffect(() => {
       let z_id:any = 'NO-ID'
       const location = props.location
@@ -411,6 +417,12 @@ export const BuyerComponent = (props: any) => {
       { 'label': 'Fancy', 'value': 'Fancy' },
       { 'label': 'Blends', 'value': 'Blends' }
     ]
+    if(documentstatus.snackbarseverity==="success"){
+       setTimeout(()=>{
+        //let redirectpath = '/'
+        location.reload();
+       },1000)
+    }
     return (
       <div className={!props.authenticated?'container':""}>
        {!props.authenticated?<div style={{width:"100%"}}> <a onClick={()=>{props.changeForm()}} style={{color:"red",fontSize:"20px",cursor:"pointer",float:"right"}}>
@@ -437,9 +449,9 @@ export const BuyerComponent = (props: any) => {
                 <FlatInput wd="3" label="Email" name="email" currdoc={currentdocument1} section={'email'} modifydoc={modifydocument} />
                 <FlatInput wd="3" label="Primary number" name="primarynumber" currdoc={currentdocument1} section={'primarynumber'} modifydoc={modifydocument} />
                 <FlatInput wd="3" label="Website" name="website" currdoc={currentdocument1} section={'website'} modifydoc={modifydocument} />
-                <div className={"col-3"}></div>
+                <div className={"col-3"}>{!addContact && <button type="button"  onClick={()=>{setDisplayAddContact(!addContact)}}>Add Contact</button>}</div>
               </div>
-              {contactList.map((contact, i) => 
+              {addContact && contactList.map((contact, i) => 
                 {return(<div className="row" key={i+""}>
                   <FlatInput wd="3" label="Contact Name" name="contactname" currdoc={contactList[i]} section={'contactname'} modifydoc={modifyContactDoc} />
                   <FlatInput wd="3" label="Phone No" name="phoneno" currdoc={contactList[i]} section={'phoneno'} modifydoc={modifyContactDoc} />
@@ -527,6 +539,9 @@ export const BuyerComponent = (props: any) => {
               <div className='row'>
               <div className={"col-6 field-error"}>{errMsg}</div>
               </div>
+              <div className='row'>
+              <div className={"col-6 field-msg"} style={{fontSize:"18px", fontWeight:"600", color:"darkgreen"}}>{msgField}</div>
+              </div>
 
               <>{currentdocument.verificationuser===undefined?<div className="row">
               <button type="button"  onClick={async ()=>{
@@ -545,13 +560,16 @@ export const BuyerComponent = (props: any) => {
 
               <>{currentdocument.verificationuser!==undefined && currentdocument.isotpverified===undefined?<div className="row">
               <button type="button"  onClick={async ()=>{
+                setloaderDisplay(true)
                 setErrMsg("");
                 let res:any=await funcverifyBuyerMobileOTPJWT(currentdocument1)
+                setloaderDisplay(false)
               if(res.status==='failed'){
                 setErrMsg(res.msg)
               }else{
               modifydocument({...currentdocument,isotpverified:res.msg})
               setErrMsg("")
+              setMsgField("OTP has been Verified. Please check the form data once and submit");
             }
               }}>Verify OTP</button>
                 <div className={"col-6"}></div>

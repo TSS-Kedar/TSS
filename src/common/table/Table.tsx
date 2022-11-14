@@ -88,16 +88,17 @@ function Table(props: any) {
                         <div className="table-response">
                             <table width="100%">
                                 <thead>
-                                    <tr>{props.children.map((ele: any,i:any) => (<ColumnHead selectColumn={sortSelectedColumn} key={i+"_"+ele.props.fieldname} fieldname={ele.props.fieldname} selectedcolumn={selectedColumn} width={ele.props.width}>{ele.props.columnname}</ColumnHead>))}
+                                    <tr>{props.children.map((ele: any,i:any) => (ele && <ColumnHead selectColumn={sortSelectedColumn} key={i+"_"+ele.props.fieldname} fieldname={ele.props.fieldname} selectedcolumn={selectedColumn} width={ele.props.width}>{ele.props.columnname}</ColumnHead>))}
                                             {actions?.length>0 ?<ColumnHead width={actionColWidth} selectColumn={()=>{}}>Action</ColumnHead>:null}
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {pageData?.map((data: any,i:any) => { 
                                     return (<tr key={"#"+i} >{props.children.map((ele: any,j:any) => {
-                                        const { fieldname, columnname,render,width } = ele.props
-                                       
-                                        return <Column key={j+"#"+fieldname} data={data && data[fieldname]? data[fieldname]:""} columnClick={onRowClick} id={data.z_id}/>
+                                        if(ele!=null){
+                                        const { fieldname, columnname,render,width } = ele?.props
+                                        return ele && <Column key={j+"#"+fieldname} data={data && data[fieldname]? data[fieldname]:""} columnClick={onRowClick} id={data.z_id}/>
+                                        }
                                     })}
                                     {<Column data={<div className="table-button-container">{actions.map((action:any,k:any)=>{
                                         return action.fieldname===undefined  ? (<SMIconButton key={k+"#"+action.icon} action={action.action} id={data && data["z_id"]? data["z_id"]:""} icon={action.icon} className={action.className}/>)

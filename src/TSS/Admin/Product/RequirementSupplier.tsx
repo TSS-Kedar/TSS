@@ -99,7 +99,7 @@ export const handleSaveCheck = (currentdocument: any) => {
   deliverysch_check = runCheck(nvl(deliverysch, ''), [requiredCheck]);
   reqqty_check = runCheck(nvl(reqqty, ''), [requiredCheck,numberPositiveCheck]);
   targetprice_check = runCheck(nvl(targetprice, ''), [requiredCheck,numberPositiveCheck]);
-  restreportreq_check = runCheck(nvl(restreportreq, 'N'), [requiredCheck]);
+  restreportreq_check = ""//runCheck(nvl(restreportreq, 'N'), [requiredCheck]);
   targetmills_check = runCheck(nvl(targetmills, ''), [requiredCheck]);
 
 
@@ -501,7 +501,7 @@ useEffect(() => {
       setAction(true)
       docstatus.action = false
       docstatus.dailogtext="Are you sure you want to submit the bid. Once submitted cannot be edited" 
-      docstatus.dailogtitle="Sumbit Bid"
+      docstatus.dailogtitle="Submit Bid"
       setDocumentstatus({...docstatus})
     }else{
       modifydocument({...currentdocument0})
@@ -537,7 +537,7 @@ useEffect(() => {
         </div>
 
                    <div className="row">
-                <div className={"col-3"}>
+                {currentdocument.bcicertificate && <div className={"col-3"}>
                   Attach Test Certificate
                   <OnlineFileuploadComponent
                     section={'testcertificate_files'}
@@ -547,7 +547,8 @@ useEffect(() => {
                     currdoc={currentdocument}
                     modifydoc={modifydocument}
                   />
-                </div>
+                </div>}
+                {currentdocument.restreportreq &&
                 <div className={"col-3"}>
                   Attach BCI Certificate
                   <OnlineFileuploadComponent
@@ -558,7 +559,7 @@ useEffect(() => {
                     currdoc={currentdocument}
                     modifydoc={modifydocument}
                   />
-                </div>
+                </div>}
               </div>
 
         <div className={"col-6"}>

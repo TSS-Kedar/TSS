@@ -460,14 +460,21 @@ useEffect(() => {
 
     }, []);
     
-    const { action,  noaction, dailogtext, dailogtitle } = documentstatus;
-    let {yesaction} = documentstatus
+    const { action,   dailogtext, dailogtitle } = documentstatus;
+    let {yesaction,noaction} = documentstatus
     yesaction = ()=>{
       const docstatus = {...documentstatus}
       setAction(false)
       docstatus.action = false
       setDocumentstatus({...docstatus})
       onClickSave('submit')
+    }
+    noaction=()=>{
+      setAction(false)
+      const docstatus = {...documentstatus}
+      docstatus.action = false
+      setDocumentstatus({...docstatus})
+      
     }
     if(redirect){
       let redirectpath='/requirementManagement'

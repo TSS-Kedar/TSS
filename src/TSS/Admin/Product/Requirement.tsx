@@ -296,8 +296,9 @@ export const Requirement = (props: any) => {
   const resetFocus = () => {
     setTimeout(() => yarntypeinp.current.focus(), 1000)
   }
-  const [setDocumentAction, documentstatus, setDocumentstatus, currentdocument, modifydocument, redirect, goBack, closeSnackBar, loaderDisplay, setloaderDisplay]: any = useSaveAction(handleSave, handleSaveCheck, doctype, doctypetext, resetFocus, deleteRequirement)
+  let [setDocumentAction, documentstatus, setDocumentstatus, currentdocument, modifydocument, redirect, goBack, closeSnackBar, loaderDisplay, setloaderDisplay]: any = useSaveAction(handleSave, handleSaveCheck, doctype, doctypetext, resetFocus, deleteRequirement)
   const [approvedBuyersData, setApprovedBuyers] = useState([]);
+  const [submitRequirement,setSubmitRequirement]=useState(false)
   let disabled=false
   // if (props.authuser.userauthorisations=='Buyer') {
   //   disabled=false
@@ -327,7 +328,7 @@ export const Requirement = (props: any) => {
     
   } 
 
-
+  
 
 
     useEffect(() => {
@@ -338,6 +339,13 @@ export const Requirement = (props: any) => {
       if (z_id != 'NO-ID') {
         setloaderDisplay(true)
         getRequirement({ client: '45004500', lang: 'EN', z_id,applicationid:"15001500" }).then((data: any) => {
+          if(data[0].bcicertificate==='N' || data[0].bcicertificate==='' || data[0].bcicertificate=== undefined || data[0].bcicertificate===null){
+            data[0].bcicertificate=false
+          }else data[0].bcicertificate=true
+
+          if(data[0].restreportreq==='N' || data[0].restreportreq==='' || data[0].restreportreq=== undefined || data[0].restreportreq===null){
+            data[0].restreportreq=false
+          }else data[0].restreportreq=true
           modifydocument(data[0])
           setloaderDisplay(false)
         });
@@ -353,14 +361,27 @@ export const Requirement = (props: any) => {
 
     }, []);
     
-    const { action, yesaction, noaction, dailogtext, dailogtitle } = documentstatus;
+    let { action, yesaction, noaction, dailogtext, dailogtitle } = documentstatus;
     if(redirect){
       let redirectpath='/requirementManagement'
       return <Redirect push to={redirectpath} />;
   
        
     }
- 
+    const submitReqAction=(act:boolean)=>{
+      setSubmitRequirement(act)
+    }
+    if(submitRequirement){
+      action=true
+      dailogtext="Are you sure you want to submit the requirement?"
+      dailogtitle="Submit Requirement.";
+      yesaction=()=>{setDocumentAction('save');submitReqAction(false)}
+      noaction=()=>{submitReqAction(false)}
+    }else{
+      action=false
+      dailogtext=""
+      dailogtitle="";
+    }
     let buyerComp;
     if (props.authuser.userauthorisations=='Buyer') {
       buyerComp = <></>//<FlatInput wd="3" label="Buyer" name="buyid" currdoc={currentdocument} section={'buyid'} modifydoc={modifydocument} />;
@@ -422,7 +443,16 @@ export const Requirement = (props: any) => {
           <div className="row">
             <FlatInput wd="12" label="Remarks" name="remarks" currdoc={currentdocument} section={'remarks'} modifydoc={modifydocument} disabled={disabled}/>
           </div>
-          
+          <div className="row">
+          <div className={"col-12"}>
+            <div className="stepper-container">
+              <div className="btn-box">
+              <button type="button" id={"SaveBid"} onClick={()=>{setDocumentAction('save')}}>Save </button>&nbsp;&nbsp;&nbsp;
+              <button type="button" id={"back"} onClick={()=>{submitReqAction(true)}}>Save & Submit</button>
+              </div>
+            </div>
+        </div>
+        </div>
         </div>
         
         {/* {JSON.stringify(currentdocument)} 
@@ -430,8 +460,8 @@ export const Requirement = (props: any) => {
         <AlertDialog open={action} handleno={noaction} handleyes={yesaction} dailogtext={dailogtext} dailogtitle={dailogtitle} />
         <Messagesnackbar snackbaropen={documentstatus.snackbaropen} snackbarseverity={documentstatus.snackbarseverity} handlesnackbarclose={closeSnackBar} snackbartext={documentstatus.snackbartext} />
       </div>
-
-      <AppbarBottom setAction={setDocumentAction} handleGoback={goBack} setfocus={resetFocus} />
+              
+      {/* <AppbarBottom setAction={setDocumentAction} handleGoback={goBack} setfocus={resetFocus} /> */}
 
     </>
 

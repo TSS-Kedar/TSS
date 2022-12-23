@@ -217,6 +217,7 @@ export const minLength15= minLength(15)
 export const maxLength40 = maxLength(40)
 export const maxLength120= maxLength(120)
 export const maxLength128= maxLength(128)
+export const maxLength200= maxLength(200)
 export const minLength4= minLength(4)
 export const maxLength4= maxLength(4)
 export const minLength2= minLength(2)
@@ -539,7 +540,7 @@ export const  isValidDate=(s:any) => {
 export const numberCheck = (value:any) =>
   value && isNaN(Number(value)) ? 'Must be a number' : ''
   export const numberPositiveCheck = (value:any) =>
-  value && (Number(value)) !>=0 ? '' : 'Must be positive number'
+  value!==''?"": (Number(value)) !>=0 ? '' : 'Must be positive number'
 export const minValue = (min:any) => (value:any) =>
   value && value < min ? `Must be at least ${min}` : ''
 export const minValue18 = minValue(18)

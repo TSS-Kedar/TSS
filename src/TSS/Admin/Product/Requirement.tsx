@@ -17,7 +17,7 @@ import useSaveAction from '../../../common/Hooks/useSaveAction'
 import { getDocs, getDocconfig, getLblVal, checkTouched, nvl, checkItem, isCheckedbool, getDocumenForSave } from '../../../common/CommonLogic';
 import {
   runCheck, requiredCheck, getDtFormat, getTimeFormat, getFromToDate, getDateYYYYMMDDHHMI, getDateYYYYMMDD, maxLength40, maxLength128,
-  setErrorValue, getValue, setValue,numberCheck,numberPositiveCheck
+  setErrorValue, getValue, setValue,numberCheck,numberPositiveCheck, maxLength200
 } from '../../../common/validationlib';
 import shortid from 'shortid'
 import * as doctypes from '../../../common/Doctypes';
@@ -112,11 +112,11 @@ bcicertificate,
   reqqty_check = runCheck(nvl(reqqty, ''), [requiredCheck,numberPositiveCheck]);
   targetprice_check = runCheck(nvl(targetprice, ''), [requiredCheck,numberPositiveCheck]);
   restreportreq_check = ""//runCheck(nvl(restreportreq, 'N'), [requiredCheck]);
-  targetmills_check = runCheck(nvl(targetmills, ''), [requiredCheck]);
-  remarks_check = runCheck(nvl(remarks, ''), [maxLength40]);
+  targetmills_check = runCheck(nvl(targetmills, ''), [maxLength200]);
+  remarks_check = runCheck(nvl(remarks, ''), [maxLength200]);
   uom_check = runCheck(nvl(uom, ''), [requiredCheck]);
   paymentterms_check = runCheck(nvl(paymentterms, ''), [requiredCheck]);
-  deliverylocation_check = runCheck(nvl(deliverylocation, ''), [requiredCheck]);
+  deliverylocation_check = runCheck(nvl(deliverylocation, ''), [requiredCheck,maxLength200]);
   bcicertificate_check = ""//runCheck(nvl(bcicertificate, 'N'), [requiredCheck]);
 
   console.log('currentdocument.errorsAll', currentdocument.errorsAll)

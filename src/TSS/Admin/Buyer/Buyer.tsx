@@ -11,7 +11,7 @@ import Messagesnackbar from '../../../common/Alert'
 import AlertDialog from '../../../common/PopupModals/ConfirmationModal'
 import {
   runCheck, requiredCheck, getDtFormat, getTimeFormat, getFromToDate, getDateYYYYMMDDHHMI, getDateYYYYMMDD, maxLength40, maxLength128,
-  setErrorValue, getValue, setValue,emailCheck,numberCheck
+  setErrorValue, getValue, setValue,emailCheck,numberCheck, minLength10, alphaNumericCheck, minLength15, minLength8
 } from '../../../common/validationlib';
 import { Redirect, withRouter } from 'react-router-dom'
 import AppbarBottom from '../../../common/AppbarBottom'
@@ -50,31 +50,37 @@ const newDocument = (doctype: String, doctypetext: String) => {
 
 export const handleSaveCheck = (currentdocument: any) => {
   const { touched, firstname, lastname, country, city, inbusinesssince, email, primarynumber, addemail, addnumber,
-    addemailnumber, website, companyname, accounttype, category, address, completeaddress,gstnumber,tannumber,businesspannumber, validatemode } = currentdocument;
+    addemailnumber, website, companyname, accounttype, category, address, completeaddress,gstnumber,tannumber,businesspannumber, validatemode,oldpassword,newpassword } = currentdocument;
 
 
   console.log('nvl(email, )', runCheck(nvl(email, ''), [requiredCheck]))
 
   let firstname_check = runCheck(nvl(firstname, ''), [requiredCheck]);
-  let lastname_check = runCheck(nvl(lastname, ''), [requiredCheck]);
-  let country_check = runCheck(nvl(country, ''), [requiredCheck]);
-  let city_check = runCheck(nvl(city, ''), [requiredCheck]);
+  let lastname_check = ""//runCheck(nvl(lastname, ''), []);
+  let country_check = ""//runCheck(nvl(country, ''), []);
+  let city_check = ""//runCheck(nvl(city, ''), []);
   let inbusinesssince_check = runCheck(nvl(inbusinesssince, ''), [requiredCheck]);
-  let email_check = runCheck(nvl(email, ''), [requiredCheck,emailCheck]);
-  let primarynumber_check = runCheck(nvl(primarynumber, ''), [requiredCheck,numberCheck])
+  let email_check = runCheck(nvl(email, ''), [requiredCheck,emailCheck,maxLength128]);
+  let primarynumber_check = runCheck(nvl(primarynumber, ''), [requiredCheck,numberCheck,minLength10])
   let addemail_check = ""//runCheck(nvl(addemail, ''), [requiredCheck]);
-  let addnumber_check = ""//runCheck(nvl(addnumber, ''), [requiredCheck]);
-  let addemailnumber_check = ""//runCheck(nvl(addemailnumber, ''), [requiredCheck]);
+  let addnumber_check = ""//runCheck(nvl(addnumber, ''), []);
+  let addemailnumber_check = ""//runCheck(nvl(addemailnumber, ''), []);
   let website_check = ""//runCheck(nvl(website, ''), [requiredCheck]);
   let companyname_check = runCheck(nvl(companyname, ''), [requiredCheck]);
   let accounttype_check = ""//runCheck(nvl(accounttype, ''), [requiredCheck]);
   let category_check = runCheck(nvl(category, ''), [requiredCheck]);
   let address_check = runCheck(nvl(address, ''), [requiredCheck])
   let completeaddress_check = runCheck(nvl(completeaddress, ''), [requiredCheck]);
-  let gstnumber_check=runCheck(nvl(gstnumber, ''), [requiredCheck]);
-  let tannumber_check=runCheck(nvl(tannumber, ''), [requiredCheck]);
-  let businesspannumber_check=runCheck(nvl(businesspannumber, ''), [requiredCheck]); 
-
+  let gstnumber_check=runCheck(nvl(gstnumber, ''), [requiredCheck,alphaNumericCheck,minLength15]);
+  let tannumber_check=""//runCheck(nvl(tannumber, ''), [requiredCheck,alphaNumericCheck]);
+  
+  let businesspannumber_check=runCheck(nvl(businesspannumber, ''), [requiredCheck,alphaNumericCheck,minLength10]); 
+  let oldpassword_check = runCheck(nvl(oldpassword, ''), [requiredCheck,alphaNumericCheck,minLength8]);
+  let newpassword_check = runCheck(nvl(newpassword, ''), [requiredCheck,alphaNumericCheck,minLength8]);
+  
+  if(oldpassword!==newpassword){
+    oldpassword_check=oldpassword_check="Password and Retype Password should match"
+  }
 
   console.log('currentdocument.errorsAll', currentdocument.errorsAll)
   if (validatemode == 'save') {
@@ -98,7 +104,8 @@ export const handleSaveCheck = (currentdocument: any) => {
         gstnumber:gstnumber_check,
         tannumber:tannumber_check,
         businesspannumber:businesspannumber_check,
-        
+        oldpassword:oldpassword_check,
+        newpassword:newpassword_check,
     }
     validatemode == 'touch'
   }
@@ -123,7 +130,8 @@ export const handleSaveCheck = (currentdocument: any) => {
         gstnumber:checkTouched(nvl(touched.gstnumber, false), gstnumber_check),
         tannumber:checkTouched(nvl(touched.tannumber, false), tannumber_check),
         businesspannumber:checkTouched(nvl(touched.businesspannumber, false), businesspannumber_check),
-        
+        oldpassword:checkTouched(nvl(touched.oldpassword, false), oldpassword_check),
+        newpassword:checkTouched(nvl(touched.newpassword, false), newpassword_check),
     }
   }
 
@@ -525,11 +533,11 @@ export const BuyerComponent = (props: any) => {
           <Step name={"Step 3"} title="Change Password">
             <div className="grid">
               <div className="row">
-              <FlatInput wd="6" label="Old Password" name="oldpassword" currdoc={currentdocument1} section={'oldpassword'} modifydoc={modifydocument} />
+              <FlatInput type="password" wd="6" label="Password" name="oldpassword" currdoc={currentdocument1} section={'oldpassword'} modifydoc={modifydocument} />
               <div className={"col-6"}></div>
               </div>
               <div className="row">
-                <FlatInput wd="6" label="New Password" name="newpassword" currdoc={currentdocument1} section={'newpassword'} modifydoc={modifydocument} />
+                <FlatInput type="password" wd="6" label="Retype Password" name="newpassword" currdoc={currentdocument1} section={'newpassword'} modifydoc={modifydocument} />
                 <div className={"col-6"}></div>
               </div>
               <>{currentdocument.verificationuser!==undefined && currentdocument.isotpverified===undefined?<div className="row">
@@ -572,7 +580,18 @@ export const BuyerComponent = (props: any) => {
               setMsgField("OTP has been Verified. Please check the form data once and submit");
             }
               }}>Verify OTP</button>
-                <div className={"col-6"}></div>
+              <button type="button"  onClick={async ()=>{
+                setErrMsg("")
+                const obj:any = await funcsendBuyerMobileOTPJWT(currentdocument1);
+                if(obj.status==="failed"){
+                  setErrMsg(obj.msg)
+                }else{
+                  modifydocument({...currentdocument, verificationuser:obj.msg})
+                  setErrMsg("enter otp")
+                }
+                
+              }}>Re-Generate OTP</button>
+                <div className={"col-8"}></div>
               </div>:<></>}</>
 
             </div>

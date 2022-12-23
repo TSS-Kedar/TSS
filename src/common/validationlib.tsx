@@ -213,6 +213,7 @@ export const minLength = (min:any) => (value:any) =>
 
 
 export const maxLength15 = maxLength(15)
+export const minLength15= minLength(15)
 export const maxLength40 = maxLength(40)
 export const maxLength120= maxLength(120)
 export const maxLength128= maxLength(128)

@@ -19,11 +19,12 @@ interface Iinput {
   modifydoc:any;
   inpref?:any;
   onclick?:any;
-  disabled?:boolean
+  disabled?:boolean,
+  type?:string
 }
 
 export function Input(props: Iinput) {
-  let { wd, label, name, section, currdoc,modifydoc,cal,inpref,onclick,disabled } = props
+  let { wd, label, name, section, currdoc,modifydoc,cal,inpref,onclick,disabled,type } = props
   let classname = 'input-field'
   const errorMsg = getErrorValueN(currdoc, 'errorsAll.' + section)
   if (errorMsg !== null) {
@@ -34,13 +35,16 @@ export function Input(props: Iinput) {
   if(!onclick)[
     onclick = ()=>{}
   ]
+  if(type===undefined){
+    type="text"
+  }
   return (
     <div className={`col-${wd}`}>
       {!disabled?<>
       <div className={classname}>
         {!disabled? <input
           disabled={disabled}
-          type="text"
+          type={type}
           name={name}
           autoComplete="off"
           required

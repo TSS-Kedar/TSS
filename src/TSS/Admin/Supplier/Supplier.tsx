@@ -276,6 +276,7 @@ export const SupplierComponent = (props: any) => {
   const resetFocus = () => {
     setTimeout(() => compinp.current.focus(), 1000)
   }
+  const [addContact, setDisplayAddContact] = useState(false)
   const [setDocumentAction, documentstatus, setDocumentstatus, currentdocument, modifydocument, redirect, goBack, closeSnackBar, loaderDisplay, setloaderDisplay]: any = useSaveAction(handleSave, handleSaveCheck, doctype, doctypetext, resetFocus, deleteGQL)
   const [contactList, setContactList] = useState([{contactname:"", phoneno:"", email:"",index:0}])
   const addNewcontact=()=>{
@@ -387,9 +388,9 @@ export const SupplierComponent = (props: any) => {
                 <FlatInput wd="3" label="Email" name="email" currdoc={currentdocument1} section={'email'} modifydoc={modifydocument} />
                 <FlatInput wd="3" label="Primary number" name="primarynumber" currdoc={currentdocument1} section={'primarynumber'} modifydoc={modifydocument} />
                 <FlatInput wd="3" label="Website" name="website" currdoc={currentdocument1} section={'website'} modifydoc={modifydocument} />
-                <div className={"col-3"}></div>
+                <div className={"col-3"}>{!addContact && <button type="button"  onClick={()=>{setDisplayAddContact(!addContact)}}>Add Contact</button>}</div>
               </div>
-              {contactList.map((contact, i) => 
+              {addContact && contactList.map((contact, i) => 
                 {return(<div className="row" key={i+""}>
                   <FlatInput wd="3" label="Contact Name" name="contactname" currdoc={contactList[i]} section={'contactname'} modifydoc={modifyContactDoc} />
                   <FlatInput wd="3" label="Phone No" name="phoneno" currdoc={contactList[i]} section={'phoneno'} modifydoc={modifyContactDoc} />

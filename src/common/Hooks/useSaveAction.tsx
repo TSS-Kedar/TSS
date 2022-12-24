@@ -76,6 +76,7 @@ function useSaveAction( handleSave:any,handleSaveCheck:any,doctype:String,doctyp
             break;
     
           case 'save':
+            setloaderDisplay(true)
             currentDoc.validatemode = 'save';
             currentDoc = handleSaveCheck(currentDoc);
             let isSaveOk = !Object.keys(currentDoc.errorsAll).some((x: any) => currentDoc.errorsAll[x]);
@@ -85,14 +86,17 @@ function useSaveAction( handleSave:any,handleSaveCheck:any,doctype:String,doctyp
               docstatus.snackbaropen = true
               docstatus.snackbarseverity = 'error'
               docstatus.snackbartext = 'Errors found'
+              setloaderDisplay(false)
               setDocumentstatus(docstatus);
             }
             else {
               if (isNew){           
                 await handleSave(currentDoc)
+                setloaderDisplay(false)
                 modifydocument(newDocument(doctype,doctypetext))
               }else {
                 let retdoc:any=await handleSave(currentDoc)
+                setloaderDisplay(false)
                 modifydocument({...retdoc["save"+doctypetext]})
                 
               }

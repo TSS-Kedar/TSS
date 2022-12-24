@@ -530,7 +530,7 @@ useEffect(() => {
 
     <>
       <div className="container">
-        <Loader display={false} />
+        <Loader display={loaderDisplay} />
 
 
         <div className="grid">

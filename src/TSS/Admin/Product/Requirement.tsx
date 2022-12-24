@@ -401,7 +401,7 @@ export const Requirement = (props: any) => {
 
     <>
       <div className="container">
-        <Loader display={false} />
+        <Loader display={loaderDisplay} />
 
 
         <div className="grid">

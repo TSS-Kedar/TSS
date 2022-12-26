@@ -530,9 +530,10 @@ useEffect(() => {
 
     <>
       <div className="container">
-        <Loader display={loaderDisplay} />
-
-
+        <Loader display={loaderDisplay} /> 
+        {currentdocument.status==="accepted"? <div className="grid"><div className="row"><div className="col-12" style={{fontSize:"28px",fontWeight:600,color:"#39FF14",background:"#000",textAlign:"center"}}>Requirement is closed</div></div></div>:null}
+   
+        <FlatInput wd="3" label="Status" name="status" currdoc={currentdocument} section={'status'} modifydoc={modifydocument} disabled={true}/>
         <div className="grid">
         <div className="row">
         <FlatInput wd="3" label="Ex Mills Amount" name="Amount1" currdoc={currentdocument} section={'amount1'} modifydoc={modifydocument} />

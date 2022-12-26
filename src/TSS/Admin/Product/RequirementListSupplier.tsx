@@ -76,6 +76,7 @@ import { connect } from 'react-redux'
                  <Column fieldname="type" columnname="Type"></Column>
                  <Column fieldname="quality" columnname="Quality"></Column>
                  <Column fieldname="nature" columnname="Nature"></Column>
+                 <Column fieldname="status" columnname="Status"></Column>
                </Table>
                
          </div>

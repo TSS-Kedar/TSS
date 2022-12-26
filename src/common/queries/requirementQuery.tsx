@@ -27,6 +27,7 @@ query($client:String!,$lang:String!,$z_id:String,$applicationid:String!)
     tolerance
     diff
     slug
+    status
     yarncsp 
     deliverysch 
     reqqty 

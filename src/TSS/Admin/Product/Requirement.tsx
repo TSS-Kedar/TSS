@@ -361,6 +361,9 @@ export const Requirement = (props: any) => {
 
     }, []);
     
+    if(currentdocument.status === 'accepted'){
+      disabled=true
+    }
     let { action, yesaction, noaction, dailogtext, dailogtitle } = documentstatus;
     if(redirect){
       let redirectpath='/requirementManagement'
@@ -403,7 +406,7 @@ export const Requirement = (props: any) => {
       <div className="container">
         <Loader display={loaderDisplay} />
 
-
+        {currentdocument.status==="accepted"? <div className="grid"><div className="row"><div className="col-12" style={{fontSize:"28px",fontWeight:600,color:"#39FF14",background:"#000",textAlign:"center"}}>Requirement is closed</div></div></div>:null}
         <div className="grid">
           <div className="row">
             <FlatInput wd="3" label="Requirement Id" name="reqid" currdoc={currentdocument} section={'reqid'} modifydoc={modifydocument} disabled={true}/>
@@ -423,13 +426,13 @@ export const Requirement = (props: any) => {
           <div className="row">
             <Deliveryperiod wd="3" currdoc={currentdocument} modifydoc={modifydocument} disabled={disabled}/>
             <FlatInput wd="3" label="Required Qty" name="reqqty" currdoc={currentdocument} section={'reqqty'} modifydoc={modifydocument} disabled={disabled}/>
-            <SelectInput wd="3" label="Unit" options={uomoptions} name="uomoptions" currdoc={currentdocument} section={'uom'} modifydoc={modifydocument} />
+            <SelectInput wd="3" label="Unit" options={uomoptions} name="uomoptions" currdoc={currentdocument} section={'uom'} modifydoc={modifydocument} disabled={disabled}/>
             <CSP wd="3" currdoc={currentdocument} modifydoc={modifydocument} disabled={disabled}/>
             <div className={"col-3"}></div>
           </div>
           <div className="row">
             <FlatInput wd="3" label="Target Price" name="targetprice" currdoc={currentdocument} section={'targetprice'} modifydoc={modifydocument} disabled={disabled}/>
-            <SelectInput wd="3" label="Payment Terms" options={paymenttermsoptions} name="paymenttermoptions" currdoc={currentdocument} section={'paymentterms'} modifydoc={modifydocument} />
+            <SelectInput wd="3" label="Payment Terms" options={paymenttermsoptions} name="paymenttermoptions" currdoc={currentdocument} section={'paymentterms'} modifydoc={modifydocument} disabled={disabled}/>
             <Checkbox wd="3" label={"Test Report"} name={"restreportreq"} currdoc={currentdocument} section={"restreportreq"} modifydoc={modifydocument} disabled={disabled}/>
             <Checkbox wd="3" label={"BCI Certificate"} name={"bcicertificate"} currdoc={currentdocument} section={"bcicertificate"} modifydoc={modifydocument} disabled={disabled}/>
             <div className={"col-6"}></div>
@@ -443,6 +446,8 @@ export const Requirement = (props: any) => {
           <div className="row">
             <FlatInput wd="12" label="Remarks" name="remarks" currdoc={currentdocument} section={'remarks'} modifydoc={modifydocument} disabled={disabled}/>
           </div>
+          {
+            currentdocument.status !=='accepted'?
           <div className="row">
           <div className={"col-12"}>
             <div className="stepper-container">
@@ -452,7 +457,8 @@ export const Requirement = (props: any) => {
               </div>
             </div>
         </div>
-        </div>
+        </div>:""
+        }
         </div>
         
         {/* {JSON.stringify(currentdocument)} 

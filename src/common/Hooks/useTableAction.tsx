@@ -4,7 +4,7 @@ import { execGql, execGql_xx } from '../../common/gqlclientconfig';
 import constant,{initDocumentstatus,newDocument} from '../constant';
 import { useCallback } from 'react';
 
-function useTableAction(fetchGraphQuery:any, doctype:String,deleteGraphQuery:any,values:any) {
+function useTableAction(fetchGraphQuery:any, doctype:String,deleteGraphQuery:any,values?:any) {
   console.log('valuesvaluesvaluesvaluesvaluesvaluesvaluesvalues',values)
     const [tableData, setTableData] = useState([])
     const [loaderDisplay, setloaderDisplay] = useState(true) 
@@ -37,7 +37,7 @@ function useTableAction(fetchGraphQuery:any, doctype:String,deleteGraphQuery:any
             else
             {
               console.log('%%%%%tttttttttttttttttttttttt%%%%%%%',default_values)
-              result = await execGql('query', fetchGraphQuery, {applicationid: '15001500', client: '45004500', lang: 'EN', buyid:'BUY1025' })
+              result = await execGql('query', fetchGraphQuery, {applicationid: '15001500', client: '45004500', lang: 'EN' })
             }
             if (!result) {
               console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })

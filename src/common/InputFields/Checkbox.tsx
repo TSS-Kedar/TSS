@@ -18,6 +18,7 @@ interface Iinput {
   modifydoc:any;
   inpref?:any;
   onclick?:any;
+  disabled?:boolean
 }
 export function Checkbox(props: Iinput) {
   let { wd, label, name, section, currdoc,modifydoc,cal, disabled} = props

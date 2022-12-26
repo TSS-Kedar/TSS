@@ -15,8 +15,12 @@ import Deliveryperiod from './common/Deliveryperiod';
 import CSP from './common/CSP';
 import { SelectInput } from '../../../common/InputFields/Select'
 import { Checkbox } from '../../../common/InputFields/Checkbox';
-
+import AlertDialog from '../../../common/PopupModals/ConfirmationModal'
+import { initDocumentstatus } from '../../../common/constant';
+import AcceptBid from '../../../common/mutations/AcceptBid' 
+import Loader from '../../../common/Loader/Loader';
 async function getBid(values: any) {
+
     var result: any = '', errorMessage = '', errors = new Array();
     try {
       result = await execGql('query', bidQuery, values)
@@ -61,22 +65,61 @@ async function getBid(values: any) {
     }
   
   }
+
+ const acceptBid=async (values:any)=>{
+  var result: any = '', errorMessage = '', errors = new Array();
+  try {
+    result = await execGql('query', AcceptBid, values)
+    if (!result) {
+      console.log({ "errors": [], "errorMessage": 'No errors and results from GQL' })
+      return [];
+      // return callback({"errors":[],"errorMessage":'No errors and results from GQL'} ,'');
+    }
+    else {
+      //return result.data;
+      console.log(result.data)
+      return result.data.bids;
+    }
+  }
+  catch (err: any) {
+    errors = err.errorsGql;
+    errorMessage = err.errorMessageGql;
+    console.log({ "errors": errors, "errorMessage": errorMessage })
+    // return callback({"errors":errors,"errorMessage":errorMessage},'' );
+  }
+ }
+
 export const BidList = (props:any) => {
 
-
+  const [documentstatus, setDocumentstatus] = useState(initDocumentstatus)
+  let { action, yesaction, noaction, dailogtext, dailogtitle } = documentstatus;
   console.log('props***************',props.authuser.userauthorisations)
     const [currentdocument, modifydocument] = useState({})
     const [loaderDisplay, setloaderDisplay] = useState(false)
+    
     useEffect(() => {
         console.log(props.authenticated)
         
-        let z_id = new URLSearchParams(window.location.search).get("z_id")
-        let code = new URLSearchParams(window.location.search).get("code")
+        let z_id:string = new URLSearchParams(window.location.search).get("z_id")
+        let code:string = new URLSearchParams(window.location.search).get("code")
         let currdoc:any = {...currentdocument}
         currdoc['supid']=code
         
         if (z_id != 'NO-ID') {
-          setloaderDisplay(true)
+          getRequirementsAndBids(currdoc,z_id,code)
+        }
+        if (z_id == 'NO-ID') {
+        //   let newdoc=newDocument(doctype, doctypetext)
+        //   newdoc.buyid=props.authuser.username;
+        //     modifydocument(newdoc);
+    
+        }
+  
+  
+  
+      }, []);
+      const getRequirementsAndBids=(currdoc:any,z_id:string,code:string)=>{
+        setloaderDisplay(true)
           
           getRequirement({ client: '45004500', lang: 'EN', z_id,applicationid:"15001500" }).then((data: any) => {
             currdoc = {...currdoc,...data[0]}
@@ -94,17 +137,7 @@ export const BidList = (props:any) => {
           
           setloaderDisplay(false)
           });
-        }
-        if (z_id == 'NO-ID') {
-        //   let newdoc=newDocument(doctype, doctypetext)
-        //   newdoc.buyid=props.authuser.username;
-        //     modifydocument(newdoc);
-    
-        }
-  
-  
-  
-      }, []);
+      }
       console.log("Kedar",currentdocument)
       let buyerComp;
       let disabled = true
@@ -114,8 +147,38 @@ export const BidList = (props:any) => {
       buyerComp = <FlatInput wd="3" label="Buyer" name="buyid" currdoc={currentdocument} section={'buyid'} modifydoc={modifydocument} disabled={disabled}/>;
    // }
     
+   const wantToApproveBid=(id:string)=>{
+    const newDocstatus = {...documentstatus}
+    newDocstatus.dailogtext = "Are you sure you want to approve the bid?"
+    newDocstatus.dailogtitle= "Bid Approval";
+    newDocstatus.action = true
+    let z_id:string = new URLSearchParams(window.location.search).get("z_id")
+    let code:string = new URLSearchParams(window.location.search).get("code")
+    newDocstatus.noaction=()=>{
+      let newDocstatus1 = {...documentstatus}
+      newDocstatus1.action = false
+      setDocumentstatus(newDocstatus1)
+    }
+    newDocstatus.yesaction=async ()=>{
+      setloaderDisplay(true)
+      let newDocstatus1 = {...documentstatus}
+      newDocstatus1.action = false
+      setDocumentstatus(newDocstatus1)
+     const result = await acceptBid({ client: '45004500', lang: 'EN', z_id:id,applicationid:"15001500" })
+     const currdoc = {...currentdocument}
+     getRequirementsAndBids(currdoc,z_id,code)
+     setloaderDisplay(false)
+     console.log(result) 
+     
+    }
+    setDocumentstatus(newDocstatus)
+   }
   return (
     <div className="container">
+      
+      <Loader display={loaderDisplay}/>
+      {currentdocument.status==="accepted"? <div className="grid"><div className="row"><div className="col-12" style={{fontSize:"28px",fontWeight:600,color:"#39FF14",background:"#000",textAlign:"center"}}>Requirement is closed</div></div></div>:null}
+
         <div className="grid">
         <div className="row">
             <FlatInput wd="3" label="Requirement Id" name="reqid" currdoc={currentdocument} section={'reqid'} modifydoc={modifydocument} disabled={true}/>
@@ -164,16 +227,17 @@ export const BidList = (props:any) => {
                  headerText="Products"
                   addNew={()=>{}}
                   onRowClick={()=>{}}
-                  actions={[
+                  actions={currentdocument.status !=='accepted'?[
                     {
-                        action: (id: any) => {                         
+                        action: (id: any) => {
+                          wantToApproveBid(id)                         
                         },
                         icon: 'fas fa-thumbs-up',
                         text: 'Edit',
                         className: 'table-button submit',
                         fieldname:"apprstatus"
                       }
-                  ]}
+                  ]:[]}
                  
                >
                 
@@ -183,8 +247,9 @@ export const BidList = (props:any) => {
                  <Column fieldname="uombid" columnname="Unit"></Column>
                  <Column fieldname="paymenttermsbid" columnname="Payment Terms"></Column>
                  <Column fieldname="supremarks" columnname="Supplier remark"></Column>
-
+                 <Column fieldname="status" columnname="Status"></Column>
                </Table>
+               <AlertDialog open={action}  handleno={noaction} handleyes={yesaction} dailogtext={dailogtext} dailogtitle={dailogtitle}/>
     </div>
   )
 }

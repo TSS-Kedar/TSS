@@ -357,8 +357,8 @@ export const SupplierComponent = (props: any) => {
   }
 
   
-  if (redirect) {
-    let redirectpath = '/Suppliers'
+  if (documentstatus.snackbarseverity==="success") {
+    let redirectpath = '/supplierManagement'
     return <Redirect push to={redirectpath} />;
   } else {
 

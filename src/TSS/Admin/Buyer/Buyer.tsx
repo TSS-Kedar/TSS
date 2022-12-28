@@ -425,12 +425,18 @@ export const BuyerComponent = (props: any) => {
       { 'label': 'Fancy', 'value': 'Fancy' },
       { 'label': 'Blends', 'value': 'Blends' }
     ]
-    if(documentstatus.snackbarseverity==="success"){
-       setTimeout(()=>{
-        //let redirectpath = '/'
-        location.reload();
-       },1000)
-    }
+    if(documentstatus.snackbarseverity==="success" && !props.authenticated){
+      //  setTimeout(()=>{
+      //   //let redirectpath = '/'
+      //   location.reload();
+      //  },1000)
+      return(<>
+      <div style={{textAlign: "center",width: "100%", marginTop: "20%",background:"#003659"}}>
+      <div style={{color:"#39ff14",fontSize:"18px",paddingTop:"30px"}}>We have saved your profile.We will review the same and get back.</div>
+      <div style={{cursor:"pointer",color:"var(--main-color)", fontSize:"24px",paddingBottom:"30px"}} onClick={()=>{location.reload();}}>Back to Login</div>
+      </div>
+      </>)
+    }else
     return (
       <div className={!props.authenticated?'container':""}>
        {!props.authenticated?<div style={{width:"100%"}}> <a onClick={()=>{props.changeForm()}} style={{color:"red",fontSize:"20px",cursor:"pointer",float:"right"}}>

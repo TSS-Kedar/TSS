@@ -62,7 +62,7 @@ if(authenticated){
     <div className={form === 'signin' ? 'login-container' : 'login-container sign-up-mode'}>
       <div className="form-container">
         <div className="signin-signup">
-        {logintype ==="otp" ? <M_OTPSignInForm />:<M_SignInForm />}
+        {logintype ==="otp" ? <M_OTPSignInForm />:<M_SignInForm changeForm={changeForm}/>}
           {logintype ==="otp" ? <M_OTPSignUpForm />:<M_SignUpForm/>}
           
         </div>

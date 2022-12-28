@@ -16,7 +16,7 @@ import RequirementList from './Product/RequirementList'
 import {handleSignoutUsernameJWT,checkCurrentUsernameJWT,ActionToDispatch,ActionToRedirect} from '../../TSS/Redux/reducers/actions'
 function AdminDashboard(props:any) {
     const {systemsRedirect}=props
-    const [displayComponent, setDisplayComponent] = useState('Dashboard')
+    const [displayComponent, setDisplayComponent] = useState('User Management')
     
     return (!props.displaySystem ?
       <Rounter>
@@ -26,7 +26,8 @@ function AdminDashboard(props:any) {
           
           <main>
             <Switch>
-              <Route exact path="/userManagement">
+            <Route exact path="/">
+              {/* {</Route><Route exact path="/userManagement">} */}
                 <UserListComponent {...props}/>
               </Route>
               <Route exact path="/useredit">

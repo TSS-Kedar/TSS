@@ -349,9 +349,16 @@ export function SignInForm(props:any) {
      
       <ReCAPTCHA sitekey={getCaptchaSitekey()}  onChange={()=>{onCaptchaChange(true)}}   />
       <input type="button" value="Login" className="btn solid" onClick={()=>{handleSubmit(user)}}  disabled = {captcha ? "" : "disabled"} />
+      {/* <button
+              className="btn transparent"
+              id="sign-up-btn"
+              onClick={()=>{props.changeForm()}}
+            >
+              New Buyer
+            </button> */}
       <div  className="field-error">{state.formErrorMessage}</div>
-      <M_SocialMediaLogin label="Login" />
-      <div className='switch-login-container'onClick={()=>setForm()} >New User ?</div>
+      {/* <M_SocialMediaLogin label="Login" /> */}
+      <div className='switch-login-container'onClick={()=>props.changeForm()} style={{cursor:"pointer",fontSize:"24px", color:"var(--main-color)"}}>New Buyer ?</div>
       <div className='switch-login-container'onClick={()=>promptTest()} > App ICON ON FRONT SCREEN </div>
       {notificationButton()}
       {pushNotificationButton()}

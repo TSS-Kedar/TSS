@@ -28,13 +28,13 @@ export function AdminMenu(props: any) {
       iconName: 'las la-money-bill-wave-alt',
       active: '',
     },
-    {
-      name: 'Product Management',
-      component: '',
-      slug: '/productManagement',
-      iconName: 'lab la-product-hunt',
-      active: '',
-    },
+    // {
+    //   name: 'Product Management',
+    //   component: '',
+    //   slug: '/productManagement',
+    //   iconName: 'lab la-product-hunt',
+    //   active: '',
+    // },
     {
       name: 'Requirement Management',
       component: '',
@@ -42,13 +42,13 @@ export function AdminMenu(props: any) {
       iconName: 'las la-clipboard-list',
       active: '',
     },
-    {
-      name: 'Supplier & Buyer Mapping',
-      component: '',
-      slug: '/supplierBuyerManagement',
-      iconName: 'las fa-users',
-      active: '',
-    },
+    // {
+    //   name: 'Supplier & Buyer Mapping',
+    //   component: '',
+    //   slug: '/supplierBuyerManagement',
+    //   iconName: 'las fa-users',
+    //   active: '',
+    // },
     {
       name: 'Logout',
       component: '',

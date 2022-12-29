@@ -62,8 +62,8 @@ if(authenticated){
     <div className={form === 'signin' ? 'login-container' : 'login-container sign-up-mode'}>
       <div className="form-container">
         <div className="signin-signup">
-        {logintype ==="otp" ? <M_OTPSignInForm />:<M_SignInForm changeForm={changeForm}/>}
-          {logintype ==="otp" ? <M_OTPSignUpForm />:<M_SignUpForm/>}
+        {logintype ==="otp" ? <M_OTPSignInForm changeForm={changeForm}/>:<M_SignInForm changeForm={changeForm}/>}
+          {logintype ==="otp" ? <M_OTPSignUpForm changeForm={changeForm}/>:<M_SignUpForm changeForm={changeForm}/>}
           
         </div>
       </div>
@@ -115,7 +115,7 @@ if(authenticated){
     </div>
     
     <div className='login-container-mobile'>
-    {form ==='signin'?logintype ==="otp"? <M_OTPSignInForm setForm={setSignupForm}/>:<M_SignInForm setForm={setSignupForm}/>
+    {form ==='signin'?logintype ==="otp"? <M_OTPSignInForm setForm={setSignupForm} changeForm={changeForm}/>:<M_SignInForm setForm={setSignupForm} changeForm={changeForm}/>
       :logintype ==="otp" ? <M_OTPSignUpForm setForm={setSigninForm}/>:<M_SignUpForm setForm={setSignupForm}/>
       
     }

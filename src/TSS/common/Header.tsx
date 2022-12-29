@@ -11,15 +11,16 @@ export  function Header(props: any) {
         </label>
         {title}
       </h2>
-      <div className="search-wrapper">
-        <span className="las la-search"></span>
+      <div className="search-wrapper" style={{display:"none"}}>
+        <span className="las la-search" ></span>
         <input type="search" placeholder="Search here" />
       </div>
       <div className="user-wrapper">
         <img src={usering} alt="" width="40px" height="40px" />
         <div>
           <h4>{authuser?.firstname ? authuser.firstname +" "+ authuser.lastname:authuser.username}</h4>
-          <small>super admin</small>
+          <small>{authuser?.userauthorisations}</small>
+          {/* <small>super admin</small> */}
         </div>
       </div>
     </header>

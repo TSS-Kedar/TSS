@@ -31,8 +31,8 @@ export const UserListComponent = (props: any) => {
     }
   }, [])
   let tabledata:any = []
-  if(props.users){
-    tabledata =useMemo(() => [...props.users], [props.users])
+  if(props.users?.length>0){
+    tabledata =useMemo(() => [...props?.users], [props?.users])
 }
 useAltKey("n",() =>{setDocStatus("NO-ID",true)})
   if (redirect) {
@@ -63,7 +63,7 @@ useAltKey("n",() =>{setDocStatus("NO-ID",true)})
                   // },
                   {
                     action: (id: any) => {
-                      alert(id)
+                      //alert(id)
                     },
                     icon: 'fas fa-trash-alt',
                     text: 'delete',

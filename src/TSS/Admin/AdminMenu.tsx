@@ -10,7 +10,7 @@ export function AdminMenu(props: any) {
     {
       name: 'User Management',
       component: '',
-      slug: '/userManagement',
+      slug: '/',
       iconName: 'las la-user',
       active: '',
     },

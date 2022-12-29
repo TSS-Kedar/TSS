@@ -174,7 +174,7 @@ export const UserComponent = (props: any) => {
   
   const {action,yesaction,noaction,dailogtext,dailogtitle} = documentstatus;
   if(redirect){
-    let redirectpath='/userManagement'
+    let redirectpath='/'
     return <Redirect push to={redirectpath} />;
 
      

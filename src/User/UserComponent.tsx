@@ -18,7 +18,7 @@ import useSaveAction from '../common/Hooks/useSaveAction'
 import Loader from '../common/Loader/Loader'
 import {initDocumentstatus,newDocument} from '../common/constant'
 import {runCheck,requiredCheck,getDtFormat,getTimeFormat,getFromToDate,getDateYYYYMMDDHHMI,getDateYYYYMMDD,maxLength40,maxLength128,setErrorValue,getValue,setValue} from '../common/validationlib';
- import {Redirect,withRouter } from 'react-router-dom'
+ import {Redirect,withRouter } from 'react-router-dom' 
 import AppbarBottom from '../common/AppbarBottom'
 const usexoptions = [{ 'key': 'M', 'value': 'Male' }, { 'key': 'F', 'value': 'Female' }, { 'key': 'NTD', 'value': 'Not disclosed' }]
 const authorizationOptions = [{ 'key': 'Admin', 'value': 'Admin' }, { 'key': 'Buyer', 'value': 'Buyer' }, { 'key': 'Supplier', 'value': 'Supplier' }]

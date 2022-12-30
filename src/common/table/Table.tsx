@@ -45,13 +45,13 @@ function Table(props: any) {
     }
   let pageData:any=[]
   
-  for(let i=(activePage-1)*numberOfRecordsPerPage;i<(((activePage-1)*numberOfRecordsPerPage)+numberOfRecordsPerPage) && i<filterdata.length;i++){
+  for(let i=(activePage-1)*numberOfRecordsPerPage;i<(((activePage-1)*numberOfRecordsPerPage)+numberOfRecordsPerPage) && i<filterdata?.length;i++){
     pageData?.push(filterdata[i])
   }
     const globalSearch = (searchtext: string) => {
         let keys = Object.keys(data[0])
         let filteredData:any=[]
-        for (let i = 0; i < data.length; i < i++) {
+        for (let i = 0; i < data?.length; i < i++) {
             for (let key of keys) {
 
                 if(data[i][key]!=null)
@@ -100,7 +100,7 @@ function Table(props: any) {
                                         return ele && <Column key={j+"#"+fieldname} data={data && data[fieldname]? data[fieldname]:""} columnClick={onRowClick} id={data.z_id}/>
                                         }
                                     })}
-                                    {actions.length>0 && <Column data={<div className="table-button-container">{actions.map((action:any,k:any)=>{
+                                    {actions?.length>0 && <Column data={<div className="table-button-container">{actions.map((action:any,k:any)=>{
                                         return action.fieldname===undefined  ? (<SMIconButton key={k+"#"+action.icon} text={action.text} action={action.action} id={data && data["z_id"]? data["z_id"]:""} icon={action.icon} className={action.className}/>)
                                         :action.fieldname!==undefined && data[action.fieldname] !== "Approved" ?
                                         <SMIconButton key={k+"#"+action.icon} action={action.action} text={action.text} id={data && data["z_id"]? data["z_id"]:""} icon={action.icon} className={action.className}/>:<SMIconButton/>})}</div>}/>
@@ -113,11 +113,11 @@ function Table(props: any) {
                     </div>
                 
                 <Pagination 
-                    number={Math.ceil(filterdata.length/numberOfRecordsPerPage)} 
+                    number={Math.ceil(filterdata?.length/numberOfRecordsPerPage)} 
                     activePage={activePage} setActivePage={setActivePage} 
                     numberOfRecordsPerPage={numberOfRecordsPerPage}
                     setNumberOfRecordsPerPage={setNumberOfRecordsPerPage}
-                    total={filterdata.length}
+                    total={filterdata?.length}
                 />
             
         </>

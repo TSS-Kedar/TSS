@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState,useRef } from 'react'
+import React, { useMemo, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import AddFabButton from '../common/InputFields/AddFabButton'
 import Table from '../common/table/Table'
@@ -7,10 +7,16 @@ import { Redirect, withRouter } from 'react-router-dom'
 import {addusers} from '../TSS/Redux/ActionCreators'
 import { getUsers1 } from '../TSS/Redux/reducers/actions'
 import {useAltKey,useKey} from '../common/shortcurkeys'
+import fetchquery from '../common/queries/usersQuery';
+import deletequery from '../common/mutations/deleteUsername';
+import useTableAction from '../common/Hooks/useTableAction'
+import AlertDialog from '../common/PopupModals/ConfirmationModal'
+import Messagesnackbar from '../common/Alert'
+import Loader from '../common/Loader/Loader'
 export const UserListComponent = (props: any) => {
 
-  const [docno, setDocno] = useState('NO-ID')
-  const [redirect, setRedirect] = useState(false)
+  // const [docno, setDocno] = useState('NO-ID')
+  // const [redirect, setRedirect] = useState(false)
   const setDocStatus = (id: string, redirect: boolean) => {
     setDocno(id)
     setRedirect(redirect)
@@ -19,21 +25,26 @@ export const UserListComponent = (props: any) => {
     setDocno('')
     setRedirect(redirect)
   }
-
-  useEffect(() => {
-    getUsers1({applicationid:'15001500',client:'45004500',lang: 'EN'}).then((users:any)=>{
-      if(props){
-      props.addusers(users)
-    }
-    });
-    return () => {
+  const [tableData,loaderDisplay,docno, setDocno,redirect, setRedirect,documentstatus,deleteDocument,closeSnackBar]:any=useTableAction(fetchquery,"user",deletequery)
+  let tabledata:any=[]
+  if(tableData) {
+    tabledata= useMemo(()=>tableData,[loaderDisplay])
+   }
+  // useEffect(() => {
+  //   getUsers1({applicationid:'15001500',client:'45004500',lang: 'EN'}).then((users:any)=>{
+  //     if(props){
+  //     props.addusers(users)
+  //   }
+  //   });
+  //   return () => {
       
-    }
-  }, [])
-  let tabledata:any = []
-  if(props.users?.length>0){
-    tabledata =useMemo(() => [...props?.users], [props?.users])
-}
+  //   }
+  // }, [])
+  const {action,yesaction,noaction,dailogtext,dailogtitle} = documentstatus;
+//   let tabledata:any = []
+//   if(props.users?.length>0){
+//     tabledata =useMemo(() =>props?.users?.length>0?[...props?.users]:[], [props?.users])
+// }
 useAltKey("n",() =>{setDocStatus("NO-ID",true)})
   if (redirect) {
     let redirectpath = '/useredit?z_id=' + docno
@@ -43,7 +54,7 @@ useAltKey("n",() =>{setDocStatus("NO-ID",true)})
       <div className="projects">
         <div className="card">
           <div className="card-body">
-            
+          <Loader display={loaderDisplay}/>
               <Table
                 data={tabledata}
                 defaultNoOfRows={10}
@@ -63,7 +74,7 @@ useAltKey("n",() =>{setDocStatus("NO-ID",true)})
                   // },
                   {
                     action: (id: any) => {
-                      //alert(id)
+                      deleteDocument(id)
                     },
                     icon: 'fas fa-trash-alt',
                     text: 'delete',
@@ -84,7 +95,10 @@ useAltKey("n",() =>{setDocStatus("NO-ID",true)})
             
           </div>
         </div>
-        <AddFabButton action={setDocStatus} />
+        <AlertDialog open={action}  handleno={noaction} handleyes={yesaction} dailogtext={dailogtext} dailogtitle={dailogtitle}/>           
+        <Messagesnackbar snackbaropen={documentstatus.snackbaropen} snackbarseverity={documentstatus.snackbarseverity} handlesnackbarclose={closeSnackBar} snackbartext={documentstatus.snackbartext}/>                    
+
+         {/* <AddFabButton action={setDocStatus} /> */}
       </div>
     )
 }

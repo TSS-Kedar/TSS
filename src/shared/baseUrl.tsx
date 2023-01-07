@@ -16,6 +16,23 @@ export const deleteUrl = `${window.location.protocol}//${window.location.hostnam
 export const notificationSubscribeUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/notifications/subscribe`;
 
 
+// export const getCaptchaSitekey =()=>{
+
+
+//     console.log(window.location.protocol)
+//     console.log(window.location.hostname)
+//     console.log(window.location.port)
+
+//     if(window.location.hostname!='localhost'){
+//         console.log('server')
+//     return '6LcBbhgeAAAAAGwrYBdfsbKOJ8WjlbFPYmLtLw7L'
+// }
+// else{
+//     console.log('client')
+//     return '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
+// }
+
+// }
 export const getCaptchaSitekey =()=>{
 
 
@@ -24,8 +41,8 @@ export const getCaptchaSitekey =()=>{
     console.log(window.location.port)
 
     if(window.location.hostname!='localhost'){
-        console.log('server')
-    return '6LcBbhgeAAAAAGwrYBdfsbKOJ8WjlbFPYmLtLw7L'
+        console.log('server *********** amazon----6LehUdojAAAAAMjFmI-UYPtHpLgRjiN876yrKUB0')
+    return '6LehUdojAAAAAMjFmI-UYPtHpLgRjiN876yrKUB0'
 }
 else{
     console.log('client')
@@ -33,7 +50,6 @@ else{
 }
 
 }
-
 
 export const urlBase64ToUint8Array= (base64String) =>{
     var padding = '='.repeat((4 - base64String.length % 4) % 4);

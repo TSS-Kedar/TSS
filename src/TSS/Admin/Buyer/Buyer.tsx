@@ -597,7 +597,7 @@ export const BuyerComponent = (props: any) => {
                 }
                 
               }}>Re-Generate OTP</button>
-                <div className={"col-8"}></div>
+                <div className={"col-6"}></div>
               </div>:<></>}</>
 
             </div>

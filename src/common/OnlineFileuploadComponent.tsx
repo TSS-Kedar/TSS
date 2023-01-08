@@ -121,7 +121,7 @@ export const OnlineFileuploadComponent = React.memo(props => {
                             <Button
                                 variant="contained"
                                 color="primary"
-                                style={{ margin: 10, width: 300 }}
+                                style={{  width: "100%" }}
                                 onClick={() => {
                                 
                                     axios.post(deleteUrl, {

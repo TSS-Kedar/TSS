@@ -106,3 +106,30 @@
     top:0;
     border-left: 20px solid var(--main-color);
 }
+
+@media only screen and (max-width: 560px) {
+    
+element.style {
+}
+.stepper-container button {
+    width: 100%;
+    
+    margin: 10px 0px;
+}
+.stepper-container .btn-box {
+    margin: 0px auto;
+    
+}
+
+#progress::after{
+    content:"";
+    height: 0;
+    width: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    position: absolute;
+    right: -20px;
+    top:0;
+    border-left: 20px solid var(--main-color);
+}
+}

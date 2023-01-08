@@ -29,6 +29,7 @@ export const UserListComponent = (props: any) => {
   let tabledata:any=[]
   if(tableData) {
     tabledata= useMemo(()=>tableData,[loaderDisplay])
+    props.addusers(tabledata)
    }
   // useEffect(() => {
   //   getUsers1({applicationid:'15001500',client:'45004500',lang: 'EN'}).then((users:any)=>{

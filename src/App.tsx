@@ -15,6 +15,9 @@ const {persistor,store} = ConfigureStore();
 
 
 export const App = () => {
+  alert("width :: "+window.screen.width)
+  alert("availWidth :: "+window.screen.availWidth)
+  alert("colorDepth :: "+window.screen.colorDepth)
   const [currentdocument, modifydocument] = useState({})
   const handleSubmit = (obj: any) => {
     console.log(obj)

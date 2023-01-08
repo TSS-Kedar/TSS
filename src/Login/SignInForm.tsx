@@ -252,11 +252,11 @@ export function SignInForm(props:any) {
               else
               {
 
-                console.log('result.signUpUsernameJWT.token');
-          console.log(result.token);
-          console.log('result.signUpUsernameJWT.token--end');
-          sessionStorage.setItem('jwtToken', result.token);
-          console.log('token added');
+                //console.log('result.signUpUsernameJWT.token');
+                //console.log(result.token);
+                //console.log('result.signUpUsernameJWT.token--end');
+                sessionStorage.setItem('jwtToken', result.token);
+                //console.log('token added');
               
                 checkCurrentUsernameJWT(async (err:any,result:any)=>
                 {

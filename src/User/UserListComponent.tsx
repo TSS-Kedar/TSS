@@ -13,6 +13,7 @@ import useTableAction from '../common/Hooks/useTableAction'
 import AlertDialog from '../common/PopupModals/ConfirmationModal'
 import Messagesnackbar from '../common/Alert'
 import Loader from '../common/Loader/Loader'
+import Card from './UserCardList'
 export const UserListComponent = (props: any) => {
 
   // const [docno, setDocno] = useState('NO-ID')
@@ -55,7 +56,9 @@ useAltKey("n",() =>{setDocStatus("NO-ID",true)})
       <div className="projects">
         <div className="card">
           <div className="card-body">
+          <Card data={tabledata} cardclick={setDocStatus} addNew={setDocStatus}/>
           <Loader display={loaderDisplay}/>
+              <div className='table-list-container'>
               <Table
                 data={tabledata}
                 defaultNoOfRows={10}
@@ -93,7 +96,7 @@ useAltKey("n",() =>{setDocStatus("NO-ID",true)})
                 <Column fieldname="email" columnname="Email Id"></Column>
                 <Column fieldname="mobile" columnname="Phone No."></Column>
               </Table>
-            
+              </div>
           </div>
         </div>
         <AlertDialog open={action}  handleno={noaction} handleyes={yesaction} dailogtext={dailogtext} dailogtitle={dailogtitle}/>           

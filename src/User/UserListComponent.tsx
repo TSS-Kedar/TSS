@@ -58,7 +58,7 @@ useAltKey("n",() =>{setDocStatus("NO-ID",true)})
           <div className="card-body">
           <Card data={tabledata} cardclick={setDocStatus} addNew={setDocStatus}/>
           <Loader display={loaderDisplay}/>
-              <div className='table-list-container'>
+              
               <Table
                 data={tabledata}
                 defaultNoOfRows={10}
@@ -98,7 +98,7 @@ useAltKey("n",() =>{setDocStatus("NO-ID",true)})
               </Table>
               </div>
           </div>
-        </div>
+        
         <AlertDialog open={action}  handleno={noaction} handleyes={yesaction} dailogtext={dailogtext} dailogtitle={dailogtitle}/>           
         <Messagesnackbar snackbaropen={documentstatus.snackbaropen} snackbarseverity={documentstatus.snackbarseverity} handlesnackbarclose={closeSnackBar} snackbartext={documentstatus.snackbartext}/>                    
 

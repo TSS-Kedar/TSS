@@ -75,7 +75,7 @@ function Table(props: any) {
         <>
         
             {/* {renderChildren(props.children)} */}
-            
+            <div className='table-list-container'>
                     <div className="card-header">
                         {/* <div className="table-header-text">
                             <h3>{headerText}</h3><span>({data.length})</span>
@@ -119,6 +119,7 @@ function Table(props: any) {
                     setNumberOfRecordsPerPage={setNumberOfRecordsPerPage}
                     total={filterdata?.length}
                 />
+                </div>
             
         </>
     )

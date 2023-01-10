@@ -12,6 +12,7 @@ import AlertDialog from '../../../common/PopupModals/ConfirmationModal'
 import ApprovalUserAction from '../../../common/Hooks/ApproveUserAction'
 import approveBuyer from '../../../common/mutations/approveBuyer'
 import OPTModal from '../../../common/PopupModals/OPTModal'
+import Card from './BuyerCardList'
 function BuyerList() {
 
    const fetchquery = useMemo(()=>(fetchGQL),[1])
@@ -41,6 +42,7 @@ function BuyerList() {
   } else
    return (
         <div className="card">
+          <Card data={tabledata} cardclick={setDocStatus} addNew={setDocStatus}/>
             <Loader display={loaderDisplay}/>
           <div className="card-body">
           <Table

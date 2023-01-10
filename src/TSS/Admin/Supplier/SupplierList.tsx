@@ -9,6 +9,8 @@ import {useAltKey,useKey} from '../../../common/shortcurkeys'
 import Loader from '../../../common/Loader/Loader'
 import Messagesnackbar from '../../../common/Alert'
 import AlertDialog from '../../../common/PopupModals/ConfirmationModal'
+
+import SupplierCardList from '../Supplier/SupplierCardList'
 function SupplierList() {
 
    const fetchquery = useMemo(()=>(fetchGQL),[1])
@@ -33,6 +35,7 @@ function SupplierList() {
   } else
    return (
         <div className="card">
+          <SupplierCardList data={tabledata} cardclick={setDocStatus} addNew={setDocStatus}/>
             <Loader display={loaderDisplay}/>
           <div className="card-body">
           <Table

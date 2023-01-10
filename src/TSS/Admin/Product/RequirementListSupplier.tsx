@@ -12,7 +12,7 @@ import Loader from '../../../common/Loader/Loader'
 import Messagesnackbar from '../../../common/Alert'
 import AlertDialog from '../../../common/PopupModals/ConfirmationModal'
 import { connect } from 'react-redux'
-
+import Card from './RequirementCardList'
 
 // const filterSupplierRequirements= (reqArr)=>
 // {
@@ -136,6 +136,7 @@ import { connect } from 'react-redux'
    } else
     return (
          <div className="card">
+          <Card data={tabledata} cardclick={setDocStatus} addNew={setDocStatus}/>
              <Loader display={loaderDisplay}/>
            <div className="card-body">
            <Table

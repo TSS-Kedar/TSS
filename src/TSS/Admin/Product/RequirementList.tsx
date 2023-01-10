@@ -10,6 +10,7 @@ import {useAltKey,useKey} from '../../../common/shortcurkeys'
 import Loader from '../../../common/Loader/Loader'
 import Messagesnackbar from '../../../common/Alert'
 import AlertDialog from '../../../common/PopupModals/ConfirmationModal'
+import Card from './RequirementCardList'
 import { connect } from 'react-redux'
 //function RequirementList() {
   let url='/requirementedit'
@@ -44,6 +45,7 @@ import { connect } from 'react-redux'
    } else
     return (
          <div className="card">
+          <Card data={tabledata} cardclick={setDocStatus} addNew={setDocStatus}/>
              <Loader display={loaderDisplay}/>
            <div className="card-body">
            <Table
@@ -118,6 +120,7 @@ let tabledata:any=[]
   } else
    return (
         <div className="card">
+          <Card data={tabledata} cardclick={setDocStatus} addNew={setDocStatus}/>
             <Loader display={loaderDisplay}/>
           <div className="card-body">
           <Table

@@ -19,6 +19,7 @@ import AlertDialog from '../../../common/PopupModals/ConfirmationModal'
 import { initDocumentstatus } from '../../../common/constant';
 import AcceptBid from '../../../common/mutations/AcceptBid' 
 import Loader from '../../../common/Loader/Loader';
+import BidCardList from './BidCardList'
 async function getBid(values: any) {
 
     var result: any = '', errorMessage = '', errors = new Array();
@@ -220,6 +221,7 @@ export const BidList = (props:any) => {
             <FlatInput wd="12" label="Remarks" name="remarks" currdoc={currentdocument} section={'remarks'} modifydoc={modifydocument} disabled={disabled}/>
           </div>
         </div>
+        <BidCardList data={currentdocument.biddata?currentdocument.biddata:[]} cardclick={()=>{}} addNew={()=>{}} auth={props.authuser.userauthorisations}/>
         <Table
                  data={currentdocument.biddata?currentdocument.biddata:[]}
                  defaultNoOfRows={10}

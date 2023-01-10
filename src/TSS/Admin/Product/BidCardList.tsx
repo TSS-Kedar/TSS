@@ -1,8 +1,8 @@
 import React,{useState,useRef,useEffect} from 'react'
-import UserCard from './UserCard'
-import {Pagination} from '../common/table/Pagination'
-import '../common/card/card.css'
-function UserCardList({data,cardclick,addNew}:any) {
+import BidCard from './BidCard'
+import {Pagination} from '../../../common/table/Pagination'
+import '../../../common/card/card.css'
+function RequirementCardList({data,cardclick,addNew,auth}:any) {
     const [activePage, setActivePage] = useState(1);
     const [filterdata, setFilter] = useState([]);
     const [numberOfRecordsPerPage, setNumberOfRecordsPerPage] = useState(10)
@@ -46,13 +46,13 @@ function UserCardList({data,cardclick,addNew}:any) {
                         {/* <div className="table-header-text">
                             <h3>{headerText}</h3><span>({data.length})</span>
                         </div> */}
-                        <div className="goble-search"><input ref={searchref} placeholder="search"  onChange={(e)=>{globalSearch(e.target.value)}}/><i className="fas fa-search"/></div>
+                        <div className="goble-search"><input ref={searchref} placeholder="search" style={{height:'40px',fontSize:"16px"}} onChange={(e)=>{globalSearch(e.target.value)}}/><i className="fas fa-search"/></div>
                         <button className="tabel-add-button" onClick={()=>addNew("NO-ID",true)}>Add new <span className="las la-arrow-right"></span></button>
                         
                     </div>
-    <div className="cards-row">{pageData.map((user:any)=>{
+    <div className="cards-row">{pageData.map((user:any,i:number)=>{
         return(<>
-        <UserCard title={user.firstname+" "+user.lastname} mobile={user.mobile} email={user.email} auth={user.userauthorisations} cardclick={cardclick} z_id={user.z_id}/>
+        <BidCard title={auth==="Admin"?user.supid+" : "+"BID-"+(i+1):"BID-"+(i+1)} amount1={user.amount1} amount2={user.amount2} uombid={user.uombid} paymenttermsbid={user.paymenttermsbid} supremarks={user.supremarks} status={user.status} cardclick={cardclick}/>
        
         </>)
         
@@ -70,4 +70,4 @@ function UserCardList({data,cardclick,addNew}:any) {
   )
 }
 
-export default UserCardList
+export default RequirementCardList

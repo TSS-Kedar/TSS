@@ -317,7 +317,7 @@ export const SupplierComponent = (props: any) => {
           for(let i=0;i<category_arr.length;i++){
             data[0].category.push({'label': category_arr[i], 'value':category_arr[i]})
           }}
-          if(data[0].yarntypes!==null){
+          if(data[0].yarntypes!==null && typeof data[0].yarntypes==='string'){
             let yarntypes_arr:string[]=data[0].yarntypes?.split(',')
             data[0].yarntypes = []
             for(let i=0;i<yarntypes_arr?.length;i++){

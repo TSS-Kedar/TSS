@@ -42,7 +42,7 @@ function BuyerList() {
   } else
    return (
         <div className="card">
-          <Card data={tabledata} cardclick={setDocStatus} addNew={setDocStatus}/>
+          <Card data={tabledata} cardclick={setDocStatus} addNew={setDocStatus} approveDoc={ApproveDocument}/>
             <Loader display={loaderDisplay}/>
           <div className="card-body">
           <Table

@@ -168,3 +168,33 @@
 .modal-button.confirm:hover{
     background: var(--main-color);
 }
+
+
+@media only screen and (max-width: 540px) {
+    .modal-container .content {       
+        width: 300px;        
+    }
+    .modal-container .content .header{
+        height: 40px;
+    }
+    .modal-container .content .header h2{
+        font-size: 18px;
+    }
+    .modal-container .fa-times {
+        top: 10px;
+    }
+    .modal-container .fa-check {
+        font-size: 20px;
+        margin: 15px 0 0 125px;
+        height: 50px;
+        width: 50px;
+       
+    }
+    .modal-container p{
+        font-size: 14px;
+    }
+    .modal-container .content .modal-buttons-section{
+        font-size: small;
+        height: 40px;
+    }
+}

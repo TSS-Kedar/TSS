@@ -2,7 +2,7 @@ import React,{useState,useRef,useEffect} from 'react'
 import BuyerCard from './BuyerCard'
 import {Pagination} from '../../../common/table/Pagination'
 import '../../../common/card/card.css'
-function BuyerCardList({data,cardclick,addNew}:any) {
+function BuyerCardList({data,cardclick,addNew,approveDoc}:any) {
     const [activePage, setActivePage] = useState(1);
     const [filterdata, setFilter] = useState([]);
     const [numberOfRecordsPerPage, setNumberOfRecordsPerPage] = useState(10)
@@ -52,7 +52,7 @@ function BuyerCardList({data,cardclick,addNew}:any) {
                     </div>
     <div className="cards-row">{pageData.map((user:any)=>{
         return(<>
-        <BuyerCard title={user.firstname+" "+user.lastname} mobile={user.primarynumber} email={user.email} companyname={user.companyname} status={user.apprstatus} buyid={user.buyid} cardclick={cardclick} z_id={user.z_id}/>
+        <BuyerCard title={user.firstname+" "+user.lastname} mobile={user.primarynumber} email={user.email} companyname={user.companyname} status={user.apprstatus} buyid={user.buyid} cardclick={cardclick} z_id={user.z_id} approveDoc={approveDoc}/>
        
         </>)
         

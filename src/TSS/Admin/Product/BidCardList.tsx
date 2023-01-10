@@ -46,7 +46,7 @@ function RequirementCardList({data,cardclick,addNew,auth}:any) {
                         {/* <div className="table-header-text">
                             <h3>{headerText}</h3><span>({data.length})</span>
                         </div> */}
-                        <div className="goble-search"><input ref={searchref} placeholder="search" style={{height:'40px',fontSize:"16px"}} onChange={(e)=>{globalSearch(e.target.value)}}/><i className="fas fa-search"/></div>
+                        <div className="goble-search"><input ref={searchref} placeholder="search"  onChange={(e)=>{globalSearch(e.target.value)}}/><i className="fas fa-search"/></div>
                         <button className="tabel-add-button" onClick={()=>addNew("NO-ID",true)}>Add new <span className="las la-arrow-right"></span></button>
                         
                     </div>

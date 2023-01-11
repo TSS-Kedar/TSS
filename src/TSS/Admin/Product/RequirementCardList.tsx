@@ -2,7 +2,7 @@ import React,{useState,useRef,useEffect} from 'react'
 import RequirementCard from './RequirementCard'
 import {Pagination} from '../../../common/table/Pagination'
 import '../../../common/card/card.css'
-function RequirementCardList({data,cardclick,addNew}:any) {
+function RequirementCardList({data,cardclick,addNew,acceptbid}:any) {
     const [activePage, setActivePage] = useState(1);
     const [filterdata, setFilter] = useState([]);
     const [numberOfRecordsPerPage, setNumberOfRecordsPerPage] = useState(10)
@@ -52,7 +52,7 @@ function RequirementCardList({data,cardclick,addNew}:any) {
                     </div>
     <div className="cards-row">{pageData.map((user:any)=>{
         return(<>
-        <RequirementCard title={user.reqid+" : "+user.yarntype} count={user.count} type={user.type} quality={user.quality} nature={user.nature} status={user.apprstatus} buyid={user.buyid} cardclick={cardclick} z_id={user.z_id}/>
+        <RequirementCard title={user.reqid+" : "+user.yarntype} count={user.count} type={user.type} quality={user.quality} nature={user.nature} status={user.status} buyid={user.buyid} cardclick={cardclick} z_id={user.z_id} acceptbid={acceptbid}/>
        
         </>)
         

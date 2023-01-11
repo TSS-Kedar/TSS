@@ -36,7 +36,7 @@ import { connect } from 'react-redux'
  
    const M_setDocStatus = useCallback((id,redirect) => {
     url='/requirementedit';
-    setDocStatus(id,redirect)},[1])
+    setDocStatus(id,redirect)},[url])
    const {action,yesaction,noaction,dailogtext,dailogtitle} = documentstatus;
    useAltKey("n",() =>{setDocStatus("NO-ID",true)})
    if (redirect) {
@@ -45,7 +45,8 @@ import { connect } from 'react-redux'
    } else
     return (
          <div className="card">
-          <Card data={tabledata} cardclick={setDocStatus} addNew={setDocStatus}/>
+          <Card data={tabledata} cardclick={M_setDocStatus} addNew={M_setDocStatus} acceptbid={(id:string,redirect:boolean)=>{url='/bidlist';
+          setDocStatus(id,redirect)}}/>
              <Loader display={loaderDisplay}/>
            <div className="card-body">
            <Table
@@ -111,7 +112,7 @@ let tabledata:any=[]
 
   const M_setDocStatus = useCallback((id,redirect) => {
     url='/requirementedit';
-    setDocStatus(id,redirect)},[1])
+    setDocStatus(id,redirect)},[url])
   const {action,yesaction,noaction,dailogtext,dailogtitle} = documentstatus;
   useAltKey("n",() =>{setDocStatus("NO-ID",true)})
   if (redirect) {
@@ -120,8 +121,9 @@ let tabledata:any=[]
   } else
    return (
         <div className="card">
-          <Card data={tabledata} cardclick={setDocStatus} addNew={setDocStatus}/>
             <Loader display={loaderDisplay}/>
+            <Card data={tabledata} cardclick={M_setDocStatus} addNew={M_setDocStatus} acceptbid={(id:string,redirect:boolean)=>{url='/bidlist';
+          setDocStatus(id,redirect)}}/>
           <div className="card-body">
           <Table
                 data={tabledata}

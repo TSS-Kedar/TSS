@@ -4,6 +4,11 @@
     width:100%;
     
   }
+  .goble-search input{
+    height: 40px;
+    font-size: 16px;
+   
+  }
   .card-list-component {
     display: none;
 }
@@ -104,4 +109,16 @@
     width: 55px;
     font-size: 14px;
   }
+  .approve-btn {
+    background: var(--main-color);
+    border: 2px var(--main-color) solid;
+    padding: 0.5rem;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 3px;
+    text-align: center;
+    margin: 0.5rem;
+    border-radius: 5px;
+    box-shadow: 0 8px 10px 0 rgb(0 0 0 / 30%);
+}
   }

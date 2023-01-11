@@ -9,7 +9,7 @@ function BuyerCard({title,mobile,email,companyname,supid,cardclick,z_id}:any) {
        <div>Supplier ID: {supid}</div>
        <div>Email: {email}</div>
        <div>Company: {companyname}</div>
-       {<div className="approve-btn" onClick={()=>cardclick(z_id,true)}>Edit Buyer</div>}
+       {<div className="approve-btn" onClick={()=>cardclick(z_id,true)}>Edit Supplier</div>}
      </div>
    </div>
   )

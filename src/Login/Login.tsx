@@ -72,8 +72,7 @@ if(authenticated){
           <div className="content">
             <h3>New Here?</h3>
             <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae
-              voluptate blanditiis sit.
+              Click below to to register as a Buyer with us.
             </p>
             <button
               className="btn transparent"

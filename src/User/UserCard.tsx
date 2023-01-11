@@ -8,7 +8,7 @@ function UserCard({title,mobile,email,auth,cardclick,z_id}:any) {
        <h3>Mobile: {mobile}</h3>
        <div>Email: {email}</div>
        <div>User Type: {auth}</div>
-       {<div className="approve-btn" onClick={()=>cardclick(z_id,true)}>Edit Buyer</div>}
+       {<div className="approve-btn" onClick={()=>cardclick(z_id,true)}>Edit User</div>}
      </div>
    </div>
   )

@@ -2,7 +2,7 @@ import React,{useState,useRef,useEffect} from 'react'
 import BidCard from './BidCard'
 import {Pagination} from '../../../common/table/Pagination'
 import '../../../common/card/card.css'
-function RequirementCardList({data,cardclick,addNew,auth}:any) {
+function RequirementCardList({data,cardclick,addNew,auth,approveBid}:any) {
     const [activePage, setActivePage] = useState(1);
     const [filterdata, setFilter] = useState([]);
     const [numberOfRecordsPerPage, setNumberOfRecordsPerPage] = useState(10)
@@ -52,7 +52,7 @@ function RequirementCardList({data,cardclick,addNew,auth}:any) {
                     </div>
     <div className="cards-row">{pageData.map((user:any,i:number)=>{
         return(<>
-        <BidCard title={auth==="Admin"?user.supid+" : "+"BID-"+(i+1):"BID-"+(i+1)} amount1={user.amount1} amount2={user.amount2} uombid={user.uombid} paymenttermsbid={user.paymenttermsbid} supremarks={user.supremarks} status={user.status} cardclick={cardclick}/>
+        <BidCard title={auth==="Admin"?user.supid+" : "+"BID-"+(i+1):"BID-"+(i+1)} amount1={user.amount1} amount2={user.amount2} uombid={user.uombid} paymenttermsbid={user.paymenttermsbid} supremarks={user.supremarks} status={user.status} cardclick={cardclick} approveBid={approveBid}/>
        
         </>)
         

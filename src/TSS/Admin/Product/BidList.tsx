@@ -221,7 +221,7 @@ export const BidList = (props:any) => {
             <FlatInput wd="12" label="Remarks" name="remarks" currdoc={currentdocument} section={'remarks'} modifydoc={modifydocument} disabled={disabled}/>
           </div>
         </div>
-        <BidCardList data={currentdocument.biddata?currentdocument.biddata:[]} cardclick={()=>{}} addNew={()=>{}} auth={props.authuser.userauthorisations}/>
+        <BidCardList data={currentdocument.biddata?currentdocument.biddata:[]} cardclick={()=>{}} addNew={()=>{}} auth={props.authuser.userauthorisations} approveBid={wantToApproveBid}/>
         <Table
                  data={currentdocument.biddata?currentdocument.biddata:[]}
                  defaultNoOfRows={10}

@@ -87,10 +87,14 @@
   display: none;
 }
   .goble-search input{
-    width: 150px;
+    width: 120px;
     height: 30px;
     font-size: small;
   }
+  .goble-search i {
+    padding: 7px;
+    
+}
   .pagination{
     font-size: 10px;
   }
@@ -120,5 +124,13 @@
     margin: 0.5rem;
     border-radius: 5px;
     box-shadow: 0 8px 10px 0 rgb(0 0 0 / 30%);
+}
+.card-header button {
+  background: var(--main-color);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.6rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--main-color);
 }
   }

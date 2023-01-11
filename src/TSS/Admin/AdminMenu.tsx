@@ -125,6 +125,7 @@ export function AdminMenu(props: any) {
               selectItem={M_selectItem}
               slug={menuitem.slug}
               toggleMenu={setDisplayMenu}
+              togglevalue={displayMenu}
             />
           )
         })}

@@ -1,10 +1,10 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 function MenuItem(props: any) {
-  const { menuname, iconname, active, selectItem,slug,toggleMenu } = props
+  const { menuname, iconname, active, selectItem,slug,toggleMenu,togglevalue } = props
 
   return (
-    <Link to={slug} onClick={()=>{toggleMenu(true)}}>
+    <Link to={slug} onClick={()=>{toggleMenu(!togglevalue)}}>
     <li onClick={() => selectItem(menuname)}>
       <a className={active}>
         <span className={iconname}></span>

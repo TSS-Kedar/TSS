@@ -359,9 +359,9 @@ export function SignInForm(props:any) {
       <div  className="field-error">{state.formErrorMessage}</div>
       {/* <M_SocialMediaLogin label="Login" /> */}
       <div className='switch-login-container'onClick={()=>props.changeForm()} style={{cursor:"pointer",fontSize:"24px", color:"var(--main-color)"}}>New Buyer ?</div>
-      <div className='switch-login-container'onClick={()=>promptTest()} > App ICON ON FRONT SCREEN </div>
+      {/* <div className='switch-login-container'onClick={()=>promptTest()} > App ICON ON FRONT SCREEN </div>
       {notificationButton()}
-      {pushNotificationButton()}
+      {pushNotificationButton()} */}
 
     </div>
   )

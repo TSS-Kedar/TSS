@@ -97,6 +97,7 @@ export function SupplierMenu(props: any) {
               selectItem={M_selectItem}
               slug={menuitem.slug}
               toggleMenu={setDisplayMenu}
+              togglevalue={displayMenu}
             />
           )
         })}

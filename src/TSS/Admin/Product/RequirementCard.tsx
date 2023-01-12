@@ -12,7 +12,7 @@ function BuyerCard({title,count,type,quality,nature,status,buyid,cardclick,z_id,
        <div>Nature: {nature}</div>
        <div>Status: {status}</div>
        {status!=="accepted" &&<div className="approve-btn" onClick={()=>acceptbid(z_id,true)}>Accept Bid</div>}
-       <div className="approve-btn" onClick={()=>cardclick(z_id,true)}>Edit Bid</div>
+       <div className="approve-btn" onClick={()=>cardclick(z_id,true)}>Edit Requirement</div>
      </div>
    </div>
   )

@@ -342,7 +342,7 @@ export const BuyerComponent = (props: any) => {
 
   
   if (redirect) {
-    let redirectpath = '/Buyers'
+    let redirectpath = '/buyerManagement'
     return <Redirect push to={redirectpath} />;
   } else {
 
@@ -430,7 +430,8 @@ export const BuyerComponent = (props: any) => {
       //   //let redirectpath = '/'
       //   location.reload();
       //  },1000)
-      return(<>
+      return(
+      <>
       <div style={{textAlign: "center",width: "100%", marginTop: "20%",background:"#003659"}}>
       <div style={{color:"#39ff14",fontSize:"18px",paddingTop:"30px"}}>We have saved your profile.We will review the same and get back.</div>
       <div style={{cursor:"pointer",color:"var(--main-color)", fontSize:"24px",paddingBottom:"30px"}} onClick={()=>{location.reload();}}>Back to Login</div>
@@ -438,12 +439,14 @@ export const BuyerComponent = (props: any) => {
       </>)
     }else
     return (
+      
       <div className={!props.authenticated?'container':""}>
        {!props.authenticated?<div style={{width:"100%"}}> <a onClick={()=>{props.changeForm()}} style={{color:"red",fontSize:"20px",cursor:"pointer",float:"right"}}>
         <span className="fas fa-angle-left" style={{fontSize:"25px",padding:"0rem .5rem"}}></span>
         <span>{"Back to login"}</span>
       </a></div>:<></>}
         <Loader display={loaderDisplay} />
+        <div onClick={()=>{goBack(true)}} className="back-btn">Back</div>
         <Stepper onsubmit={addContactsToSaveDoc} displaySubmit={currentdocument.isotpverified!==undefined?true:false}>
           <Step name={"Step 1"} title="Basic Profile">
             <div className="grid">

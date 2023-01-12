@@ -133,4 +133,13 @@
   padding: 0.4rem 0.8rem;
   border: 1px solid var(--main-color);
 }
+.back-btn{
+  border: 1px solid var(--main-color);
+width: 100px;
+text-align: center;
+color: var(--main-color);
+padding: 5px 10px;
+border-radius: 10px;
+
+}
   }

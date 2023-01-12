@@ -356,6 +356,10 @@ export const SupplierComponent = (props: any) => {
     setDocumentAction(action)
   }
 
+  if(redirect){
+    let redirectpath = '/supplierManagement'
+    return <Redirect push to={redirectpath} />;
+  }
   
   if (documentstatus.snackbarseverity==="success") {
     let redirectpath = '/supplierManagement'
@@ -368,7 +372,9 @@ export const SupplierComponent = (props: any) => {
 
     return (
       <>
+
         <Loader display={loaderDisplay} />
+        <div onClick={()=>{goBack(true)}} className="back-btn">Back</div>
         <Stepper onsubmit={addContactsToSaveDoc} displaySubmit={true}>
           <Step name={"Step 1"} title="Basic Profile">
             <div className="grid">

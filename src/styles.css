@@ -434,6 +434,25 @@ main {
   main{
     padding: 2rem 0rem;
   }
+  nav-toggle .la-bar, .las {
+    font-family: 'Line Awesome Free';
+    font-weight: 900;
+    font-size: 18px;
+} 
+header h2 label{
+  height: 30px;
+  width: 45px;
+}
+header h2{
+  font-size: 14px;
+}
+.user-wrapper div{
+  font-size: 14px;
+  font-weight: 400;
+}
+main {
+  padding: 0.5rem 0rem;
+}
 }
 
 /* -------------------------------------------------------------------------------------------- */

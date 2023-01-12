@@ -20,6 +20,7 @@ import { initDocumentstatus } from '../../../common/constant';
 import AcceptBid from '../../../common/mutations/AcceptBid' 
 import Loader from '../../../common/Loader/Loader';
 import BidCardList from './BidCardList'
+import { Redirect, withRouter } from 'react-router-dom'
 async function getBid(values: any) {
 
     var result: any = '', errorMessage = '', errors = new Array();
@@ -97,7 +98,7 @@ export const BidList = (props:any) => {
   console.log('props***************',props.authuser.userauthorisations)
     const [currentdocument, modifydocument] = useState({})
     const [loaderDisplay, setloaderDisplay] = useState(false)
-    
+    const [redirect, setRedirect] = useState(false)
     useEffect(() => {
         console.log(props.authenticated)
         
@@ -119,6 +120,11 @@ export const BidList = (props:any) => {
   
   
       }, []);
+
+      if(redirect){
+        let redirectpath = '/buyerManagement'
+    return <Redirect push to={redirectpath} />;
+      }
       const getRequirementsAndBids=(currdoc:any,z_id:string,code:string)=>{
         setloaderDisplay(true)
           
@@ -178,6 +184,7 @@ export const BidList = (props:any) => {
     <div className="container">
       
       <Loader display={loaderDisplay}/>
+      <div onClick={()=>{setRedirect(true)}} className="back-btn">Back</div>
       {currentdocument.status==="accepted"? <div className="grid"><div className="row"><div className="col-12" style={{fontSize:"28px",fontWeight:600,color:"#39FF14",background:"#000",textAlign:"center"}}>Requirement is closed</div></div></div>:null}
 
         <div className="grid">

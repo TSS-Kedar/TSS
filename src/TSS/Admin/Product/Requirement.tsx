@@ -404,6 +404,7 @@ export const Requirement = (props: any) => {
 
     <>
       <div className="container">
+      <div onClick={()=>{goBack(true)}} className="back-btn">Back</div>
         <Loader display={loaderDisplay} />
 
         {currentdocument.status==="accepted"? <div className="grid"><div className="row"><div className="col-12" style={{fontSize:"28px",fontWeight:600,color:"#39FF14",background:"#000",textAlign:"center"}}>Requirement is closed</div></div></div>:null}

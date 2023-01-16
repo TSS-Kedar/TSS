@@ -447,7 +447,7 @@ export const BuyerComponent = (props: any) => {
       </a></div>:<></>}
         <Loader display={loaderDisplay} />
         <div onClick={()=>{goBack(true)}} className="back-btn">Back</div>
-        <Stepper onsubmit={addContactsToSaveDoc} displaySubmit={currentdocument.isotpverified!==undefined?true:false}>
+        <Stepper onsubmit={addContactsToSaveDoc} displaySubmit={currentdocument.isotpverified!==undefined ||currentdocument.buyid!=="" ?true:false}>
           <Step name={"Step 1"} title="Basic Profile">
             <div className="grid">
               <div className="row">
@@ -560,7 +560,7 @@ export const BuyerComponent = (props: any) => {
               <div className={"col-6 field-msg"} style={{fontSize:"18px", fontWeight:"600", color:"darkgreen"}}>{msgField}</div>
               </div>
 
-              <>{currentdocument.verificationuser===undefined?<div className="row">
+              <>{currentdocument.verificationuser===undefined && currentdocument.buyid===""?<div className="row">
               <button type="button"  onClick={async ()=>{
                 setErrMsg("")
                 const obj:any = await funcsendBuyerMobileOTPJWT(currentdocument1);

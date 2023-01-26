@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .table {
+      display: table;
+    }
+  
+    .row {
+      display: table-row;
+    }
+  
+    .cell {
+      display: table-cell;
+      border: 1px solid black;
+      padding: 5px;
+    }
+  </style>
+  
+  <div class="table">
+    <div class="row">
+      <div class="cell">Row 1, Cell 1</div>
+      <div class="cell">Row 1, Cell 2</div>
+    </div>
+    <div class="row">
+      <div class="cell">
+        <details>
+          <summary>Row 2, Cell 1</summary>
+          <p>Accordion content goes here</p>
+        </details>
+      </div>
+      <div class="cell">
+        <details>
+          <summary>Row 2, Cell 2</summary>
+          <p>Accordion content goes here</p>
+        </details>
+      </div>
+    </div>
+  </div>
+</html>

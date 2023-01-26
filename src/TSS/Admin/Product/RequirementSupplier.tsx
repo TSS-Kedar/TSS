@@ -484,13 +484,20 @@ useEffect(() => {
     }
  
     let buyerComp;
+    // if (props.authuser.userauthorisations=='Buyer') {
+    //   buyerComp = <FlatInput wd="3" label="Buyer" name="buyid" currdoc={currentdocument} section={'buyid'} modifydoc={modifydocument} disabled={disabled}/>;
+    // } else {
+    //   buyerComp =  <SelectInput wd="3" label="Buyer DDL" options={approvedBuyersData} name="userauthorisations" currdoc={currentdocument} section={'buyid'} modifydoc={modifydocument} disabled={disabled}/>
+    //   ;
+    // }
+    
+
     if (props.authuser.userauthorisations=='Buyer') {
       buyerComp = <FlatInput wd="3" label="Buyer" name="buyid" currdoc={currentdocument} section={'buyid'} modifydoc={modifydocument} disabled={disabled}/>;
     } else {
-      buyerComp =  <SelectInput wd="3" label="Buyer DDL" options={approvedBuyersData} name="userauthorisations" currdoc={currentdocument} section={'buyid'} modifydoc={modifydocument} disabled={disabled}/>
+      buyerComp =  <div/>
       ;
     }
-    
     const onClickSave=(status:string)=>{
       const curdoc = {...currentdocument}
       curdoc['status'] =status

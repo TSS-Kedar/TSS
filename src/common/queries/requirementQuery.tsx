@@ -51,6 +51,10 @@ query($client:String!,$lang:String!,$z_id:String,$applicationid:String!)
     dtime
     duser
     isdeleted
+    buyer{buyid},
+    supplier{supid},
+    buyer_name
+    supplier_name
   }
 }
 

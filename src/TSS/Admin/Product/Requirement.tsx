@@ -315,7 +315,7 @@ export const Requirement = (props: any) => {
         // return callback({"errors":[],"errorMessage":'No errors and results from GQL'} ,'');
       }
       else {
-        let apprBuyer=result.data.approvedBuyers.map((buyer:any)=>{return {'key': buyer.buyid , 'value': buyer.buyid }});
+        let apprBuyer=result.data.approvedBuyers.map((buyer:any)=>{return {'key': buyer.buyid , 'value': buyer.firstname + '(' + buyer.buyid + ')' }});
         setApprovedBuyers(apprBuyer)
       }
     }

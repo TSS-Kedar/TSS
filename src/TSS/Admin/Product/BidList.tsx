@@ -122,7 +122,7 @@ export const BidList = (props:any) => {
       }, []);
 
       if(redirect){
-        let redirectpath = '/buyerManagement'
+        let redirectpath = '/requirementManagement'
     return <Redirect push to={redirectpath} />;
       }
       const getRequirementsAndBids=(currdoc:any,z_id:string,code:string)=>{
@@ -151,7 +151,7 @@ export const BidList = (props:any) => {
 
   
     //if (props.authuser.userauthorisations=='Buyer') {
-      buyerComp = <FlatInput wd="3" label="Buyer" name="buyid" currdoc={currentdocument} section={'buyid'} modifydoc={modifydocument} disabled={disabled}/>;
+      buyerComp = <FlatInput wd="3" label="Buyer" name="buyid" currdoc={currentdocument} section={'buyer_name'} modifydoc={modifydocument} disabled={disabled}/>;
    // }
     
    const wantToApproveBid=(id:string)=>{
@@ -250,7 +250,7 @@ export const BidList = (props:any) => {
                  
                >
                 
-               {props.authuser.userauthorisations==='Admin'?<Column fieldname="supid" columnname="Supplier Id"/>:null}
+               {props.authuser.userauthorisations==='Admin'?<Column fieldname="supplier_name" columnname="Supplier Id"/>:null}
                  <Column fieldname="amount1" columnname="Ex Mills Amount"></Column>
                  <Column fieldname="amount2" columnname="Landed Amount"></Column>
                  <Column fieldname="uombid" columnname="Unit"></Column>

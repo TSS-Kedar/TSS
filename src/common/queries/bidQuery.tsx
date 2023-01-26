@@ -51,5 +51,6 @@ export default gql`query bids($applicationid:String!,
       dtime,
       duser,
       isdel,
+      supplier_name
     }
   }`

@@ -58,7 +58,9 @@ query buyers($applicationid:String!,$client:String!,$lang:String!,$z_id:String)
     dtime,
     duser,
     isdel,
-    apprstatus
+    apprstatus,
+    verificationstatus,
+    verificationuser
   }
 }
 

@@ -27,7 +27,8 @@ $gstnumber:String,
 $tannumber:String,
 $businesspannumber:String,
 $pan_files:[FileType],
-$gst_files:[FileType]
+$gst_files:[FileType],
+$password:String
 )
     {
         saveBuyer(
@@ -56,8 +57,9 @@ $gst_files:[FileType]
           gstnumber:$gstnumber
           tannumber:$tannumber,
           businesspannumber:$businesspannumber,
-          pan_files:$pan_files
-          gst_files:$gst_files
+          pan_files:$pan_files,
+          gst_files:$gst_files,
+          password:$password
       )
       {
         applicationid

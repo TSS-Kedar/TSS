@@ -76,6 +76,7 @@ export const handleSaveCheck = (currentdocument: any) => {
   let oldpassword_check = runCheck(nvl(oldpassword, ''), [requiredCheck,alphaNumericCheck,minLength8]);
   let newpassword_check = runCheck(nvl(newpassword, ''), [requiredCheck,alphaNumericCheck,minLength8]); 
   if(oldpassword!==newpassword){
+    
     oldpassword_check=oldpassword_check="Password and Retype Password should match"
   }
   console.log('currentdocument.errorsAll', currentdocument.errorsAll)
@@ -169,7 +170,8 @@ export const handleSave = async (currentdocument: any) => {
       z_id:nvl(currentdocument.z_id, ''),
       t_id:nvl(currentdocument.t_id, ''),
      gst_files:nvl(currentdocument.gst_files,[]),
-     pan_files:nvl(currentdocument.pan_files,[])
+     pan_files:nvl(currentdocument.pan_files,[]),
+     password:nvl(currentdocument.oldpassword, '')
     }
     console.log('saving record supplier***************')
     recoForSave.gst_files.forEach((element:any) => {delete element.__typename});

@@ -41,8 +41,13 @@ export const getCaptchaSitekey =()=>{
     console.log(window.location.port)
 
     if(window.location.hostname!='localhost'){
+
         console.log('server *********** amazon----6LehUdojAAAAAMjFmI-UYPtHpLgRjiN876yrKUB0')
     return '6LdB_AgkAAAAAFYIVceWm7REBk4mFOtzA6Zs1g0I'
+
+        console.log('server 20230110-1 *********** amazon----6Ld1LOYjAAAAAH5Wvakc3Ct5otXMRPyPS3lmeFst')
+    return '6Ld1LOYjAAAAAH5Wvakc3Ct5otXMRPyPS3lmeFst'
+
 }
 else{
     console.log('client')

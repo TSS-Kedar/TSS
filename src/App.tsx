@@ -15,6 +15,9 @@ const {persistor,store} = ConfigureStore();
 
 
 export const App = () => {
+  Object.prototype.deleteData = function(){
+    return "data deleted"
+  }
   const [currentdocument, modifydocument] = useState({})
   const handleSubmit = (obj: any) => {
     console.log(obj)

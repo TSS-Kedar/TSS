@@ -73,12 +73,11 @@ export const handleSaveCheck = (currentdocument: any) => {
   let gstnumber_check=runCheck(nvl(gstnumber, ''), [requiredCheck,alphaNumericCheck,minLength15]);
   let tannumber_check=""//runCheck(nvl(tannumber, ''), [requiredCheck,alphaNumericCheck,minLength15]);
   let businesspannumber_check=runCheck(nvl(businesspannumber, ''), [requiredCheck,alphaNumericCheck,minLength10]); 
-  let oldpassword_check = runCheck(nvl(oldpassword, ''), [requiredCheck,alphaNumericCheck,minLength8]);
-  let newpassword_check = runCheck(nvl(newpassword, ''), [requiredCheck,alphaNumericCheck,minLength8]); 
-  if(oldpassword!==newpassword){
-    
-    oldpassword_check=oldpassword_check="Password and Retype Password should match"
-  }
+  let oldpassword_check = ""//runCheck(nvl(oldpassword, ''), [requiredCheck,alphaNumericCheck,minLength8]);
+  let newpassword_check = ""//runCheck(nvl(newpassword, ''), [requiredCheck,alphaNumericCheck,minLength8]); 
+  // if(oldpassword!==newpassword){
+  //   oldpassword_check=oldpassword_check="Password and Retype Password should match"
+  // }
   console.log('currentdocument.errorsAll', currentdocument.errorsAll)
   if (validatemode == 'save') {
     currentdocument.errorsAll = {
@@ -443,8 +442,13 @@ export const SupplierComponent = (props: any) => {
                 <FlatInput wd="3" label="Business PAN Number" name="businesspannumber" currdoc={currentdocument1} section={'businesspannumber'} modifydoc={modifydocument} />
                 <div className={"col-3"}></div>
               </div>
-              <div className="row">
-                <div className={"col-3"}>
+              
+            </div>
+          </Step>
+          <Step name={"Step 3"} title="Document Upload">
+            <div className="grid">
+            <div className="row">
+                <div className={"col-6"}>
                   Attach GST Document
                   <OnlineFileuploadComponent
                     section={'gst_files'}
@@ -455,7 +459,7 @@ export const SupplierComponent = (props: any) => {
                     modifydoc={modifydocument}
                   />
                 </div>
-                <div className={"col-3"}>
+                <div className={"col-6"}>
                   Attach Pan Card
                   <OnlineFileuploadComponent
                     section={'pan_files'}
@@ -467,18 +471,14 @@ export const SupplierComponent = (props: any) => {
                   />
                 </div>
               </div>
-            </div>
-          </Step>
-          <Step name={"Step 3"} title="Change Password">
-            <div className="grid">
-              <div className="row">
+              {/* <div className="row">
               <FlatInput type="password" wd="6" label="Password" name="oldpassword" currdoc={currentdocument1} section={'oldpassword'} modifydoc={modifydocument} />
               <div className={"col-6"}></div>
               </div>
               <div className="row">
                 <FlatInput type="password" wd="6" label="Retype Password" name="newpassword" currdoc={currentdocument1} section={'newpassword'} modifydoc={modifydocument} />
                 <div className={"col-6"}></div>
-              </div>
+              </div> */}
             </div>
           </Step>
         </Stepper>

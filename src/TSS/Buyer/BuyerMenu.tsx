@@ -11,7 +11,7 @@ export function BuyerMenu(props: any) {
     {
       name: 'My Requirements',
       component: '',
-      slug: '/requirementManagement',
+      slug: '/',
       iconName: 'las la-igloo',
       active: '',
     },
@@ -19,13 +19,6 @@ export function BuyerMenu(props: any) {
       name: 'New Requirement',
       component: '',
       slug: '/requirementedit?z_id=NO-ID',
-      iconName: 'las la-igloo',
-      active: '',
-    },
-    {
-      name: 'Manage Password',
-      component: '',
-      slug: '/managePassword',
       iconName: 'las fa-comment-alt',
       active: '',
     },

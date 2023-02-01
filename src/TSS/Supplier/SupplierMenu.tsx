@@ -10,17 +10,17 @@ export function SupplierMenu(props: any) {
     {
       name: 'Manage Bids',
       component: '',
-      slug: '/managebid',
+      slug: '/',
       iconName: 'las la-igloo',
       active: '',
     },
-    {
-      name: 'Manage Password',
-      component: '',
-      slug: '/managePassword',
-      iconName: 'las fa-comment-alt',
-      active: '',
-    },
+    // {
+    //   name: 'Manage Password',
+    //   component: '',
+    //   slug: '/managePassword',
+    //   iconName: 'las fa-comment-alt',
+    //   active: '',
+    // },
     
     {
       name: 'Logout',

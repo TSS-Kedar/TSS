@@ -75,12 +75,12 @@ export const handleSaveCheck = (currentdocument: any) => {
   let tannumber_check=""//runCheck(nvl(tannumber, ''), [requiredCheck,alphaNumericCheck]);
   
   let businesspannumber_check=runCheck(nvl(businesspannumber, ''), [requiredCheck,alphaNumericCheck,minLength10]); 
-  let oldpassword_check = runCheck(nvl(oldpassword, ''), [requiredCheck,alphaNumericCheck,minLength8]);
-  let newpassword_check = runCheck(nvl(newpassword, ''), [requiredCheck,alphaNumericCheck,minLength8]);
+  let oldpassword_check = ""//runCheck(nvl(oldpassword, ''), [requiredCheck,alphaNumericCheck,minLength8]);
+  let newpassword_check = ""//runCheck(nvl(newpassword, ''), [requiredCheck,alphaNumericCheck,minLength8]);
   
-  if(oldpassword!==newpassword){
-    oldpassword_check=oldpassword_check="Password and Retype Password should match"
-  }
+  // if(oldpassword!==newpassword){
+  //   oldpassword_check=oldpassword_check="Password and Retype Password should match"
+  // }
 
   console.log('currentdocument.errorsAll', currentdocument.errorsAll)
   if (validatemode == 'save') {
@@ -539,18 +539,20 @@ export const BuyerComponent = (props: any) => {
               </div>
             </div>
           </Step>
-          <Step name={"Step 3"} title="Change Password">
+           <Step name={"Step 3"} title="Validate Buyer">
             <div className="grid">
-              <div className="row">
+            <div className="row">
+              <FlatInput wd="3" label="Primary number" name="primarynumber" currdoc={currentdocument1} section={'primarynumber'} modifydoc={modifydocument} /></div>
+              {/* <div className="row">
               <FlatInput type="password" wd="6" label="Password" name="oldpassword" currdoc={currentdocument1} section={'oldpassword'} modifydoc={modifydocument} />
               <div className={"col-6"}></div>
               </div>
               <div className="row">
                 <FlatInput type="password" wd="6" label="Retype Password" name="newpassword" currdoc={currentdocument1} section={'newpassword'} modifydoc={modifydocument} />
                 <div className={"col-6"}></div>
-              </div>
+              </div> */}
               <>{currentdocument.verificationuser!==undefined && currentdocument.isotpverified===undefined?<div className="row">
-                <FlatInput wd="6" label="OTP" name="otp" currdoc={currentdocument1} section={'mobileotp'} modifydoc={modifydocument} />
+                <FlatInput wd="3" label="OTP" name="otp" currdoc={currentdocument1} section={'mobileotp'} modifydoc={modifydocument} />
                 <div className={"col-6"}></div>
               </div>:<></>}</>
               <div className='row'>
@@ -593,6 +595,8 @@ export const BuyerComponent = (props: any) => {
                 setErrMsg("")
                 const obj:any = await funcsendBuyerMobileOTPJWT(currentdocument1);
                 if(obj.status==="failed"){
+                  if(obj.msg==="Buyer already registered."){
+                  modifydocument({...currentdocument, isotpverified:true})}
                   setErrMsg(obj.msg)
                 }else{
                   modifydocument({...currentdocument, verificationuser:obj.msg})
@@ -604,7 +608,7 @@ export const BuyerComponent = (props: any) => {
               </div>:<></>}</>
 
             </div>
-          </Step>
+          </Step> 
         </Stepper>
         <OPTModal open={action} handleno={noaction} handleyes={yesaction} dailogtext={dailogtext} dailogtitle={dailogtitle} currentdocument={currentdocument1} modifydocument={modifydocument}/>
         {/* <AlertDialog open={action} handleno={noaction} handleyes={yesaction} dailogtext={dailogtext} dailogtitle={dailogtitle} /> */}

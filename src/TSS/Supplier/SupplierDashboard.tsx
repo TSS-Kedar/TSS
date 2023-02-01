@@ -15,16 +15,16 @@ function SupplierDashboard(props:any) {
           <Header title={displayComponent} />
           <main>
             <Switch>
-              <Route exact path="/manageBid">
+              <Route exact path="/">
                 <RequirementList/>
               </Route>
               <Route exact path="/requirementedit">
                 <Requirement {...props}/>
               </Route>
               
-              <Route exact path="/managePassword">
+              {/* <Route exact path="/managePassword">
               <></>
-              </Route>              
+              </Route>               */}
             </Switch>
           </main>
         </div>

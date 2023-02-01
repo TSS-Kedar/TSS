@@ -19,9 +19,9 @@ function BuyerDashboard(props:any) {
               <Route exact path="/manageBid">
                 <></>
               </Route>
-              <Route exact path="/managePassword">
+              {/* <Route exact path="/managePassword">
               <></>
-              </Route>
+              </Route> */}
               <Route exact path="/requirementedit">
                 <Requirement {...props}/>
               </Route>
@@ -29,7 +29,7 @@ function BuyerDashboard(props:any) {
                 <BidList {...props}/>
               </Route>
            
-              <Route exact path="/requirementManagement">
+              <Route exact path="/">
                 <RequirementList {...props}/>
               </Route>
 

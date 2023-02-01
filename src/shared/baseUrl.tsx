@@ -42,7 +42,7 @@ export const getCaptchaSitekey =()=>{
 
     if(window.location.hostname!='localhost'){
         console.log('server *********** amazon----6LehUdojAAAAAMjFmI-UYPtHpLgRjiN876yrKUB0')
-    return '6LehUdojAAAAAMjFmI-UYPtHpLgRjiN876yrKUB0'
+    return '6LdB_AgkAAAAAFYIVceWm7REBk4mFOtzA6Zs1g0I'
 }
 else{
     console.log('client')
